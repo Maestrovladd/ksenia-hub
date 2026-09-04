@@ -1,0 +1,2832 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ксения</title>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --paper: #fff;
+      --ink: #17222d;
+      --muted: #4c5e70;
+      --line: #e6dfd3;
+      --accent: #0f4f92;
+      --soft: #eaf3fd;
+      --ok: #1a7f4e;
+      --warn: #b45309;
+      --stop: #9b2335;
+      --radius: 14px;
+      --shadow: 0 10px 24px rgba(20, 33, 45, 0.08);
+      --max: 1320px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      line-height: 1.5;
+      background:
+        radial-gradient(circle at 8% 0%, #efe6d8 0%, transparent 42%),
+        radial-gradient(circle at 93% 5%, #e6effb 0%, transparent 34%),
+        var(--bg);
+    }
+    .layout {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 14px;
+    }
+    .side, .panel, .hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .side { position: sticky; top: 12px; height: fit-content; padding: 14px; }
+    .side h1 { margin: 0; font-size: 21px; letter-spacing: -0.03em; line-height: 1.15; }
+    .side p { margin: 8px 0 12px; color: var(--muted); font-size: 13px; }
+    .nav-kicker {
+      margin: 12px 0 4px; font-size: 10px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); font-weight: 700;
+    }
+    .nav-kicker:first-of-type { margin-top: 2px; }
+    .switches { display: grid; gap: 6px; margin-bottom: 10px; }
+    .switch {
+      display: block; padding: 8px 10px; border-radius: 10px;
+      border: 1px solid var(--line); background: #faf8f3;
+      font-size: 12.5px; font-weight: 600; cursor: pointer;
+    }
+    .switch:focus-visible { outline: 3px solid #c9daef; outline-offset: 2px; }
+    .mini { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .mini div { border: 1px solid var(--line); border-radius: 10px; text-align: center; padding: 8px; background: #fffdf9; }
+    .mini b { display: block; color: var(--accent); font-size: 15px; line-height: 1.15; }
+    .mini span { font-size: 11px; color: var(--muted); }
+    .main { display: grid; gap: 12px; min-width: 0; }
+    .tabs input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .panel { display: none; padding: 18px 20px 28px; overflow-x: auto; }
+    .panel h2 { margin: 0; font-size: 24px; letter-spacing: -0.03em; }
+    .lead { margin: 8px 0 14px; color: var(--muted); font-size: 14px; }
+    .grid2 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+    .grid3 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr 1fr; }
+    .card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fffdfa; }
+    .card h3 { margin: 0 0 8px; font-size: 16px; }
+    table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); overflow: hidden; background: #fff; }
+    th, td { padding: 8px 9px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 13px; }
+    th { background: #f6f8fb; font-weight: 700; }
+    tr:last-child td { border-bottom: none; }
+    ul, ol { margin: 8px 0 0; padding-left: 18px; }
+    li + li { margin-top: 3px; }
+    .hint { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+    .one {
+      margin: 0 0 14px; padding: 12px 14px; background: #f8fbff;
+      border: 1px solid #c9daef; border-radius: 12px; font-size: 14.5px; line-height: 1.45;
+    }
+    .one b { color: var(--accent); }
+    .qgrid { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; margin-top: 10px; }
+    .qblock h3 { margin: 0 0 4px; font-size: 15px; }
+    .qblock .ask { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+    .qblock .row {
+      display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: baseline;
+      font-size: 13.5px; padding: 6px 0; border-bottom: 1px solid var(--line);
+    }
+    .qblock .row:last-of-type { border-bottom: 0; }
+    .qblock .n { font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .qblock .use { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+    .cd .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cd .meta { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+    .cd .hook { margin-top: 10px; font-size: 13.5px; }
+    .toc-names { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+    .toc-names a {
+      font-size: 12px; font-weight: 650; color: var(--accent); text-decoration: none;
+      border: 1px solid #c9daef; background: var(--soft); border-radius: 999px; padding: 4px 9px;
+    }
+    .callout {
+      border-left: 4px solid var(--accent); background: #f8fbff;
+      border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: 14px;
+    }
+    .quote {
+      margin: 10px 0 0; padding: 10px 12px; border-left: 3px solid var(--accent);
+      background: #f7fafd; font-size: 14px;
+    }
+    .quote small { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .panel .toc { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 18px; }
+    .panel .toc a {
+      font-size: 12px; font-weight: 650; color: var(--accent); text-decoration: none;
+      border: 1px solid #c9daef; background: var(--soft); border-radius: 999px; padding: 5px 10px;
+    }
+    .panel .chapter { margin: 28px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 20px; letter-spacing: -0.03em; }
+    .panel .chapter:first-of-type { border-top: 0; margin-top: 8px; padding-top: 0; }
+    .panel .prose { max-width: 72ch; font-size: 15px; line-height: 1.62; }
+    .panel .prose p { margin: 0 0 10px; }
+    .how {
+      margin: 0 0 16px; padding: 12px 14px; background: #fffdfa;
+      border: 1px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.5;
+    }
+    .how b { display: block; margin-bottom: 6px; font-size: 13px; letter-spacing: .02em; }
+    .how ol { margin: 6px 0 0; padding-left: 20px; }
+    .how li { margin-top: 5px; }
+    .mark {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .04em;
+      text-transform: uppercase; padding: 2px 6px; border-radius: 999px; margin-right: 6px; vertical-align: middle;
+    }
+    .mark.f { background: #e8f6ee; color: var(--ok); }
+    .mark.h { background: #fff3dc; color: var(--warn); }
+    .mark.n { background: #fde8ec; color: var(--stop); }
+    .theses { margin: 10px 0 0; padding-left: 22px; }
+    .theses li { margin-top: 6px; font-size: 14.5px; }
+    .order {
+      margin: 0 0 16px; padding: 12px 14px; background: #fffdfa;
+      border: 1px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.5;
+    }
+    .order b { display: block; margin-bottom: 6px; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+    .prio {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 8px 12px;
+      align-items: baseline; margin: 8px 0 0;
+    }
+    .prio .n { font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+    .prio .w { height: 8px; background: #eef5fd; border-radius: 99px; overflow: hidden; }
+    .prio .w i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+    .warnbox { border-left: 4px solid var(--warn); background: #fff8ee; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: 14px; }
+    .stopbox { border-left: 4px solid var(--stop); background: #fdf2f4; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: 14px; }
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; margin: 8px 0 0; }
+    .flow .box { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 10px; font-weight: 650; }
+    .flow .arr { color: var(--muted); }
+    .rank {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .04em;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 999px; margin-right: 6px;
+    }
+    .rank.a { background: #e8f6ee; color: var(--ok); }
+    .rank.b { background: #fff3dc; color: var(--warn); }
+    .rank.c { background: #eef2f6; color: var(--muted); }
+    .price { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; margin: 0 0 4px; }
+    .price span { font-size: 13px; font-weight: 650; color: var(--muted); }
+    .job {
+      margin: 0 0 6px; font-size: 11px; font-weight: 800; letter-spacing: .05em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .seg { margin-top: 10px; }
+    .seg h3 { margin: 0 0 8px; }
+    .seg .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .seg .cols p, .seg .cols ul { margin-top: 4px; font-size: 13.5px; }
+    .cd b { display: block; margin: 10px 0 4px; }
+    .cd b:first-child { margin-top: 0; }
+    .extra { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 13.5px; }
+    .extra b { margin-top: 8px; }
+    #tab0:checked ~ .main .switches label[for="tab0"],
+    #tab1:checked ~ .main .switches label[for="tab1"],
+    #tab2:checked ~ .main .switches label[for="tab2"],
+    #tab3:checked ~ .main .switches label[for="tab3"],
+    #tab4:checked ~ .main .switches label[for="tab4"],
+    #tab5:checked ~ .main .switches label[for="tab5"],
+    #tab6:checked ~ .main .switches label[for="tab6"],
+    #tab8:checked ~ .main .switches label[for="tab8"] {
+      background: #eef5fd; border-color: #c9daef; color: var(--accent);
+    }
+    label[for="tab7"] {
+      background: #fdf6f0;
+      border-color: #ead8c8;
+    }
+    #tab7:checked ~ .main .switches label[for="tab7"] {
+      background: #fdeee4; border-color: #e8c4a0; color: #8a4b12;
+    }
+    #tab0:checked ~ .main .p0,
+    #tab1:checked ~ .main .p1,
+    #tab2:checked ~ .main .p2,
+    #tab3:checked ~ .main .p3,
+    #tab4:checked ~ .main .p4,
+    #tab5:checked ~ .main .p5,
+    #tab6:checked ~ .main .p6,
+    #tab7:checked ~ .main .p7,
+    #tab8:checked ~ .main .p8 { display: block; }
+    .panel.p7 {
+      box-shadow: inset 4px 0 0 #c47a3a, var(--shadow);
+    }
+    .alien-flag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #8a4b12;
+      background: #fdeee4;
+      border-radius: 999px;
+      padding: 3px 8px;
+      margin: 0 0 8px;
+    }
+    .nav-kicker.other { color: #8a4b12; }
+    .score3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin: 0 0 16px;
+    }
+    .score3 div {
+      border: 1px solid #ead8c8;
+      background: #fffaf4;
+      border-radius: 12px;
+      text-align: center;
+      padding: 10px 8px;
+    }
+    .score3 b {
+      display: block;
+      font-size: 22px;
+      color: #8a4b12;
+      letter-spacing: -0.03em;
+    }
+    .score3 span { font-size: 12px; color: var(--muted); }
+
+    .md { max-width: 82ch; }
+    .md h1 { font-size: 20px; letter-spacing: -0.02em; margin: 0 0 10px; }
+    .md h2 { font-size: 17px; margin: 22px 0 8px; }
+    .md h2.file {
+      font-size: 20px; letter-spacing: -0.03em; margin: 36px 0 6px;
+      padding-top: 22px; border-top: 1px solid var(--line);
+    }
+    .md article:first-child h2.file { border-top: 0; margin-top: 8px; padding-top: 0; }
+    .md h3 { font-size: 15px; margin: 16px 0 6px; }
+    .md h4 { font-size: 14px; margin: 12px 0 4px; }
+    .md p { margin: 0 0 10px; font-size: 14.5px; }
+    .md ul, .md ol { margin: 0 0 12px; padding-left: 20px; }
+    .md li { margin-top: 4px; font-size: 14.5px; }
+    .md pre {
+      background: #f6f8fb; border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; overflow-x: auto; font-size: 12.5px; line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    .md blockquote {
+      margin: 10px 0; padding: 10px 12px; border-left: 3px solid var(--accent);
+      background: #f7fafd; font-size: 14px;
+    }
+    .md hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0; }
+    .md .hint { display: none; }
+    .toc-files { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 18px; }
+    .toc-files a {
+      font-size: 12px; font-weight: 650; color: var(--accent); text-decoration: none;
+      border: 1px solid #c9daef; background: var(--soft); border-radius: 999px; padding: 5px 10px;
+    }
+
+    .smap { color: #1a1a18; }
+    .smap .section { margin-bottom: 2.5rem; }
+    .smap .section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #aaa; margin-bottom: 10px;
+      padding-bottom: 6px; border-bottom: 1px solid #e8e6e0;
+    }
+    .smap .grid { display: grid; gap: 10px; }
+    .smap .g2 { grid-template-columns: 1fr 1fr; }
+    .smap .g3 { grid-template-columns: 1fr 1fr 1fr; }
+    .smap .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .smap .card {
+      background: #fff; border: 1px solid #e8e6e0; border-radius: 12px; padding: 14px 16px;
+    }
+    .smap .card-label {
+      font-size: 10px; font-weight: 600; color: #aaa; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 5px;
+    }
+    .smap .card-title { font-size: 14px; font-weight: 600; color: #1a1a18; margin-bottom: 4px; line-height: 1.35; }
+    .smap .card-desc { font-size: 13px; color: #555; line-height: 1.6; }
+    .smap .theses { margin-top: 8px; padding-left: 18px; }
+    .smap .theses li { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 6px; }
+    .smap .theses li:last-child { margin-bottom: 0; }
+    .smap .vs-col .theses { margin-top: 0; }
+    .smap .vs-col .theses li { color: #333; }
+    .smap .highlight .theses { margin-top: 8px; }
+    .smap .card .theses { margin-top: 6px; }
+    .smap .src {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; color: #aaa; margin-top: 10px; margin-bottom: 2px;
+    }
+    .smap .quote {
+      margin: 10px 0 0; padding: 0; border: none; background: transparent;
+      font-style: italic; font-size: 13px; color: #666; line-height: 1.5;
+    }
+    .smap .quote:before { content: '«'; }
+    .smap .quote:after { content: '»'; }
+    .smap .gloss { font-size: 12px; color: #888; line-height: 1.55; margin-top: 4px; }
+    .smap .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .smap .tag { font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+    .smap .t-red { background: #fdecea; color: #b52a1c; }
+    .smap .t-amber { background: #fef3e2; color: #8c4e0b; }
+    .smap .t-green { background: #eaf5e2; color: #2e6e10; }
+    .smap .t-teal { background: #e0f5ef; color: #0a6644; }
+    .smap .t-purple { background: #eeeefe; color: #4b3bb0; }
+    .smap .t-gray { background: #f0ede8; color: #5a5955; }
+    .smap .highlight { background: #fff; border: 1px solid #e8e6e0; border-radius: 12px; padding: 16px 20px; }
+    .smap .big { font-size: 15px; font-weight: 500; line-height: 1.55; color: #1a1a18; }
+    .smap .arrow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #666; margin-top: 10px; }
+    .smap .arr { color: #ccc; }
+    .smap .vs { display: flex; gap: 10px; }
+    .smap .vs-col { flex: 1; border-radius: 10px; padding: 14px; }
+    .smap .vs-bad { background: #fdecea; border: 1px solid #f5c0bc; }
+    .smap .vs-good { background: #e0f5ef; border: 1px solid #9edecb; }
+    .smap .vs-col-label { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .smap .vs-bad .vs-col-label { color: #b52a1c; }
+    .smap .vs-good .vs-col-label { color: #0a6644; }
+    .smap .pick { border-color: #9edecb; background: #f4fbf8; }
+    .smap hr { border: none; border-top: 1px solid #e8e6e0; margin: 2rem 0; }
+
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { position: static; }
+      .grid2, .grid3, .qgrid, .cd .cols, .seg .cols, .score3 { grid-template-columns: 1fr; }
+      .smap .g2, .smap .g3, .smap .g4 { grid-template-columns: 1fr; }
+      .smap .vs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs layout">
+    <input type="radio" name="main-tab" id="tab0" checked>
+    <input type="radio" name="main-tab" id="tab1">
+    <input type="radio" name="main-tab" id="tab2">
+    <input type="radio" name="main-tab" id="tab3">
+    <input type="radio" name="main-tab" id="tab4">
+    <input type="radio" name="main-tab" id="tab5">
+    <input type="radio" name="main-tab" id="tab6">
+    <input type="radio" name="main-tab" id="tab7">
+    <input type="radio" name="main-tab" id="tab8">
+
+    <aside class="side main">
+      <h1>Ксения</h1>
+      <p>Сначала кто. Потом продукт. Потом как грели.</p>
+      <div class="switches">
+        <p class="nav-kicker">Кто покупает</p>
+        <label class="switch" for="tab0">Кто покупает</label>
+        <label class="switch" for="tab1">13 разговоров</label>
+        <label class="switch" for="tab3">Ещё шесть подписчиц</label>
+        <p class="nav-kicker">Смыслы</p>
+        <label class="switch" for="tab8">Смысловая карта</label>
+        <p class="nav-kicker">Что продаём</p>
+        <label class="switch" for="tab2">Интенсив на 4 недели</label>
+        <label class="switch" for="tab4">Марафон и личная работа</label>
+        <p class="nav-kicker">Как это делали</p>
+        <label class="switch" for="tab6">Как грели и что дарили</label>
+        <p class="nav-kicker">Про Ксению</p>
+        <label class="switch" for="tab5">Кто она как эксперт</label>
+        <p class="nav-kicker other">Сверка</p>
+        <label class="switch" for="tab7">Умная сушка × анкета</label>
+      </div>
+      <div class="mini">
+        <div><b>199</b><span>ответов</span></div>
+        <div><b>13</b><span>интервью</span></div>
+        <div><b>~650</b><span>в боте</span></div>
+        <div><b>4 нед</b><span>интенсив</span></div>
+      </div>
+    </aside>
+
+    <div class="main">
+
+      <section class="panel p0">
+        <h2>Кто покупает</h2>
+        <p class="lead">Женщина за 35. Зал, диеты и чужие марафоны уже были. Подписалась из-за рецепта. Платит, когда ловит другое: я всё знаю. Почему снова не держится.</p>
+        <div class="order">
+          <b>Как читать эту вкладку</b>
+          Сначала кто она и на какие цифры смотреть. Потом боли, хотелки, возражения. Внизу все 10 вопросов анкеты 199, без сокращений. 13 разговоров и ещё шесть подписчиц лежат соседними вкладками. Это другие пачки людей, не эта анкета.
+        </div>
+        <nav class="toc">
+          <a href="#a-look">Смотри сюда</a>
+          <a href="#a-who">Портрет</a>
+          <a href="#a-sit">День</a>
+          <a href="#a-came">С чем пришла</a>
+          <a href="#a-pain">Боли</a>
+          <a href="#a-6">Шесть фраз</a>
+          <a href="#a-want">Хотелки</a>
+          <a href="#a-say">Что говорит</a>
+          <a href="#a-obj">Возражения</a>
+          <a href="#a-not">Кому не оно</a>
+          <a href="#a-num">199 анкет</a>
+        </nav>
+
+        <h3 class="chapter" id="a-look">Смотри сюда. Самые большие цифры</h3>
+        <p>199 человек. Можно было отметить несколько пунктов. Процент от 199. Это не «одна боль на человека».</p>
+        <table>
+          <thead><tr><th>№</th><th>Что нажали чаще всего</th><th>Сколько</th><th>Что с этим делать</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Смотрит питание и рецепты</td><td><b>173 · 87%</b></td><td>Вход в сторис с еды, не с зала и не с карусели кг</td></tr>
+            <tr><td>2</td><td>В теле беспокоит живот</td><td><b>136 · 68%</b></td><td>Говорить живот. Мышцы нажали 33 человека, это не ядро</td></tr>
+            <tr><td>3</td><td>Через месяц хочет меньше живот</td><td><b>110 · 55%</b></td><td>Результат месяца: живот, привычка, энергия. Не «минус N кг»</td></tr>
+            <tr><td>4</td><td>Сама пишет: нет дисциплины</td><td><b>109 · 55%</b></td><td>Не соглашаться как с характером. Рядом честнее: нет системы 74</td></tr>
+            <tr><td>5</td><td>Цель: подтянуть тело / похудеть</td><td><b>109 и 103</b></td><td>Оба пункта. Не выбирать одно</td></tr>
+            <tr><td>6</td><td>Уже ходила в зал или дома</td><td><b>104 и 105</b></td><td>Не «начнём с нуля». Ноги ходят. Ломается еда</td></tr>
+            <tr><td>7</td><td>Не знает, что готовить</td><td><b>75 · 38%</b></td><td>Первая дыра в еде. Дальше переедание 68, срыв 64, сладкое 64</td></tr>
+            <tr><td>8</td><td>Уже сидела на марафонах и курсах</td><td><b>81 · 41%</b></td><td>Ещё одна программа как оффер бесит. 13 человек ещё ни разу. Им «с нуля» можно</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">Ядро покупки: знает как, не держит. Подписка с рецепта. Оплата с «почему снова срываюсь». В боте сейчас около 650 человек после её пяти дней. Они уже пробовали с ней, не с улицы.</div>
+
+        <h3 class="chapter" id="a-who">Портрет</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Это она</h3>
+            <ul>
+              <li>35–40 (78) или 40+ (73). Младше 35 меньшинство.</li>
+              <li>Офис 76, дом с детьми 37, свой бизнес 25.</li>
+              <li>Вечером часто ещё зал или коврик.</li>
+              <li>Диеты 92, калории 87, марафоны 81 уже были.</li>
+              <li>Хочет живот, привычку есть, энергию до вечера.</li>
+              <li>Просит «почему» и человека снаружи, не ещё один файл.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Это не она</h3>
+            <ul>
+              <li>Хочет минус за неделю и гарантию кг.</li>
+              <li>Нужен только зал. Еда её не волнует.</li>
+              <li>Ей обязательные фото тарелок в общий чат. Интервью 11 из-за этого уходит.</li>
+              <li>Зульфия: «больше никаких программ». Ей смена жизни, не 4 недели в группе.</li>
+              <li>Аня-директор: здоровье и почки, не пляж и не общий поток.</li>
+              <li>Пришла с рилса за рецептом и пока только смотрит. С первого комментария за интенсив не платит.</li>
+            </ul>
+          </article>
+        </div>
+        <p class="hint">В шапке блога стоит «27–45» и «не про похудеть». Анкета другая: большинство за 35, жмут живот и похудеть. Для продаж опираться на 199.</p>
+
+        <h3 class="chapter" id="a-sit">Как выглядит обычный день</h3>
+        <div class="prose">
+          <p>Две недели контейнеры едут на работу. На пятнадцатый день в коробке гречка с курицей, а в голове уже другое. Вечер. Дети, смена, переписка. Рука сама открывает сладкое. Утром: ну всё, я без дисциплины. С понедельника.</p>
+          <p>Так она и пишет в анкете: нет дисциплины. Рядом другая галочка: нет системы и плана. Ноги в зале ходят. Ломается еда.</p>
+        </div>
+
+        <h3 class="chapter" id="a-came">С чем пришла</h3>
+        <p>Вопрос 8: что уже делала ради тела. Можно несколько.</p>
+        <table>
+          <thead><tr><th>Уже пробовала</th><th>Голосов</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Тренировки дома</td><td>105 · 53%</td><td>Не новичок на коврике</td></tr>
+            <tr><td>Зал</td><td>104 · 52%</td><td>Зал без живота. Боль в холодильнике</td></tr>
+            <tr><td>Диеты</td><td>92 · 46%</td><td></td></tr>
+            <tr><td>Счёт калорий</td><td>87 · 44%</td><td>44 человека всё ещё не умеют КБЖУ</td></tr>
+            <tr><td>Марафоны / курсы</td><td>81 · 41%</td><td>«Опять программа» уже в голове</td></tr>
+            <tr><td>Ничего не пробовала</td><td>13 · 7%</td><td>Им «с нуля» правда. Остальным бесит</td></tr>
+          </tbody>
+        </table>
+        <p>Подписалась, своими словами, вопрос 4. Чаще всего: рецепты, нравится, интересно. Покупка потом не про картинку.</p>
+
+        <h3 class="chapter" id="a-pain">Боли. По убыванию</h3>
+        <p>Три разных вопроса. Не склеивать в один список.</p>
+        <div class="grid3">
+          <article class="card qblock">
+            <h3>Тело. Вопрос 6</h3>
+            <div class="row"><span>Живот</span><span class="n">136 · 68%</span></div>
+            <div class="row"><span>Дряблость кожи</span><span class="n">85 · 43%</span></div>
+            <div class="row"><span>Отёки</span><span class="n">84 · 42%</span></div>
+            <div class="row"><span>Целлюлит</span><span class="n">70 · 35%</span></div>
+            <div class="row"><span>Ягодицы</span><span class="n">50 · 25%</span></div>
+            <div class="row"><span>Холка</span><span class="n">18 · 9%</span></div>
+          </article>
+          <article class="card qblock">
+            <h3>Еда. Вопрос 7</h3>
+            <div class="row"><span>Не знаю, что готовить</span><span class="n">75 · 38%</span></div>
+            <div class="row"><span>Переедаю</span><span class="n">68 · 34%</span></div>
+            <div class="row"><span>Срываюсь</span><span class="n">64 · 32%</span></div>
+            <div class="row"><span>Много сладкого</span><span class="n">64 · 32%</span></div>
+            <div class="row"><span>Нет времени</span><span class="n">57 · 29%</span></div>
+            <div class="row"><span>Не умею КБЖУ</span><span class="n">44 · 22%</span></div>
+          </article>
+          <article class="card qblock">
+            <h3>Почему нет. Вопрос 10</h3>
+            <div class="row"><span>Нет дисциплины</span><span class="n">109 · 55%</span></div>
+            <div class="row"><span>Нет системы и плана</span><span class="n">74 · 37%</span></div>
+            <div class="row"><span>Теряю мотивацию</span><span class="n">66 · 33%</span></div>
+            <div class="row"><span>Откладываю на потом</span><span class="n">56 · 28%</span></div>
+            <div class="row"><span>Шум в интернете</span><span class="n">46 · 23%</span></div>
+            <div class="row"><span>Нет поддержки таких же</span><span class="n">30 · 15%</span></div>
+            <div class="row"><span>Не верю, что получится</span><span class="n">17 · 9%</span></div>
+          </article>
+        </div>
+        <div class="grid2">
+          <article class="card">
+            <h3>В жизни</h3>
+            <ul>
+              <li>Знает меню наизусть и всё равно срывается.</li>
+              <li>Одна и та же еда надоедает, потом срыв на весь день.</li>
+              <li>После четырёх дня тянет на сладкое, вечером «заторт».</li>
+              <li>Ходит в зал, живот на месте.</li>
+              <li>Программу купила, файл лежит неоткрытый.</li>
+              <li>После срыва ест ещё, как наказание.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>В голове</h3>
+            <ul>
+              <li>Решила, что она слабая.</li>
+              <li>«Похудеть мне мешает я сама».</li>
+              <li>Веры в себя почти не осталось.</li>
+              <li>Абонемент в зале куплен, туда стыдно зайти.</li>
+              <li>В декрете кажется, что её бросили с этой задачей одну.</li>
+              <li>После сорока вес «встал стеной».</li>
+            </ul>
+          </article>
+        </div>
+        <p class="hint">Аня с отёками и больными почками и Ирина, которой нужен пляж, это две разные женщины.</p>
+
+        <h3 class="chapter" id="a-6">Шесть болей, как они сами говорят</h3>
+        <p>Это из разговоров, не из галочек. Цитаты дословные.</p>
+        <div class="grid2">
+          <article class="card">
+            <h3>1. Знаю как, не делаю</h3>
+            <div class="quote">«Теоретически я знаю как надо питаться — но не могу удержать волну»<br>«Ты вроде всё знаешь, но как-то всё равно не держишь»</div>
+          </article>
+          <article class="card">
+            <h3>2. Срыв крутится по кругу</h3>
+            <div class="quote">«Сорвалась — и будто себя наказываю: значит, ешь ещё больше»<br>«Держусь-держусь — а потом блин, пойду пожру»<br>«Похудеть мне мешает я сама»</div>
+          </article>
+          <article class="card">
+            <h3>3. Однообразие убивает</h3>
+            <div class="quote">«В контейнере одно, а хочется другого»<br>«Надоел творог — хочу обычную шоколадку, другой текстуры»</div>
+          </article>
+          <article class="card">
+            <h3>4. Нет понимания зачем</h3>
+            <div class="quote">«Хочу понимать зачем, а не просто следовать правилу»<br>«Мне важно понять почему, а не просто следовать правилу»</div>
+          </article>
+          <article class="card">
+            <h3>5. Некому проверить</h3>
+            <div class="quote">«Нужен кто-то, кто подпинывает и проверяет»<br>«Когда ты сам с собой — расслабляешься»<br>«Где ты нас гоняешь — вот тогда да»</div>
+          </article>
+          <article class="card">
+            <h3>6. Результат не держится</h3>
+            <div class="quote">«В программах всё временно — потом откат. Нужно менять образ жизни»<br>«Хочу надолго, а не быстро — чтобы сохранилось»</div>
+          </article>
+        </div>
+
+        <h3 class="chapter" id="a-want">Хотелки и какой результат</h3>
+        <p>Вопрос 5: цель сейчас. Вопрос 9: идеал через месяц. Это два вопроса, не один.</p>
+        <div class="grid2">
+          <article class="card qblock">
+            <h3>Цель сейчас</h3>
+            <div class="row"><span>Подтянуть тело</span><span class="n">109 · 55%</span></div>
+            <div class="row"><span>Похудеть</span><span class="n">103 · 52%</span></div>
+            <div class="row"><span>Начать правильно питаться</span><span class="n">71 · 36%</span></div>
+            <div class="row"><span>Чувствовать себя лучше</span><span class="n">71 · 36%</span></div>
+            <div class="row"><span>Увереннее в себе</span><span class="n">40 · 20%</span></div>
+            <div class="row"><span>Спорт / мышцы</span><span class="n">по 33 · 17%</span></div>
+            <p class="use">Питаться и чувствовать себя лучше нажали одинаково. Не склеивать. Подтянуть и похудеть часто стоят вместе у одной женщины.</p>
+          </article>
+          <article class="card qblock">
+            <h3>Через месяц</h3>
+            <div class="row"><span>Меньше живот</span><span class="n">110 · 55%</span></div>
+            <div class="row"><span>Привычка питаться</span><span class="n">96 · 48%</span></div>
+            <div class="row"><span>Энергия и уверенность</span><span class="n">95 · 48%</span></div>
+            <div class="row"><span>Вообще лучше</span><span class="n">86 · 43%</span></div>
+            <div class="row"><span>Минус пару кг</span><span class="n">80 · 40%</span></div>
+            <div class="row"><span>Привычка заниматься</span><span class="n">64 · 32%</span></div>
+            <div class="row"><span>Перестать стесняться</span><span class="n">45 · 23%</span></div>
+            <p class="use">Килограммы есть. Выше стоят живот, привычка, энергия.</p>
+          </article>
+        </div>
+        <div class="prose">
+          <p>На весах она спрашивает кг. Дальше ей нужно: надеть джинсы из шкафа, выйти на пляж без полотенца, дожить до вечера с головой, чтобы через две недели снова не откатило. Жить как живёт, и чтобы еда не разваливалась. Без режима героини.</p>
+          <p>Честно обещать в продукте: срок, систему, разбор срыва, «почему», человека рядом. Не обещать: гарантию кг, «минус 5 кг воды», «больше никаких срывов», лечение.</p>
+        </div>
+
+        <h3 class="chapter" id="a-say">Что говорит</h3>
+        <div class="quote">
+          «В контейнере одно, а хочется другого» (Алёна)<br>
+          «Ты вроде всё знаешь, но как-то всё равно не держишь» (Ксюша)<br>
+          «Сорвалась — и будто себя наказываю: значит, ешь ещё больше»<br>
+          «Нету дисциплины / нету системы» (анкета)<br>
+          «Больше никаких программ — нужно менять образ жизни» (Зульфия)
+        </div>
+        <p>В сторис брать этот рот. Не «нет силы воли» как приговор. Не «ты заслуживаешь». Не «трансформация».</p>
+        <h3 class="sec" style="margin-top:18px">От этого воротит в чужих программах</h3>
+        <ul>
+          <li>Жёсткие запреты и одно меню на все дни.</li>
+          <li>Правила без объяснения почему.</li>
+          <li>Шаблон не под смены, детей, жизнь.</li>
+          <li>Обязательные фото тарелок в общий чат.</li>
+          <li>Много чатов. Обязательные эфиры при сменном графике.</li>
+          <li>Вина за каждый срыв. Слишком много «мотивации».</li>
+        </ul>
+
+        <h3 class="chapter" id="a-obj">Возражения</h3>
+        <table>
+          <thead><tr><th>Что скажет</th><th>Откуда</th><th>Чем закрывать</th></tr></thead>
+          <tbody>
+            <tr><td>Я и так знаю. Опять программа?</td><td>81 из 199 уже были на курсах. Зульфия прямо</td><td>Не шаблон и не вина. Срок и «почему». Не «начнём с нуля»</td></tr>
+            <tr><td>У меня нет дисциплины</td><td>109 человек так написали про себя</td><td>Не соглашаться. Говорить систему и человека снаружи</td></tr>
+            <tr><td>Нет времени, смены, дети</td><td>Ксюша 12–13 часов. Ульяна с грудным. Аня на двух работах</td><td>Один Telegram. Без обязательных эфиров. Что готовить, не геройство</td></tr>
+            <tr><td>Не хочу фотографировать тарелку</td><td>Интервью 11. Группа для неё стыд</td><td>Тарелки не обязанность. Иначе только личная работа</td></tr>
+            <tr><td>Она спортсменка, мне такое не подойдёт</td><td>Ксения мастер спорта</td><td>Домашняя еда. Не герой зала</td></tr>
+            <tr><td>Минус за неделю это враньё</td><td>Уже покупала такое</td><td>Не обещать неделю. Привычка и откат</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="chapter" id="a-not">Кому групповые четыре недели не подходят</h3>
+        <p>Не все 13 разговоров про интенсив. Ядро: знает как и не держит. Или не начнёт без срока: Алёна, Ксюша, Наташа, Евгения, Наталья.</p>
+        <ul>
+          <li>Аня-директор: здоровье, не пляж.</li>
+          <li>Катя после операции, с Гербалайфа: сначала обычная еда.</li>
+          <li>Интервью 11: тарелки бесят.</li>
+          <li>Зульфия: смена жизни, не ещё одна программа.</li>
+        </ul>
+
+        <h3 class="chapter" id="a-num">Все 10 вопросов анкеты 199</h3>
+        <p class="lead" style="margin-top:0">Это анкета подписчиц. Не те же 13 разговоров. Можно было тыкнуть несколько пунктов сразу.</p>
+        <div class="grid2">
+          <article class="card">
+            <h3>1. Возраст</h3>
+            <ul>
+              <li>35–40: 78</li>
+              <li>40+: 73</li>
+              <li>25–34: 32</li>
+              <li>18–24: 5</li>
+            </ul>
+            <p class="hint">Большинство за 35. Руками ещё дописали: 50 (двое), 47 (двое), 57, 56, 50+, до 18 (двое), пустые прочерки.</p>
+          </article>
+          <article class="card">
+            <h3>2. Занятость</h3>
+            <ul>
+              <li>Офис: 76</li>
+              <li>Дом с детьми: 37</li>
+              <li>Свой бизнес: 25</li>
+              <li>Удалёнка: 20, фриланс: 17</li>
+              <li>Учёба: 10</li>
+            </ul>
+            <p class="hint">По одному разу: смена в отеле, почта, врач, воспитатель, няня, барбер, кондитер, риелтор, горничная, маникюр, порвала связки и сидит дома.</p>
+          </article>
+        </div>
+        <h3 class="sec" style="margin-top:18px">3. Что смотрит с удовольствием</h3>
+        <table>
+          <thead><tr><th>Тема</th><th>Голосов</th></tr></thead>
+          <tbody>
+            <tr><td>Питание и рецепты</td><td>173</td></tr>
+            <tr><td>Советы по похудению</td><td>92</td></tr>
+            <tr><td>Простые тренировки дома</td><td>88</td></tr>
+            <tr><td>Разбор ошибок и мифов</td><td>60</td></tr>
+            <tr><td>Реальные истории без картинки</td><td>51</td></tr>
+            <tr><td>До / после</td><td>42</td></tr>
+            <tr><td>Набор веса / трени в зале / марафоны / антиэйдж</td><td>по 1</td></tr>
+          </tbody>
+        </table>
+        <h3 class="sec" id="a-q4" style="margin-top:18px">4. Почему подписана</h3>
+        <p class="hint">199 человек писали своими словами. Ниже всё, что повторилось хотя бы дважды.</p>
+        <table>
+          <thead><tr><th>Как написали</th><th>Голосов</th></tr></thead>
+          <tbody>
+            <tr><td>Рецепты</td><td>10</td></tr>
+            <tr><td>Нравится</td><td>6</td></tr>
+            <tr><td>Нравятся рецепты</td><td>5</td></tr>
+            <tr><td>Интересно</td><td>5</td></tr>
+            <tr><td>Не знаю</td><td>4</td></tr>
+            <tr><td>Интересный контент</td><td>3</td></tr>
+            <tr><td>ПП рецепты</td><td>3</td></tr>
+            <tr><td>Интересные рецепты</td><td>3</td></tr>
+            <tr><td>Просто интересно / полезно / полезный контент / ты лучшая / хочу похудеть / интересная подача / нравится контент / понравился контент</td><td>по 2</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">По одному разу: красивая, кошки, «запала», «просто наблюдаю жизненные моменты». Подписка часто про картинку и рецепт. Покупка потом про «знаю и не держу».</p>
+        <p class="hint">Вопросы 5–10 разобраны выше по смыслу. Здесь те же числа ещё раз, чтобы не ходить по вкладке.</p>
+        <div class="qgrid">
+          <article class="card qblock">
+            <h3>5. Чего хочет</h3>
+            <p class="ask">Какая твоя главная цель сейчас?</p>
+            <div class="row"><span>Подтянуть тело</span><span class="n">109 · 55%</span></div>
+            <div class="row"><span>Похудеть</span><span class="n">103 · 52%</span></div>
+            <div class="row"><span>Начать правильно питаться</span><span class="n">71 · 36%</span></div>
+            <div class="row"><span>Просто начать чувствовать себя лучше</span><span class="n">71 · 36%</span></div>
+            <div class="row"><span>Стать увереннее в себе</span><span class="n">40 · 20%</span></div>
+            <div class="row"><span>Начать заниматься спортом</span><span class="n">33 · 17%</span></div>
+            <div class="row"><span>Набрать мышечную массу</span><span class="n">33 · 17%</span></div>
+          </article>
+          <article class="card qblock">
+            <h3>6. Где болит тело</h3>
+            <p class="ask">Что больше всего беспокоит в теле?</p>
+            <div class="row"><span>Живот</span><span class="n">136 · 68%</span></div>
+            <div class="row"><span>Дряблость кожи</span><span class="n">85 · 43%</span></div>
+            <div class="row"><span>Отёки</span><span class="n">84 · 42%</span></div>
+            <div class="row"><span>Целлюлит</span><span class="n">70 · 35%</span></div>
+            <div class="row"><span>Ягодицы</span><span class="n">50 · 25%</span></div>
+            <div class="row"><span>Холка</span><span class="n">18 · 9%</span></div>
+          </article>
+          <article class="card qblock">
+            <h3>7. Где ломается еда</h3>
+            <p class="ask">Какие проблемы в питании сейчас?</p>
+            <div class="row"><span>Не знаю, что готовить</span><span class="n">75 · 38%</span></div>
+            <div class="row"><span>Переедаю</span><span class="n">68 · 34%</span></div>
+            <div class="row"><span>Срываюсь</span><span class="n">64 · 32%</span></div>
+            <div class="row"><span>Много сладкого</span><span class="n">64 · 32%</span></div>
+            <div class="row"><span>Нет времени</span><span class="n">57 · 29%</span></div>
+            <div class="row"><span>Не знаю, как считать КБЖУ</span><span class="n">44 · 22%</span></div>
+            <div class="row"><span>Нет проблем</span><span class="n">3 · 2%</span></div>
+            <p class="use">Три человека написали «нет проблем». Остальным ломается готовка, переедание, срыв, сладкое, время.</p>
+          </article>
+          <article class="card qblock">
+            <h3>8. Уже пробовала</h3>
+            <p class="ask">Что делала ради тела мечты?</p>
+            <div class="row"><span>Тренировки дома</span><span class="n">105 · 53%</span></div>
+            <div class="row"><span>Зал</span><span class="n">104 · 52%</span></div>
+            <div class="row"><span>Диеты</span><span class="n">92 · 46%</span></div>
+            <div class="row"><span>Счёт калорий</span><span class="n">87 · 44%</span></div>
+            <div class="row"><span>Марафоны / курсы</span><span class="n">81 · 41%</span></div>
+            <div class="row"><span>Ничего не пробовала</span><span class="n">13 · 7%</span></div>
+          </article>
+          <article class="card qblock">
+            <h3>9. Через месяц хочет</h3>
+            <p class="ask">Какой результат был бы идеальным?</p>
+            <div class="row"><span>Меньше живот</span><span class="n">110 · 55%</span></div>
+            <div class="row"><span>Привычка питаться</span><span class="n">96 · 48%</span></div>
+            <div class="row"><span>Энергия и уверенность</span><span class="n">95 · 48%</span></div>
+            <div class="row"><span>Вообще чувствовать себя лучше</span><span class="n">86 · 43%</span></div>
+            <div class="row"><span>Минус пару кг</span><span class="n">80 · 40%</span></div>
+            <div class="row"><span>Привычка регулярно заниматься</span><span class="n">64 · 32%</span></div>
+            <div class="row"><span>Перестать стесняться себя</span><span class="n">45 · 23%</span></div>
+          </article>
+          <article class="card qblock">
+            <h3>10. Почему до сих пор нет</h3>
+            <p class="ask">Что мешает прийти к результату?</p>
+            <div class="row"><span>Нет дисциплины</span><span class="n">109 · 55%</span></div>
+            <div class="row"><span>Нет системы и плана</span><span class="n">74 · 37%</span></div>
+            <div class="row"><span>Быстро теряю мотивацию</span><span class="n">66 · 33%</span></div>
+            <div class="row"><span>Откладываю на потом</span><span class="n">56 · 28%</span></div>
+            <div class="row"><span>Шум в интернете, не ясно что работает</span><span class="n">46 · 23%</span></div>
+            <div class="row"><span>Нет поддержки таких же</span><span class="n">30 · 15%</span></div>
+            <div class="row"><span>Не верю, что у меня получится</span><span class="n">17 · 9%</span></div>
+            <p class="use">Сама пишет «нет дисциплины». Рядом стоит «нет системы». Семнадцать человек прямо: не верю, что получится.</p>
+          </article>
+        </div>
+      </section>
+      <section class="panel p1">
+        <h2>13 разговоров</h2>
+        <p class="lead">Апрель 2026. Тринадцать женщин. У пяти есть ещё длинный разговор: Наталья, Ульяна, Ирина, Аня с двумя работами, руководитель языковых школ. Ульяна и Алёна из шести подписчиц инстаграма — другие люди, не эти.</p>
+        <p class="one">Почти у всех крутится одно и то же: знаю и не делаю. Еда надоела. Срыв, потом ещё. Нет зачем. Некому проверить. Через две недели откат. Аня с больными почками и Ирина, которой нужен пляж, это две разные жизни.</p>
+        <nav class="toc-names">
+          <a href="#cd1">Алёна</a><a href="#cd2">Карина</a><a href="#cd3">Ксюша</a><a href="#cd4">Аня, директор</a><a href="#cd5">Наташа</a><a href="#cd6">Катя</a><a href="#cd7">Наталья</a><a href="#cd8">Ульяна</a><a href="#cd9">Ирина</a><a href="#cd10">Аня, 2 работы</a><a href="#cd11">Аноним</a><a href="#cd12">Евгения</a><a href="#cd13">Зульфия</a>
+        </nav>
+
+        <article class="card cd" id="cd1">
+          <h3>1. Алёна</h3>
+          <p class="meta">Около 40, технолог на судостроительном заводе, Находка, взрослые дети. Три тренировки в неделю. Сейчас 67 кг, хочет 62. Бюджет 3 000–10 000 ₽.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Однообразие еды, потом срыв: «в контейнере одно, а хочется другого».</li>
+                <li>Срывы от стресса. Держится около двух недель, потом читмил на весь день.</li>
+                <li>С тренировками всё ок. Питание слабое место. Нет системы.</li>
+              </ul>
+              <b>В прошлых программах бесило</b>
+              <ul>
+                <li>Огромные тарелки одинакового салата каждый день.</li>
+                <li>Никто не объяснял, почему именно так.</li>
+                <li>Нет гибкости: съела мороженое = всё сломалось.</li>
+              </ul>
+            </div>
+            <div>
+              <b>Мечта</b>
+              <p>62 кг, лёгкость, уверенность, пляж этим летом без комплексов, больше женской энергии.</p>
+              <b>Что загорелось</b>
+              <p>Когда Ксения объяснила инсулин и буферизацию. Хочет механику, не запрет.</p>
+              <b>Чего просит</b>
+              <p>Индивидуальный подход, обратная связь, проверки, группа, соревнование, гибкость в еде.</p>
+              <div class="quote">«В контейнере одно, а хочется другого»<br>«Надоело одно и то же — срываюсь не от слабости, а от скуки»</div>
+              <p class="hook">В апреле ей предлагали марафон. Главное: не тот же салат каждый день.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd2">
+          <h3>2. Карина</h3>
+          <p class="meta">47 лет, фитнес-тренер, Краснодарский край. Замужем второй раз. Группы по 8–10 человек. 13 лет в фитнесе, 4 года как тренер. Уже купила программу питания Ксении. Бюджет от 12 000 ₽ в месяц.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Нет дисциплины в питании. Качели, хаотично.</li>
+                <li>Хроническое недоедание: около 1300–1400 ккал при активных тренировках.</li>
+                <li>Вечером полное истощение, «вырубает».</li>
+                <li>Монотонность. Всё на автопилоте.</li>
+              </ul>
+            </div>
+            <div>
+              <b>Мечта</b>
+              <p>Больше энергии днём, подтянуть живот, стать «зажигалкой» для учениц.</p>
+              <b>Что поняла сама</b>
+              <p>«Тренеру тоже нужен тренер». Знает, сама не начинает.</p>
+              <div class="quote">«Тренеру тоже нужен тренер»<br>«Хочу быть зажигалкой для своих девочек»<br>«Я на одном месте топчусь, одно и то же по кругу»</div>
+              <p class="hook">В апреле ей предлагали марафон, потом личную работу. Деньги не пугают. 1400 ккал ей уже мало: не ставить это нормой для всех.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd3">
+          <h3>3. Ксюша</h3>
+          <p class="meta">Администратор банного комплекса, Петербург. Не замужем. График 2/2, смены 12–13 часов. Сейчас 58 кг, хочет 55. Бюджет до 15 000 ₽ за две недели.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Бёдра и низ живота.</li>
+                <li>Зимой систематически набирает.</li>
+                <li>Увидела результат, расслабилась, откат.</li>
+              </ul>
+            </div>
+            <div>
+              <b>Что видно</b>
+              <p>Считает, знает, понимает. Без внешней точки опоры не держит. Откатывается не от незнания, а от расслабления.</p>
+              <div class="quote">«Ты вроде всё знаешь, но как-то всё равно не держишь»<br>«Когда тарелки отправляешь — чувствуешь ответственность»<br>«Когда видишь первые результаты — хочется ещё больше»</div>
+              <p class="hook">В апреле ей предлагали марафон с проверками. Без человека снаружи снова знает и не делает.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd4">
+          <h3>4. Аня, исполнительный директор</h3>
+          <p class="meta">22 года, маркетинг, удалёнка с 9 до 20. Хронический пиелонефрит, отёки, непереносимость глютена, онкология в анамнезе, ремиссия. Бюджет до 30 000 ₽.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Днём не ест: уходит в работу.</li>
+                <li>Набрала на стрессе, изолировала себя.</li>
+              </ul>
+              <b>Что видно</b>
+              <ul>
+                <li>Мотив здоровье, не внешность.</li>
+                <li>Дотошная: хочет знать почему и как работает.</li>
+                <li>Деньги не главное. Если уверена в эксперте, отдаст больше.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="quote">«Мне не нужен результат — мне нужно здоровое тело»<br>«Просыпаюсь отёкшая — и это давно уже норма, а не должно быть»<br>«Мне важно понять почему, а не просто следовать правилу»</div>
+              <p class="hook">В апреле её не тащили в общую группу. Скорее личная работа. Не путать с Ириной, которой нужен пляж.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd5">
+          <h3>5. Наташа</h3>
+          <p class="meta">Руководитель отдела, офис с 8 до 17. Зал 4 года: 3 тренировки в неделю с тренером плюс кардио. Бюджет 2 000–5 000 ₽.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Жировые складки: живот и бока.</li>
+                <li>Ест 1–2 раза в день. Нет структуры.</li>
+                <li>Четыре месяца без видимого результата. Разочарование.</li>
+                <li>Тренер запрещает молочку и творог. Ест тайно, потому что не согласна.</li>
+              </ul>
+            </div>
+            <div>
+              <b>Что видно</b>
+              <p>Противоречие советов разных тренеров. Нужно похудеть по медицинским показаниям: готовится к операции.</p>
+              <div class="quote">«Смотрю, как другие тренеры говорят — они едят и худеют. Почему мне нельзя?»<br>«Хочу наконец кайфовать от тренировок, а не выползать оттуда»</div>
+              <p class="hook">В апреле ей предлагали марафон. Главное: понять, почему зал есть, а живота нет.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd6">
+          <h3>6. Катя</h3>
+          <p class="meta">Страховой агент, разъездная работа, сын школьник. Недавно абдоминопластика, стадия восстановления.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Уйти с Гербалайфа на обычную еду.</li>
+                <li>Не умеет и не хочет считать калории.</li>
+                <li>Не понимает, как собрать питание из обычных продуктов.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="quote">«Не могу всю жизнь на этом сидеть — хочу нормальную еду»<br>«Откаты были всю жизнь — потому что была голодная»</div>
+              <p class="hook">В апреле общую группу ей не предлагали. Сначала обычная еда, или личная работа.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd7">
+          <h3>7. Наталья</h3>
+          <p class="meta">60+, предпринимательница, банковский сектор, Краснодар. Есть дочь, внуки. Фитнес-клуб 15 лет. Программу Ксении купила, лежит, не начала.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Хаотичный режим: пропуск обеда, большой ужин.</li>
+                <li>Постоянные срывы, как только начинает систему.</li>
+                <li>Сон: ложится в час ночи, мозг не отключается.</li>
+                <li>Складочка внизу живота. Операцию делала, всё равно осталось.</li>
+              </ul>
+              <b>Что видно</b>
+              <p>Цены не боится. Включается, когда есть контроль, соревнование, сроки. Платит.</p>
+            </div>
+            <div>
+              <b>Просит в формате</b>
+              <p>Гонялово. Отчёт цифрой, не фото еды. Сроки. Контейнеры. Небольшая группа. Утром короткое «девчонки, настраиваемся».</p>
+              <div class="quote">«Себе уже дала слово, что с понедельника начну»<br>«Где ты нас гоняешь — вот тогда да»<br>«Должны быть дедлайны»<br>«Утром покушала, потом забыла, а есть некогда. А потом прихожу и могу наесться.»</div>
+              <div class="extra">
+                <b>Ещё из того же разговора</b>
+                <p>VIP-клуб «Форма» 46 000 ₽/год. Онлайн-питание по Виноградову: 2,5–4 тыс., был результат 6 кг за неделю. Онлайн-тренировки 1,5 тыс. Изучала ПП-десерты. Кофеёк и сухофрукты как незаметные ловушки. Фото еды: «Ну, иногда скину под настроение». Ориентир по онлайн-ценнику: 1,5–4 тыс.</p>
+              </div>
+              <p class="hook">В апреле ей предлагали марафон. Иначе снова «с понедельника».</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd8">
+          <h3>8. Ульяна</h3>
+          <p class="meta">28 лет, декрет, ребёнку несколько месяцев. Физически стройная, качеством тела недовольна. Бюджет сейчас 3–4 тыс., после выхода 10–15 тыс.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Эмоциональное заедание сладким от декретной усталости.</li>
+                <li>Пропуск обеда, вечернее переедание.</li>
+                <li>Нет сил на себя. Лень плюс нет внешнего стимула.</li>
+              </ul>
+              <b>Что видно</b>
+              <p>План питания уже есть. Нужно ощущение «ты не одна».</p>
+            </div>
+            <div>
+              <div class="quote">«Такое ощущение, что я как дирижабль»<br>«Держусь-держусь — а потом блин, пойду пожру»<br>«Казаться брошенной — мотивация сразу падает»</div>
+              <div class="extra">
+                <b>Ещё из того же разговора</b>
+                <p>Вес 66 кг, цель скромная: к 65 и качество ног, живота, рук. Слово «лёгкость» повторяла. Курс после родов не зашёл, взяла только расчёт калорий. Программа 3–4 тыс. без поддержки. Материалы в разных местах бесят. Ответ несколько раз в день важнее плана. Группа или лично: «мне не разница». «Надолго, потому что быстро потом наберёшь ещё больше».</p>
+              </div>
+              <p class="hook">В апреле ей предлагали марафон со словами «ты не одна». После декрета можно дороже.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd9">
+          <h3>9. Ирина</h3>
+          <p class="meta">50 лет, графический дизайнер, дома. Рост 158, сейчас 62 кг, всю жизнь была 47. Плюс 15 кг за 1–2 года на фоне гипотиреоза, принимает эльтерокс. Анализы нормализовались, тяга к сладкому осталась. Денег сейчас мало.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>После 16:00 жор каждый день. «За вечер целый торт могу съесть».</li>
+                <li>Тяга к сладкому.</li>
+                <li>Не принимает новое тело.</li>
+                <li>Всю зиму в спортивных брюках, чтобы ничего не было видно.</li>
+              </ul>
+              <b>Мечта</b>
+              <p>«Куколку из себя сделаю. На пляж каждый день». Цель по весу: 55–57 кг. Энергия, купальники, кожа не дряблая.</p>
+            </div>
+            <div>
+              <div class="quote">«Как будто изнутри что-то надела — и снять не можешь»<br>«Коллектив зажигает. Видишь чужой завтрак — и сама идёшь готовить»<br>«Куколку из себя сделаю. На пляж каждый день»</div>
+              <div class="extra">
+                <b>Ещё из того же разговора</b>
+                <p>Марафонов раньше не покупала. КБЖУ не считает. Программу Ксении на 1500 ккал уже слышала на созвоне. Просит всё посчитанное плюс быстрый ответ. Домашние тренировки 15–20 минут. Готова к 5–10 тыс., когда деньги появятся. Сблизило: у Ксении тоже звучал аутоиммунный тиреоидит. Щитовидку в рекламу как лечение не тащить.</p>
+              </div>
+              <p class="hook">В апреле сначала показать, как это устроено, потом продавать. Не путать с Аней, которой нужно здоровье.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd10">
+          <h3>10. Аня, две работы</h3>
+          <p class="meta">Около 20–25, Петербург. Инструктор по стрельбе и официант. Около 20 000 шагов в день. В январе 85 кг, дошла до 76, потом срыв на неделю от выгорания.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Срыв от выгорания, не от «слабой воли».</li>
+                <li>Счёт калорий стал стрессом. Яблоко подсчитывает, бесит.</li>
+                <li>Шаблоны не учитывают две работы и 1,5 часа на дорогу.</li>
+                <li>Надоели пачки творога. Хочет шоколадку другой текстуры.</li>
+              </ul>
+              <b>Что видно</b>
+              <p>Знания не нужны. Нужна гибкая среда на 2–3 месяца. Короткие форматы встречает скептически.</p>
+            </div>
+            <div>
+              <div class="quote">«Все силы уходят на то, чтобы не сожрать что-нибудь»<br>«Тренер дал план, не учёл мои две работы. Ненавижу»<br>«Давайте работать с тем, что есть»</div>
+              <div class="extra">
+                <b>Ещё из того же разговора</b>
+                <p>Сидела на 1700–1900 ккал, скинула 9 кг. Подписка 3–3,5 тыс. не закрепилась. Хочет есть без подсчёта. Реалистичный темп: 300–500 грамм в неделю. Образ сообщества: «подруги в одном районе». Без вылизанных постов, без обязательных эфиров, без «спи 12 часов». Четыре недели ей максимум начало.</p>
+              </div>
+              <p class="hook">В апреле марафон ей максимум начало. Шаблон и мотивационный ор нельзя.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd11">
+          <h3>11. Анонимно, руководитель</h3>
+          <p class="meta">34 года, руководитель сети языковых школ, дочь 6 лет. Рост 177, вес 83 кг, считает 15 кг лишними. Боль в пояснице. Три марафона за 2 года. Отвечала письменно.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Ест диетически, но слишком много. «Неугомонный рот».</li>
+                <li>Ритуал чай плюс сладкое. Без чая будто голодная.</li>
+                <li>Сорвалась, ест ещё больше, стыд, снова срыв.</li>
+                <li>«Вера в себя уже потеряна».</li>
+                <li>Мысль о похудении с 17 лет.</li>
+              </ul>
+              <b>Что видно</b>
+              <p>Проблема психологическая, не меню. Планы уже есть. Нужна тёплая жёсткость. Тарелки в общий чат нельзя.</p>
+            </div>
+            <div>
+              <div class="quote">«Сорвалась — и будто себя наказываю: значит, ешь ещё больше»<br>«Вера в себя уже потеряна. Я постоянно сдаю позиции»<br>«Планы есть. Мне нужны поддержка и пиздюли»<br>«Тарелки в чате меня раздражают — откуда у вас время?»</div>
+              <div class="extra">
+                <b>Ещё из того же разговора</b>
+                <p>На марафонах был результат 2,5 кг за 5 дней, не удержала. «Ощущение мусорки внутри после сладкого». «Не могу уловить или удержать волну». Еда как единственная радость. Денежная мотивация «заплатила = надо пройти» не работает. Хочет выглядеть хотя бы на свои 34 и чтобы спине стало легче.</p>
+              </div>
+              <p class="hook">В апреле только один на один. Готова платить много. В общую группу на четыре недели не звать.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd12">
+          <h3>12. Евгения</h3>
+          <p class="meta">38 лет, воспитатель в саду с особенными детьми. Замужем, двое детей. Сейчас 60–62 кг, цель 55.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>Ужин: ест всё, что на кухне.</li>
+                <li>Срывы на овуляции, ПМС, критических.</li>
+                <li>Муж: «давай чай попьём».</li>
+              </ul>
+              <b>Что видно</b>
+              <p>К марафонам скептик и «скорее всего попробует ещё раз». Нужны логика, контроль, гибкость под цикл. Зал не вариант.</p>
+            </div>
+            <div>
+              <div class="quote">«Как алкоголик, которого закодировали — понял как работает, и продолжает пить»<br>«Похудеть мне мешает я сама»<br>«Спотыкаюсь то об овуляцию, то об мужа с чаем»</div>
+              <p class="hook">В апреле ей предлагали марафон, если показать, что формат другой. Дома, под цикл.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="cd13">
+          <h3>13. Зульфия</h3>
+          <p class="meta">43 года, в поиске работы, дети 11 и 8. Рост 150, сейчас 57–58 кг, цель 48–50. Кризис с мужем, постоянный стресс. Денег сейчас мало.</p>
+          <div class="cols">
+            <div>
+              <b>Что не даёт покоя</b>
+              <ul>
+                <li>После 40 вес встал «как стена».</li>
+                <li>Годовой абонемент в зале куплен. Стесняется зайти.</li>
+                <li>Стресс в отношениях, потом срыв.</li>
+                <li>«Больше никаких программ».</li>
+              </ul>
+            </div>
+            <div>
+              <div class="quote">«Вес после 40 встал и не сдвигается — как будто стена»<br>«Стесняюсь своего тела — особенно в тренажёрке»<br>«Больше никаких программ — нужно менять образ жизни»<br>«Каждый раз сдаюсь — из-за того, что не верю себе»</div>
+              <p class="hook">В апреле ей нужна смена жизни. Без тарелок. Без обещания ещё одного марафона.</p>
+            </div>
+          </div>
+        </article>
+
+        <h3 class="chapter">Кому что подходило в апреле</h3>
+        <p class="hint">В апреле: общая группа на срок, лично, или не это. Это не тариф 2 490.</p>
+        <table>
+          <thead><tr><th>Кто</th><th>Про что</th><th>Куда в апреле</th></tr></thead>
+          <tbody>
+            <tr><td>Алёна</td><td>Знает, скучает от однообразия</td><td>Марафон</td></tr>
+            <tr><td>Карина</td><td>Тренер без системы в еде</td><td>Марафон, потом личная работа</td></tr>
+            <tr><td>Ксюша</td><td>Грамотная, нужна опора</td><td>Марафон</td></tr>
+            <tr><td>Аня, директор</td><td>Здоровье, не пляж</td><td>Личная работа</td></tr>
+            <tr><td>Наташа</td><td>Нет результата при зале</td><td>Марафон как начало</td></tr>
+            <tr><td>Катя</td><td>После операции, с Гербалайфа</td><td>Программа питания или личная работа</td></tr>
+            <tr><td>Наталья</td><td>Нужны дедлайны</td><td>Марафон</td></tr>
+            <tr><td>Ульяна</td><td>Декрет, «ты не одна»</td><td>Марафон</td></tr>
+            <tr><td>Ирина</td><td>Гипотиреоз, вечерний жор</td><td>Сначала показать, потом марафон и личная работа</td></tr>
+            <tr><td>Аня, 2 работы</td><td>Выгорание, нужна гибкость</td><td>Марафон как начало, дальше длинная среда</td></tr>
+            <tr><td>Анонимно</td><td>Психологическое переедание</td><td>Только индивидуально</td></tr>
+            <tr><td>Евгения</td><td>Срывы по циклу</td><td>Марафон с адаптацией под цикл</td></tr>
+            <tr><td>Зульфия</td><td>Нет доверия к программам</td><td>Образ жизни, без тарелок</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel p2">
+        <h2>Интенсив на 4 недели</h2>
+        <p class="lead">«Минус лишнее», 25 августа. Четыре недели еды и разбора срыва. Меню и тренировки внутри есть. Покупают систему, которая держится. Пока Ксения не подтвердила, что именно это продаём до 31 августа, цены в сторис не ставить.</p>
+        <div class="warnbox">В сторис и рекламу не тащить: гарантия кг, «минус 5 кг воды», «больше никаких срывов», лечение отёков и щитовидки, «трансформация / новая версия себя».</div>
+
+        <h3 class="chapter">Как Ксения сама это объяснила</h3>
+        <div class="prose">
+          <p>Питание и тренировки «это понятно». Особенность в другом: из жизни, из состояния, из головы лезет так, что режим не держится.</p>
+          <p>Система: разобрать голову, вытащить гвозди, из-за которых бесконечно скатывались. Понять, почему обожралась в этот раз: усталость едой, недостаток эмоций, компенсация едой. Учить это видеть и вписать похудение и уход за собой в жизнь.</p>
+        </div>
+        <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни: без напряжения, без «бросила / сорвалась / нет дисциплины / не верю в себя». Я долго думала, как дать пользу. Собрала интенсив.</div>
+        <p class="hint">Это её слова для сторис. В боте около 640–650 человек после бесплатных пяти дней. Отзывы собрали, цифр кг в сообщении нет. Подводить к покупке, по её словам, только начинают. Продажи с 25 по 31 августа 2026.</p>
+
+        <h3 class="chapter">Что внутри</h3>
+        <div class="prose">
+          <p>4-недельная система. Идёшь 4 недели, плюс ещё месяц доступ к материалам. Три тарифа: Базовый 2 490, Стандарт 4 490, ВИП 9 990.</p>
+          <p>Четыре готовые программы питания: 1400 / 1550 / 1650 / 1750 ккал, расписаны по дням. Рецепты одни, порции и БЖУ разные. Пример: овсяноблин с сыром в один и тот же день у всех. Идти строго по дням: приёмы внутри дня сбалансированы, дни смешивать не рекомендуется. Опционально мини-урок по подсчёту БЖУ.</p>
+          <p>Ещё в еде: готовые рецепты, советы, разбор ошибок и мифов, как наладить пищеварение, как считать калории, понимание ПП.</p>
+        </div>
+
+        <h3 class="chapter">Голова: голод и срыв</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Четыре типа голода</h3>
+            <ol>
+              <li>Физиологический: урчит живот, слабость, любая еда поможет. Можно подождать.</li>
+              <li>Привычный: фильм, вечер, холодно, скучно. Мозг связал «мне плохо → еда».</li>
+              <li>Компенсаторный: не хватает отдыха, радости, эмоций, безопасности. Еда как утешение и награда.</li>
+              <li>Вытесненных чувств: злость, страх, одиночество не прожиты. Человек не понимает, что чувствует, и ест.</li>
+            </ol>
+          </article>
+          <article class="card">
+            <h3>Почему срыв. Две причины из гайда</h3>
+            <p>Причина 1, питание: слишком мало калорий или дыра в БЖУ. Ошибки в гайде: просто перестала есть; убрала углеводы; веганский эксперимент без белка; «ем меньше» на глаз. Организм отвечает эйфорией, потом водой и мышцами, потом стопом, потом срывом.</p>
+            <p>Причина 2, психика. Еда это топливо, гормоны, расслабление, встречи, ритуал, идентичность. Голод это физиология. Аппетит это психика. Три вопроса из гайда: когда ела и прошло ли 3 часа; съела бы гречку с курицей или хочется именно вот это; что чувствую сейчас.</p>
+          </article>
+        </div>
+        <p class="hint">В интенсиве это разбор «физический и моральный голод» плюс «как не сорваться и что делать после». Формат: пост, запись эфира или голосовое.</p>
+
+        <h3 class="chapter">Тренировки. Не на всех тарифах</h3>
+        <div class="prose">
+          <p>На Стандарте и ВИП: 12 тренировок, 3 раза в неделю, две версии на выбор.</p>
+          <ul>
+            <li>Зал, 12 штук: ягодицы / ноги / пресс; кардио плюс лёгкая работа с тренажёрами; верх плюс пресс. Плюс разбор техники.</li>
+            <li>Дом, 12 штук: 6 лёгких кардио + 6 растяжек на проблемные зоны.</li>
+          </ul>
+          <p>На Базовом тренировок нет. Ни зала, ни дома. Это нельзя обещать на 2 490.</p>
+        </div>
+
+        <h3 class="chapter">Что можно ждать и чего нельзя обещать</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Можно ждать, если человек идёт</h3>
+            <ul>
+              <li>Готовые дни еды, не один салат.</li>
+              <li>Отличить голод телом от «просто хочется».</li>
+              <li>Сценарий после срыва на час, не неделя слива.</li>
+              <li>На Стандарте: тренировки 3 раза в неделю и люди, которые проверяют.</li>
+              <li>Привычка, которая может остаться после четырёх недель.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Написано. В сторис не брать</h3>
+            <ul>
+              <li>Гарантия минус столько-то кг.</li>
+              <li>«До −5 кг лишней воды».</li>
+              <li>«Больше никаких срывов».</li>
+              <li>Лечение давления, аллергии, отёков, щитовидки.</li>
+              <li>«Новая версия себя» как обещание покупки.</li>
+              <li>Что Базовый включает 12 тренировок.</li>
+            </ul>
+          </article>
+        </div>
+        <p class="hint">Ещё три группы в описании: новичок; проблемы с питанием; проблемы с телом. Это не три типа из 13 интервью.</p>
+
+        <h3 class="chapter">Ещё материалы</h3>
+        <ul>
+          <li>PDF «Ритуалы ухода за собой и сияние»: скрабы, кремы, бьюти-рутина.</li>
+          <li>Посты-напоминания: осанка, походка, забота, аффирмации, «как перестать жить только ради других».</li>
+          <li>Разбор психологии еды: 4 типа голода + антисрывы.</li>
+        </ul>
+
+        <h3 class="chapter">Три тарифа целиком</h3>
+        <p class="lead" style="margin-top:0">Один интенсив. Разная глубина. Питание и мышление на всех трёх. Тренировки и кураторы нет на Базовом.</p>
+        <div class="grid3">
+          <article class="card">
+            <p class="job">Только еда и голова</p>
+            <h3>Базовый</h3>
+            <p class="price">2 490 ₽ <span>1+1 мес</span></p>
+            <ul>
+              <li>4 рациона, рецепты, пищеварение, БЖУ, ошибки</li>
+              <li>Антисрыв, самооценка, окружение, дисциплина</li>
+              <li>Чат + <b>3 эфира</b> Ксюши</li>
+              <li>Подкасты: голод эмоциональный vs физический; мотивация; дневник питания; гайд ухода</li>
+              <li>Нет: тренировок, отчётов, кураторов, обратной связи, связи с Ксюшей, челленджей, йоги в эфире, дневника благодарности, «10 целей»</li>
+            </ul>
+          </article>
+          <article class="card">
+            <p class="job">Еда, тренировки, кураторы</p>
+            <h3>Стандарт</h3>
+            <p class="price">4 490 ₽ <span>1+1 мес</span></p>
+            <ul>
+              <li>Всё из Базового</li>
+              <li>12 зал + 12 дом</li>
+              <li>Чат, <b>2 эфира</b>, отчёты, кураторы, обратная связь</li>
+              <li>Челленджи 28 дней, йога в эфире, дневник благодарности</li>
+              <li>Нет личной связи с Ксюшей и «10 целей»</li>
+            </ul>
+          </article>
+          <article class="card">
+            <p class="job">Еда, тренировки и Ксения лично</p>
+            <h3>ВИП</h3>
+            <p class="price">9 990 ₽ <span>1+1 мес</span></p>
+            <ul>
+              <li>Всё из Стандарта плюс «10 целей, которые я получу»</li>
+              <li>Ксюша лично: анкета, групповые созвоны, общий чат с ней, разбор срывов, разбор анализов и рекомендации</li>
+              <li>2 эфира, не 3</li>
+              <li>В списке ВИП нет отдельной строки «личный план привычек». Она есть только среди того, чего нет на Базовом. Не считать, что план привычек точно входит.</li>
+              <li>Нужен лимит мест. Иначе не вывезет поток с ~650</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3 class="chapter">Темы эфиров</h3>
+        <table>
+          <thead><tr><th>Тариф</th><th>Темы</th></tr></thead>
+          <tbody>
+            <tr><td>Базовый, 3 эфира</td><td>Как пользоваться программой питания. Про красоту. Почему живём по инерции и откладываем себя.</td></tr>
+            <tr><td>Стандарт, 2 эфира</td><td>Как пользоваться программой питания. Почему живём по инерции и откладываем себя.</td></tr>
+            <tr><td>ВИП, 2 эфира</td><td>Те же две, что на Стандарте.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="chapter">28 челленджей на Стандарте и ВИП</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Неделя 1</h3>
+            <ol>
+              <li>Напиши, ради чего ты здесь.</li>
+              <li>Заметь 3 действия по инерции.</li>
+              <li>Одно действие только ради себя.</li>
+              <li>Сфотографируй то, что заряжает.</li>
+              <li>Скажи «нет» тому, что забирает энергию.</li>
+              <li>Замедлись на 10 минут.</li>
+              <li>Итоги недели.</li>
+            </ol>
+            <h3>Неделя 2</h3>
+            <ol start="8">
+              <li>Выполни 1 обещание себе.</li>
+              <li>Заметь момент, когда хотела всё бросить.</li>
+              <li>Похвали себя.</li>
+              <li>Не стремись к идеалу.</li>
+              <li>Маленький шаг.</li>
+              <li>Запиши победу.</li>
+              <li>Поблагодари себя.</li>
+            </ol>
+          </article>
+          <article class="card">
+            <h3>Неделя 3</h3>
+            <ol start="15">
+              <li>3 своих сильных качества.</li>
+              <li>Комплимент в зеркале.</li>
+              <li>Что-то для женственности.</li>
+              <li>Красивое фото.</li>
+              <li>Что уже нравится в себе.</li>
+              <li>Какой женщиной хочешь стать.</li>
+              <li>Отметь рост.</li>
+            </ol>
+            <h3>Неделя 4</h3>
+            <ol start="22">
+              <li>5 привычек навсегда.</li>
+              <li>Письмо себе в будущее.</li>
+              <li>Свой кодекс.</li>
+              <li>Отметь изменения.</li>
+              <li>Поделись инсайтом.</li>
+              <li>Поблагодари тело.</li>
+              <li>Новое обещание себе.</li>
+            </ol>
+          </article>
+        </div>
+
+        <h3 class="chapter">Кому групповые четыре недели не подходят</h3>
+        <div class="prose">
+          <p>Не все 13 историй про общую группу на срок.</p>
+          <ul>
+            <li>Аня-директор: здоровье, не пляж. Общая группа ей не нужна.</li>
+            <li>Катя после операции, с Гербалайфа: сначала обычная еда.</li>
+            <li>Интервью 11: тарелки бесят, стыд. Нужен один на один.</li>
+            <li>Зульфия: «больше никаких программ». Смена жизни, не ещё одна программа.</li>
+            <li>Кто пришёл с рилса за рецептом: смотрит. С первого комментария за 4 недели не платит.</li>
+          </ul>
+          <p>Кому интенсив подходит: Алёна, Ксюша, Наташа, Евгения, Наталья. Знают как и не держат. Или не начнут без срока.</p>
+        </div>
+      </section>
+
+      <section class="panel p3">
+        <h2>Ещё шесть подписчиц</h2>
+        <p class="lead">Это не те же 13 разговоров апреля. Шесть женщин отвечали, за что подписались, почему не пишут, за что готовы платить. Ульяна и Алёна здесь другие люди, не из тех тринадцати.</p>
+
+        <article class="card cd" id="ig1">
+          <h3>1. Светлана</h3>
+          <p class="meta">Зацепило: картинка, мотивация, внешний вид, лицо. С первого взгляда: фитнес-тренер и нутрициолог, про изменения в теле и систему.</p>
+          <div class="cols">
+            <div>
+              <b>Почему смотрит, но может не писать</b>
+              <p>Эксперт из спортивной среды, сама в зал не ходила. Хочется быть ближе, неясно с чего начать. Не пишет блогерам, если контент уходит в откровенную эротику или негатив. Тема отношений для неё непростая.</p>
+              <b>Если бы шла сама</b>
+              <p>Сложно держать регулярность одной. Нужен спокойный эксперт без давления. Важнее тело эксперта как маркер, что система работает, потом система и дисциплина.</p>
+            </div>
+            <div>
+              <b>Шапка, которая попала бы</b>
+              <p>«Никаких с понедельника: либо сейчас, либо никогда».</p>
+              <b>Что бесит</b>
+              <p>Обещания «за неделю», «уже завтра», «марафон с гарантией».</p>
+              <b>За что платила бы</b>
+              <p>Сопровождение нутрициолога с фото питания, 2–4 тыс. в 2023–2024. Навязанное похудение не купит: пример с йогой, которую бросила. Ни один курс не прошла до конца. Покупала курсы по 120 тыс. в рассрочку и не доходила. К Ксении пошла бы на фитнес-тренировку. Мини-группа до 10 человек.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="ig2">
+          <h3>2. Ольга</h3>
+          <p class="meta">Зацепило: рилс с хлебом, простые ПП-рецепты, которые выглядят выполнимыми. По постам не очень понятно, чем занимается. Зацепила красота.</p>
+          <div class="cols">
+            <div>
+              <p>Смотрит всё сразу, особенно готовку на несколько дней. Доверяет, когда эксперт сам прошёл спорт. С 20 лет борется с весом. Результат во внешности ключевой. Хочет зал с понятной программой.</p>
+            </div>
+            <div>
+              <b>Что бесит</b>
+              <p>«Бесплатный материал», после которого сразу продажа.</p>
+              <b>Пролистывает</b>
+              <p>Таро и эзотерику.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="ig3">
+          <h3>3. Мария</h3>
+          <p class="meta">Зацепило: хорошо выглядит, быстро доносит, вкусные рецепты. С первого взгляда: спортсменка, ЗОЖ. Не домохозяйка.</p>
+          <div class="cols">
+            <div>
+              <p>Смотрит рационы. «Ты тоже мама с классной фигурой: можно быть с детьми и иметь тело». Себе: стремится к ПП, систематически занимается спортом. Важнее система и дисциплина.</p>
+            </div>
+            <div>
+              <b>Шапка</b>
+              <p>Про «с понедельника»: начинать надо сейчас.</p>
+              <b>Что бесит</b>
+              <p>В ПП ингредиенты, которые в обычной жизни не покупают.</p>
+              <b>Не нравится в кадре</b>
+              <p>Только руки и доска, нет личности.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="ig4">
+          <h3>4. Без имени</h3>
+          <p class="meta">Зацепило: рецепты (печенья, хлебцы с шоколадным пудингом), похожие интересы, как разговаривает.</p>
+          <div class="cols">
+            <div>
+              <p>Смотрит за результат в теле и лайфстайл. Себе: «жирный и порой ленивый», интересуется залом и красивым телом. Первым идёт внешний вид, потом система.</p>
+            </div>
+            <div>
+              <b>Шапка</b>
+              <p>«Кошечки-писечки» заходят.</p>
+              <b>Что бесит</b>
+              <p>Слова-паразиты, манерность, высокомерие. От такого отписывается.</p>
+              <b>С чего начала писать</b>
+              <p>План питания через кодовое слово: написала.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="ig5">
+          <h3>5. Ульяна. Это не та Ульяна из 13 разговоров</h3>
+          <p class="meta">Подписалась после рилса с простым рецептом. Эффектная и ухоженная усилило доверие. С первого взгляда: блогер и спортсменка.</p>
+          <div class="cols">
+            <div>
+              <p>Сначала смотрит за ощущение: тёплый, красивый человек. Рецепты на втором плане. Рекомендовала бы Ксюшу тому, кто голодает или не может взять себя в руки. Себе: здоровье и уход без вреда. Цепочка: система → дисциплина → спокойствие → тело.</p>
+            </div>
+            <div>
+              <b>Не пишет, если</b>
+              <p>Подача «по-гопнически», грубо. Мат может быть уместен, если подан интеллигентно.</p>
+              <b>Пролистывает</b>
+              <p>Тяжёлый люкс, дорогие машины.</p>
+              <b>Шапка</b>
+              <p>Не смотрит.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card cd" id="ig6">
+          <h3>6. Алёна. Это не та Алёна из 13 разговоров</h3>
+          <p class="meta">Зацепило: рецепт хлеба. Считывается как фитнес-тренер про питание.</p>
+          <div class="cols">
+            <div>
+              <p>Смотрит за рецепты. «Человек, который пытается следить за ПП». Хочет поменять привычки и новые вкусы. Внешний вид плюс здоровье плюс спокойствие в голове: тело без спокойствия не получается.</p>
+            </div>
+            <div>
+              <b>Что бесит</b>
+              <p>Жёсткое категоричное мнение и негатив.</p>
+              <b>Шапка</b>
+              <p>Не смотрит. Не сохраняет, просто заходит и выбирает.</p>
+            </div>
+          </div>
+        </article>
+
+        <h3 class="chapter">Что из этого брать в тексты</h3>
+        <ul>
+          <li>Подписка часто с рецепта и картинки. Это ещё не покупательница интенсива.</li>
+          <li>Дистанция: «она спортивная, я в зале не была» (Светлана). То же возражение, что у тех, кто смотрит и не пишет.</li>
+          <li>Не писать: гарантия за неделю, бесплатный гайд и сразу продажа, эзотерика, грубая подача, ингредиенты из другого магазина, высокомерие.</li>
+          <li>Берёт: просто, по делу, личность в кадре, мама с телом, «не с понедельника».</li>
+        </ul>
+      </section>
+
+      <section class="panel p4">
+        <h2>Марафон и личная работа</h2>
+        <p class="lead">Весной продавали марафон на 14 дней и личную работу на 3 месяца. В августе в работе интенсив на 4 недели. Это разные продукты. Цены не смешивать.</p>
+
+        <h3 class="chapter">Как продавали весной</h3>
+        <div class="flow">
+          <span class="box">Бесплатный гайд</span><span class="arr">→</span>
+          <span class="box">Марафон 14 дней</span><span class="arr">→</span>
+          <span class="box">Личная работа 3 мес.</span>
+        </div>
+        <p class="hint">Цена марафона: 4 500–5 000 ₽, мест до 30. Личная работа 30 000–50 000 ₽ за 3 месяца, мест 5–10. «60% перейдут в личную работу» это прогноз, не факт продаж.</p>
+
+        <h3 class="chapter">Три цены. Не мешать</h3>
+        <table>
+          <thead><tr><th>Откуда</th><th>Что написано</th></tr></thead>
+          <tbody>
+            <tr><td>Весна, основной текст</td><td>4 500–5 000 ₽, до 30 мест</td></tr>
+            <tr><td>Весна, другой текст</td><td>3 500 ₽ / 60 мест vs 4 500–5 000 / 30</td></tr>
+            <tr><td>Август, интенсив</td><td>2 490 / 4 490 / 9 990 за 4 недели. Другой продукт</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">Не усреднять. Не ставить 3 500 рядом с 4 490 как одну цену.</p>
+
+        <h3 class="chapter">Бесплатные материалы весны</h3>
+        <p>Закрытый Telegram через бота. Видео 10–15 минут плюс PDF: «Почему ты не худеешь, даже если стараешься». Или голосовое 20–25 минут.</p>
+        <p>Ещё гайды под рилс, открываются кодовым словом:</p>
+        <ul>
+          <li>PDF «4 типа голода» — готов</li>
+          <li>PDF «Срывы: почему случаются и что делать» — готов</li>
+          <li>PDF «Митохондрии и энергия» — готов</li>
+          <li>PDF «Сладости без сахара» — собрать из рилсов</li>
+          <li>PDF тренировка «против отёков» — под рилсы про отёки</li>
+        </ul>
+        <p class="hint">Сценария бота нет. Исследования марафона нет.</p>
+
+        <h3 class="chapter">Марафон 14 дней</h3>
+        <p class="hint">Это май, не интенсив августа. Тарелки возможность, не обязанность. Всё в одном Telegram. Эфиры в записи для смен.</p>
+        <table>
+          <thead><tr><th>День</th><th>Тема</th></tr></thead>
+          <tbody>
+            <tr><td>До старта</td><td>Анкета, приветственное видео 10 мин, инструкция</td></tr>
+            <tr><td>1</td><td>Знакомство и диагностика. Срыв это информация, не конец</td></tr>
+            <tr><td>2</td><td>Стартовые цифры: вес, объёмы, фото для себя</td></tr>
+            <tr><td>3</td><td>Механика питания. Почему «есть меньше» не работает. Первый рацион с объяснением блюд</td></tr>
+            <tr><td>4</td><td>Разнообразие: 5 завтраков, 4 обеда, 3 ужина, принцип замен</td></tr>
+            <tr><td>5</td><td>Ужин и вечерний жор. Три действия, если уже тянет</td></tr>
+            <tr><td>6</td><td>Стресс, ПМС, цикл, шашлыки</td></tr>
+            <tr><td>7</td><td>Итоги недели, разбор тарелок желающих, эфир или запись</td></tr>
+            <tr><td>8</td><td>Движение без зала 10–15 мин. Первый разговор про личную работу</td></tr>
+            <tr><td>9</td><td>Срыв: план на ближайший час, без самонаказания</td></tr>
+            <tr><td>10</td><td>Кафе, рестораны, гости. История Инны</td></tr>
+            <tr><td>11</td><td>Вода, сон, стресс, кортизол. Три привычки</td></tr>
+            <tr><td>12</td><td>Как сделать надолго, 80/20. Открывают личную работу: 8 мест, диагностика</td></tr>
+            <tr><td>13</td><td>Финальный разбор 5–7 тарелок. Ещё раз про личную работу</td></tr>
+            <tr><td>14</td><td>Закрытие, отзывы, следующий шаг</td></tr>
+          </tbody>
+        </table>
+        <p>Каждый день в чате: короткое утреннее сообщение Ксюши, пост или голосовое по теме, ответы лично. Бесплатные видео внутри: почему срываешься не от слабости; как есть вкусняшки; что если есть мало; разбор одного дня; контейнер, который не надоест.</p>
+        <p><b>Что нельзя выкинуть:</b> почему так; разнообразие; ежедневный короткий ответ; тарелки не обязанность; что делать после срыва; еда под цикл и стресс; всё в одном месте; маленькая тёплая группа.</p>
+        <p><b>Чего не делать:</b> обязательные фото тарелок; много чатов; однообразное меню; запреты без почему; жёсткий тон; обязательные эфиры; материалы в разных местах.</p>
+
+        <h3 class="chapter">Личная работа на 3 месяца</h3>
+        <ul>
+          <li>Нутрициология плюс фитнес индивидуально, 3 месяца</li>
+          <li>30 000–50 000 ₽ / 3 мес. После отзывов повышать</li>
+          <li>Максимум 5–10 мест</li>
+          <li>Продажа через бесплатный созвон 15–20 минут</li>
+          <li>Закрытый чат на двоих, рацион под жизнь, созвон 20–30 мин в неделю, текст без ограничений, разбор ситуаций, из-за которых срывается, бонус: программа по опроснику</li>
+        </ul>
+
+        <h3 class="chapter">Весенний путь и что делаем сейчас</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Как шли весной</h3>
+            <p>Инстаграм → открытый Telegram или бот → закрытый канал → 14 дней в канале → марафон → с 8 дня личная работа.</p>
+            <p>Цели того запуска: 30 продаж марафона, 15+ заявок на созвон, 10 личных работ. В закрытом канале в конце мая было 60–80 человек. Это уже прошло.</p>
+          </article>
+          <article class="card">
+            <h3>Сейчас, 25–31 августа</h3>
+            <p>Бесплатные 5 дней уже были. В боте около 650. Подводить к покупке, по её словам, только начинают. Продают интенсив. Ссылки на оплату нет. Основной тариф, пока не подтвердили: Стандарт 4 490.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel p6">
+        <h2>Как грели и что дарили</h2>
+        <p class="lead">Смыслы, подарки, посты и как подводили к марафону весной. Смыслы можно брать в август. Цены, сроки и обещания кг отсюда в сторис 25–31 не ставить.</p>
+        <nav class="toc">
+          <a href="#w-mean">Смыслы</a>
+          <a href="#w-gift">Что дарили</a>
+          <a href="#w-path">Как был устроен путь</a>
+          <a href="#w-14">14 дней в закрытом</a>
+          <a href="#w-7">7 дней к марафону</a>
+          <a href="#w-priv">К личной работе</a>
+          <a href="#w-open">Открытый канал 4–15 мая</a>
+          <a href="#w-fact">Что реально вышло</a>
+          <a href="#w-18">План 18–22 мая</a>
+          <a href="#w-real">Реалити</a>
+          <a href="#w-reels">Рилсы и шапка</a>
+          <a href="#w-guides">Четыре гайда</a>
+          <a href="#w-out">Выводы для августа</a>
+        </nav>
+
+        <h3 class="chapter" id="w-mean">Какими смыслами грели</h3>
+        <p>Фразы, которыми боли переводили в посты.</p>
+        <div class="grid2">
+          <article class="card">
+            <h3>Шесть фраз для постов</h3>
+            <ol>
+              <li>Знаю как, не делаю → «Проблема не в том, что ты не знаешь. Знать и делать это разные вещи».</li>
+              <li>Срыв по кругу → «Срыв это не провал характера. Это сигнал, что система не подходит под твою жизнь».</li>
+              <li>Однообразие → «Ты срываешься не потому что слабая. Ты срываешься потому что ела одно и то же 14 дней».</li>
+              <li>Нет зачем → «Когда понимаешь механику, перестаёшь бояться нарушить правило».</li>
+              <li>Некому проверить → «Ты не безвольная. Тебе нужен человек рядом».</li>
+              <li>Откат → «Мы не делаем диету на 2 недели. Мы строим привычку, которая останется».</li>
+            </ol>
+          </article>
+          <article class="card">
+            <h3>Четыре оси блога</h3>
+            <ol>
+              <li>Красивое тело без жизни в напряжении. Дисциплина плюс забота. Чтобы выдержать долго.</li>
+              <li>Система, не вспышка мотивации. Что делать, зачем, в каком порядке.</li>
+              <li>Каждый шаг с объяснением. Сама прошла путь.</li>
+              <li>Тело и энергия связаны. Питание, стресс, зажимы.</li>
+            </ol>
+          </article>
+        </div>
+        <div class="prose">
+          <p>Тело не цель, а отражение состояния. Не жёсткий тренер и не фея. «С собой можно по-хорошему». «Тело это диалог, не война». «Женственность и сила не спорят». «Результат из ресурса». «Цель не вес, а жизнь, в которой хорошо».</p>
+          <p>Для кого блог: 27–45, умные, устали тащить, хотят тело не ценой себя. Темы: форма без саморазрушения, еда и энергия, тревога, дисциплина без насилия, женственность и сила, ошибки рынка.</p>
+          <p class="hint">В анкете 199 человек жмут живот и похудеть. Шапка говорит «не про похудеть». Для сторис опираться на анкету. Смысл «состояние» оставлять рядом, не вместо живота.</p>
+        </div>
+        <h3 class="sec" style="margin-top:18px">Хуки для рилсов</h3>
+        <ul>
+          <li>«Как перестать жрать сладкое на ночь и не сойти с ума»</li>
+          <li>«Почему ты знаешь как, но всё равно срываешься»</li>
+          <li>«Я нутрициолог и вот что я реально ем за день»</li>
+          <li>«То, что тебе никогда не скажет диетолог»</li>
+          <li>«Как я поняла, что дело не в силе воли»</li>
+          <li>«С понедельника»: ирония про вечные перезапуски</li>
+        </ul>
+        <p>Рилсы только в четырёх форматах: ПП-рецепт с сильным хуком; личная история; проблемный хук про еду; юмор про питание. Зал и техника упражнений «не заходят». В файле как факт охватов: хлеб без муки около 500 тысяч, ПП-печенье около 200 тысяч.</p>
+
+        <h3 class="chapter" id="w-gift">Что дарили бесплатно</h3>
+        <p>Главный подарок входа: закрытый Telegram через бота. Видео 10–15 минут плюс PDF «Почему ты не худеешь, даже если стараешься». Или голосовое 20–25 минут. Текста этого видео нет.</p>
+        <p>Ещё гайды под рилс. Открываются кодовым словом:</p>
+        <table>
+          <thead><tr><th>Подарок</th><th>Готово</th><th>Кому</th></tr></thead>
+          <tbody>
+            <tr><td>PDF «4 типа голода»</td><td>Да</td><td>Кто пишет «ем и снова хочу»</td></tr>
+            <tr><td>PDF «Срывы: почему случаются и что делать»</td><td>Да. 12 мая уже выкладывали</td><td>Кто крутится в срыв → вина</td></tr>
+            <tr><td>PDF «Митохондрии и энергия»</td><td>Да. 17 мая ещё не вышел</td><td>Кто ложится и встаёт уставшей</td></tr>
+            <tr><td>PDF «Сладости без сахара»</td><td>Собрать из рилсов</td><td>Рецепты</td></tr>
+            <tr><td>Тренировка «против отёков»</td><td>Нет готового</td><td>Отёки: 84 из 199</td></tr>
+            <tr><td>Программа 7 дней / кодовое 1500</td><td>Это продажа, не подарок</td><td>В одном месте 990 ₽, в другом «пиши 1500»</td></tr>
+            <tr><td>Двум участницам реалити программу бесплатно</td><td>За это они в кадре</td><td>Живой процесс для остальных</td></tr>
+          </tbody>
+        </table>
+        <p>Ещё в закрытом по плану: голосовые поимённо, бесплатные созвоны с разбором, вебинары. Сценариев созвонов нет.</p>
+        <div class="warnbox">Антиоксидантный гайд это список добавок (Q10, альфа-липоевая, витамин C, NMN) плюс сноска «спроси врача». В описание интенсива и в обещание августа не тащить. Это экспертный пост, не продукт.</div>
+
+        <h3 class="chapter" id="w-path">Как был устроен путь</h3>
+        <div class="prose">
+          <p>Инстаграм это вход. Продажи вели через Telegram, не из ленты.</p>
+          <p>Рилс или сторис → шапка в открытый канал, или кодовое слово в бота, или в дни подвода сразу в закрытый канал.</p>
+          <p>Бот: 5 вопросов (имя, боль, пробовала худеть, откуда пришла) → одноразовая ссылка в закрытый, истекает через 2 часа. Сценария бота нет.</p>
+          <p>Открытый канал: в каждом посте отсылка в закрытый. Закрытый: 14 дней знакомства, потом продажа марафона. С 8-го дня марафона разговор про личную работу. На 10-й день открытие 8 мест.</p>
+        </div>
+        <p class="hint">В одном месте открытый канал «около 2 000». 24 мая в закрытом было 60–80, хотели 350–400 к анонсу. 2 000 это не отчёт.</p>
+        <h3 class="sec" style="margin-top:18px">Девять правил запуска</h3>
+        <ol>
+          <li>Продукт из потребности женщин, не из головы эксперта.</li>
+          <li>Без бонуса за ответ в сторис: видно, кто отвечает просто так.</li>
+          <li>Мало мест это качество группы, не игра.</li>
+          <li>Марафон строит доверие. В одном месте писали: около 60% уйдут в личную работу. В другом, 24 мая: 20–30%. Не ставить в план как факт.</li>
+          <li>Качество видео не главное. Главное польза и что она отвечает.</li>
+          <li>Возражения закрывать до продажи, в этих двух неделях.</li>
+          <li>Продажи не из ленты инстаграма.</li>
+          <li>Запустить и получить ответы лучше, чем бесконечно готовиться.</li>
+          <li>Клуб по подписке при маленькой аудитории не делать. Нужно 500k+ подписчиков.</li>
+        </ol>
+        <p>После двух недель мерить: охваты сторис 2 000+, лучше 2 500; сколько ответов на вопрос без подарка; сколько пришло в Telegram с гайда; какие рилсы зашли. После анонса: реакции и вопросы в директ. Цели: 30 марафонов, 15+ заявок на созвон, 10 личных работ. 24 мая уже другие цели: 60 мест по 3 500, выручка от 210 000. Сколько продали на самом деле, неизвестно.</p>
+
+        <h3 class="chapter" id="w-14">14 дней в закрытом канале</h3>
+        <p>Неделя 1: знакомство. Неделя 2: подвод к покупке. Тексты есть не на все дни.</p>
+        <table>
+          <thead><tr><th>День</th><th>Формат</th><th>Тема</th><th>Текст</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Пост + кружок</td><td>Привет. «Ты здесь, и это уже первый шаг»</td><td>Написан</td></tr>
+            <tr><td>2</td><td>Голосовое</td><td>Магия утра. Первый час, биохимия</td><td>Тезисы голосового есть</td></tr>
+            <tr><td>3</td><td>Пост</td><td>Нет энергии. 5 причин</td><td>Написан</td></tr>
+            <tr><td>4</td><td>Голосовое</td><td>Тревога. Практика «факт или сценарий?»</td><td>Тезисы есть</td></tr>
+            <tr><td>5</td><td>Пост</td><td>Утро решает всё. 3 сдвига без героизма</td><td>Нет. Смысл есть в плане открытого канала</td></tr>
+            <tr><td>6</td><td>Голосовое</td><td>4 кита: еда, сон, движение, мышление</td><td>Тезисы есть</td></tr>
+            <tr><td>7</td><td>Пост</td><td>Личная история Ксюши</td><td>Текста нет. Личное в рекламу не тащить без разрешения</td></tr>
+            <tr><td>8</td><td>Пост</td><td>Виды голода. Вопрос перед едой</td><td>Есть. Список из 4 другой, чем в PDF</td></tr>
+            <tr><td>9</td><td>Пост</td><td>Анонс марафона без цены</td><td>Текста нет</td></tr>
+            <tr><td>10</td><td>Пост</td><td>Сахар как зависимость, не слабость</td><td>Написан</td></tr>
+            <tr><td>11</td><td>Голосовое</td><td>Результаты реалити плюс Ангелина</td><td>Нет. Полного отзыва Ангелины нет</td></tr>
+            <tr><td>12</td><td>Пост</td><td>6 анализов каждой женщине</td><td>Написан</td></tr>
+            <tr><td>13</td><td>Вопросы в чате</td><td>Сессия ответов</td><td>Сценария нет</td></tr>
+            <tr><td>14</td><td>Пост</td><td>Открытие продаж. 30 мест, 3 дня</td><td>Текст в блоке «7 дней к марафону», день 7</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sec" style="margin-top:18px">Что в написанных постах, по смыслу</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>День 1. Привет</h3>
+            <p>Хук: ты уже сделала шаг, раз пришла. Здесь не будет «ты можешь» и одной диеты на всех. Будут голосовые, посты с «почему», PDF, в конце «кое-что особенное». Просьба: одно слово, с чем пришла.</p>
+            <p class="hint">17 мая разбор канала: фраза «нахождение ни к чему не обязывает» разрешила молчать. Комментариев не было.</p>
+          </article>
+          <article class="card">
+            <h3>День 3. Нет энергии</h3>
+            <p>Пять причин, все пять: завтрак кофе плюс сладкое; железо, D, B12; кортизол; минус 2% воды; плохой сон с телефоном. Вопрос: какой твой?</p>
+          </article>
+          <article class="card">
+            <h3>День 8. Виды голода</h3>
+            <p>В этом посте четыре: физический, эмоциональный, тревожный, от скуки. Вопрос: когда ела и что чувствую. Отсылка к PDF в закрепе.</p>
+          </article>
+          <article class="card">
+            <h3>День 10. Сахар</h3>
+            <p>Не слабовольная, биохимия. Резкий отказ не работает. Вместо запрета: снижать, заменять, сладкое после белка, другой источник удовольствия.</p>
+          </article>
+          <article class="card">
+            <h3>День 12. Шесть анализов</h3>
+            <p>Все шесть: общий анализ крови; ферритин; витамин D; ТТГ; B12; глюкоза и инсулин натощак. В тексте: комплекс 1 500–3 000 ₽. Это не обещание лечения. В сторис интенсива не ставить как «мы вылечим щитовидку».</p>
+          </article>
+          <article class="card">
+            <h3>Пять голосовых. Тезисы</h3>
+            <ol>
+              <li>Магия утра: 30 минут раньше, душ и крем, 5 минут тишины, дыхание квадратом.</li>
+              <li>Тревога: «факт или фантазия», 90% это сценарии, действие лучше кручения.</li>
+              <li>Макияж и женственность: 5 минут у зеркала для себя.</li>
+              <li>Энергия: еда, сон 7–8 часов, 20 минут ходьбы, не критиковать себя весь день.</li>
+              <li>Дети и ноль ресурса: признать усталость, не геройствовать, 15 минут себе.</li>
+            </ol>
+          </article>
+        </div>
+        <div class="warnbox">В PDF «4 типа голода» другие четыре: физиологический, привычный, компенсаторный, вытесненных чувств. В посте закрытого канала: физический, эмоциональный, тревожный, от скуки. Не склеивать в один список. Для интенсива брать PDF, не пост.</div>
+
+        <h3 class="chapter" id="w-7">Семь дней к марафону</h3>
+        <p>За 7 дней до открытия продаж. В плане дни 1, 3, 5, 7. Дней 2, 4, 6 нет.</p>
+        <div class="grid2">
+          <article class="card">
+            <h3>День 1. Итоги реалити</h3>
+            <p>Хук: они начали, ты наблюдала. Две участницы: было / стало / цитата. «Не грудка с огурцом». Реальные цифры в текст не вставлены. Полного отзыва Ангелины нет.</p>
+          </article>
+          <article class="card">
+            <h3>День 3. Пять ошибок в тарелках</h3>
+            <p>Все пять: нет белка в первом приёме; окна 6–7 часов; ужин только салат или кефир; мало воды, жажда как голод; одно и то же две недели. Вопрос: какой из пяти твой?</p>
+          </article>
+          <article class="card">
+            <h3>День 5. Чем этот марафон другой</h3>
+            <p>Пять отличий: не одно меню на всех; говорю почему; нет штрафа за срыв; до 30 человек, по имени; финал это «уже умеешь», не «выдержала и назад».</p>
+          </article>
+          <article class="card">
+            <h3>День 7. Открытие</h3>
+            <p>30 мест. В этом тексте: 10 дней в чате, рацион под режим, она отвечает лично, разборы кафе и срыва, голосовые с «почему», финальный эфир. Цена в этом тексте: 4 500 ₽. Название в скобках не вставлено.</p>
+          </article>
+        </div>
+        <p class="hint">15 мая в открытом канале тот же анонс на 60 мест. 24 мая цена 3 500 и 60 мест. Три цифры. Не усреднять.</p>
+
+        <h3 class="chapter" id="w-priv">Четыре поста к личной работе. Внутри марафона</h3>
+        <p>С 8-го дня марафона.</p>
+        <ol>
+          <li>День 8. «Ты уже 8 дней другая». Через месяц еда не поле боя. Через два тело меняется. Через три не помнишь «с понедельника».</li>
+          <li>День 10. История Инны. Пришла на −7–8 кг. Месяц: −4 кг при ~2500 ккал, меньше усталости. Два месяца: давление, врач отменил таблетки. Три месяца: −10 кг, «убрала аллергию через микробиоту». Цитата: «Я пришла похудеть. А получила обратно своё тело». Без согласия и без формулировок лечения в рекламу не тащить.</li>
+          <li>Плюс 3 дня. Открытие. 8 мест. Созвон 20 минут, слово «диагностика». В этом тексте 50 000 ₽ / 3 месяца. Рядом вилка 30–50 тысяч. Не склеивать в одну цифру.</li>
+          <li>Плюс 4 дня. Осталось X мест. «Если думала всю неделю, что-то уже сказало да». Сомнение: напиши что останавливает.</li>
+        </ol>
+
+        <h3 class="chapter" id="w-open">Открытый канал, 4–15 мая</h3>
+        <p>Правило: каждый пост сам по себе полезен. В конце отсылка в закрытый. Закрытый бесплатный. Марафон отдельным шагом. Два действия в одной кнопке не мешать. Она лично сидит в закрытом. Это и есть ценность входа.</p>
+        <table>
+          <thead><tr><th>#</th><th>Когда</th><th>О чём</th><th>Куда зовут</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>4–5 мая, пост</td><td>Ложишься уставшей. Три причины: завтрак, дефициты, кортизол. Что из трёх твоё?</td><td>PDF про митохондрии в закрытом. Бот в шапке</td></tr>
+            <tr><td>2</td><td>6 мая, пост</td><td>Утро. Кортизол высокий. Три сдвига: 15 минут раньше, один ритуал телу, 5 минут без телефона</td><td>Голосовое 7 минут про первый час</td></tr>
+            <tr><td>3</td><td>8 мая, голосовое 3–4 мин</td><td>90% тревог это сценарии. Практика «факт или фантазия?»</td><td>Большое голосовое про тревогу в закрытом</td></tr>
+            <tr><td>4</td><td>9–10 мая, пост</td><td>Бросаешь тренировки не от лени. Старт с перегруза. Вместо: 2 раза в неделю, формат который хоть чуть нравится, две недели только приходить</td><td>Разбор трёх ошибок старта в закрытом</td></tr>
+            <tr><td>5</td><td>11–12 мая, пост</td><td>Поела и снова хочешь. Физический vs эмоциональный. Вопрос перед едой</td><td>4 вида голода и PDF про срывы</td></tr>
+            <tr><td>6</td><td>13–14 мая, пост</td><td>Сахар: нейрохимия, не характер. Снижать, заменять, после белка</td><td>Замены и «тяга это сигнал» в закрытом</td></tr>
+            <tr><td>7</td><td>15 мая, анонс</td><td>Марафон не рис с гречкой. 10 дней рядом, план под режим, она отвечает, маленькая группа</td><td>Кто уже в закрытом: запись там. Кто нет: бот. Мест в этом посте 60</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="chapter" id="w-fact">Что реально вышло к 17 мая</h3>
+        <p>Цифры реакций на 17 мая. Не план.</p>
+        <table>
+          <thead><tr><th>Дата</th><th>Что вышло</th><th>Реакций</th><th>Комментарии</th></tr></thead>
+          <tbody>
+            <tr><td>12 мая</td><td>Знакомство</td><td>9</td><td>0</td></tr>
+            <tr><td>12 мая</td><td>PDF Срывы</td><td>10</td><td>0</td></tr>
+            <tr><td>15 мая</td><td>Пост «Утро»</td><td>7</td><td>0</td></tr>
+            <tr><td>15 мая</td><td>«Как вам голосовое?»</td><td>2</td><td>0</td></tr>
+            <tr><td>16 мая</td><td>Пост про усталость</td><td>3</td><td>0</td></tr>
+            <tr><td>16 мая</td><td>Голосовое 26 мин, 5 причин нет энергии</td><td>2</td><td>0</td></tr>
+          </tbody>
+        </table>
+        <p>Канал читали как энциклопедию. Взяли PDF, ушли. Вопросы в постах были. Ответов не было. Реакции падали. Худший пост: просьба оценить голосовое. PDF дал максимум реакций.</p>
+        <p>Почему так:</p>
+        <ol>
+          <li>Порог ответа высокий. Нужно несколько предложений. Надо одно слово или кнопки опроса.</li>
+          <li>Пустой зал. Никто не пишет первым. Договориться с 1–2, чтобы написали «узнала себя».</li>
+          <li>Просьба «дай обратную связь» это помощь Ксюше, не польза женщине. Такие посты убрать.</li>
+          <li>В привете разрешили молчать.</li>
+        </ol>
+        <h3 class="sec" style="margin-top:18px">Как оживить. Семь штук</h3>
+        <ol>
+          <li>Каждый пост кончается заданием и отчётом в комментарии. Она отвечает первым 5–10.</li>
+          <li>Один пост «куда мы идём»: следующие 10 дней собираем энергию по кускам, 22-го покажу систему.</li>
+          <li>«Дневник одной из вас»: чужая ситуация без имени, разбор. Зеркало.</li>
+          <li>Опрос, потом отдельное голосовое тем, кто выбрал конкретный вариант.</li>
+          <li>В каждый пост 1–2 предложения: знать теорию мало, в своей ситуации это другое. Без продажи.</li>
+          <li>Раз в 2–3 дня: «вы написали вот что, отвечаю».</li>
+          <li>Реакциям дать смысл: 🔥 это про меня, ❤️ пробовала и не вышло.</li>
+        </ol>
+        <p>На 17 мая ещё не вышел PDF митохондрии. В плане: выложить в тот же день без лишних слов.</p>
+
+        <h3 class="chapter" id="w-18">План 18–22 мая. Весь</h3>
+        <p>Канал назывался «Тело к лету с Ксенией». Марафон в эти дни не анонсировать, только фон. Каждый пост с механикой. Новым одно предложение, с чего войти. Она отвечает хотя бы первым 5–10.</p>
+        <table>
+          <thead><tr><th>Дата</th><th>Закрытый</th><th>Открытый</th></tr></thead>
+          <tbody>
+            <tr><td>18 мая</td><td>PDF митохондрии + опрос про энергию в течение дня</td><td>Пост: в закрытом другие правила. Не «прочитал и дальше». Сделал → написал. Кто хочет просто посидеть, честно не надо</td></tr>
+            <tr><td>19 мая</td><td>Практика тревоги. Задание: одна буква Ф или С. Плюс привет новым: закреп, гайды, сердце если рада</td><td>Нет</td></tr>
+            <tr><td>20 мая</td><td>Три ошибки старта тренировок. Опрос «где ты с движением» + одно слово какое движение нравится</td><td>Нет</td></tr>
+            <tr><td>21 мая</td><td>Голосовое про 5 минут для себя. Фото макияжа или крема. Она первая</td><td>Пост: сегодня хвастаются макияжем. Ссылка в шапке</td></tr>
+            <tr><td>22 мая</td><td>4 вида голода + опрос. Кто выбрал эмоциональный или тревожный: обещание отдельного голосового</td><td>Нет</td></tr>
+          </tbody>
+        </table>
+        <p>Отдельная задача на 17 мая до контента: написать 1–2 своим и попросить комментарий, чтобы зал ожил.</p>
+        <p class="hint">Плана на 23–26 мая нет.</p>
+
+        <h3 class="chapter" id="w-real">Реалити: что дарили и как снимали</h3>
+        <div class="prose">
+          <p>Двух подписчиц берут бесплатно на программу питания. Остальные смотрят в сторис. Это двигатель роста, не «ещё один контент».</p>
+          <p>Как набирали, по порядку:</p>
+        </div>
+        <ol>
+          <li>Скрин чужих комментариев «почему программа платная».</li>
+          <li>Она рассказывает, сколько труда в системе.</li>
+          <li>Разбивка цены: рацион 2 000 + КБЖУ 1 500 + объяснения 2 500 = 6 000.</li>
+          <li>Для вас 990 ₽.</li>
+          <li>Кто готов под её наблюдением: форма.</li>
+          <li>Эксперимент: из анкет выберу двух, им программу бесплатно. 7 дней, отчёты раз в три дня. Форма открыта 1 час. Кто не готов быть в сторис, не заполнять.</li>
+          <li>Пауза час. Показ двух имён. Созвон, программа.</li>
+        </ol>
+        <p>Созвон дня 0. Правила: срывы не предусмотрены; закупать вовремя; готовить заранее, контейнеры; есть каждые 4 часа; фото еды каждый день в чат на троих. Созвон записать.</p>
+        <p>Дни в сценарии:</p>
+        <ul>
+          <li>День 1. Старт. Точка А каждой: вес, обхваты, отёки, сладкое, энергия, зачем идёт. Опрос: что скинут.</li>
+          <li>День 4. Страх диеты. Фото еды, цитаты «не голодаю». Почему 1500 ккал работает.</li>
+          <li>День 7. Первые изменения по каждой. Вовлечение.</li>
+          <li>День 10. Сложности. Перфекционизм. Вопросы зрителей формой.</li>
+          <li>День 14. Финал: цифры, отзыв, впечатление Ксюши, пауза, ссылка в бота.</li>
+        </ul>
+        <p>В рилсе по реалити стоят цифры без полного пакета отзывов: Ангелина −4,5 кг за 6 дней; вторая участница тоже Ксюша, −2 потом ещё. Без тренировок. Призыв: пиши 1500. Это сценарий, не отчёт. Гарантию кг из него не брать. Финальный отзыв Ангелины нужно запросить. Сейчас его нет.</p>
+        <p>Конфликт правил: в реалити «срывы не предусмотрены». В марафоне и в интенсиве срыв это информация, не конец. Для августа побеждает марафон и интенсив, не правило реалити.</p>
+
+        <h3 class="sec" style="margin-top:18px">Стратегия 24 мая. Три фазы</h3>
+        <p>Цели на 24 мая: 60 мест, 3 500 ₽, в закрытом к анонсу 350–400 человек, конверсия 15–18%. В канале тогда 60–80, вырасти в 5–6 раз.</p>
+        <ol>
+          <li>25 мая – 7 июня. Реалити плюс рост. Каждый живой момент = сторис или пост с приглашением смотреть в закрытом. Не «хочешь так же», а «наблюдай процесс». С дня 1 зерно: после реалити будет кое-что, что сможете сами. 7 июня: реалити кончилось, теперь ваша очередь.</li>
+          <li>8–14 июня. Без интриги. 8-е: итоги. 9–10: что будет, места, ссылка. 11: отзывы участниц, они первые покупают. 12: «нет времени». 13: «уже пробовала». 14: осталось X мест. Старт 15 июня.</li>
+          <li>Марафон 14 дней. Даты здесь: 21 июня – 4 июля. Блоки: старт 1–2 аудит; еда 3–5; энергия 6–8; состояние 9–11; система 12–14. В конце личная работа тем, кто работал. Здесь уже 20–30%, не 60%.</li>
+        </ol>
+        <p>Неделя 1 реалити по дням: 25-е рилс антиоксиданты (готов, кодовое слово) + день 1 реалити и созвон 15 мин с каждой; 26-е сторитеил про сына; 27-е выходной, сторис со скрином реалити; 28-е рилс и экспертный пост; 29-е промежуточные результаты; 30-е рилс; 31-е голосовое почему 1500 работает. Неделя 2 не прописана.</p>
+        <p>Ещё не сделано: план недели 2 реалити; программа марафона; пост-анонс; оплата и бот; договориться с участницами на отзыв.</p>
+
+        <h3 class="chapter" id="w-reels">Рилсы, шапка, сторис</h3>
+        <h3 class="sec">Сторис каждый день</h3>
+        <ul>
+          <li>2–3 личных: жизнь, Адлер, еда, сын.</li>
+          <li>1 вовлекающая.</li>
+          <li>1–2 экспертных.</li>
+          <li>В дни подвода: в бота или в закрытый канал.</li>
+        </ul>
+        <p>Из чего строили доверие: сын Вова, реалити, готовка, кошка, обычные дни. Развод, родители, сушка в том же списке. В рекламу куски из личной истории не тащить, пока она не разрешит конкретный.</p>
+        <p>8 марта: три кадра. Поздравление, день с сыном, реакция сердечко. Другого нет.</p>
+        <p>Дальше по линейке продуктов: выбрать одну программу из набора (рекомпозиция, стройность, похудение, сушка), оформить, сценарий бота под шаблон. Это не календарь.</p>
+
+        <h3 class="sec" style="margin-top:18px">Два готовых сценария рилса</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Реалити → кодовое 1500</h3>
+            <p>Хук: можно ли −4,5 кг за 6 дней без тренировок. Условия: 14 дней, только еда, 4 приёма, без зала. Фотоотчёты, созвоны, десерты. Цифры участниц. «Представь на 1–3 месяца. Пиши 1500».</p>
+            <p class="hint">Килограммы из сценария не подтверждены пакетом отзывов. В август как обещание не брать.</p>
+          </article>
+          <article class="card">
+            <h3>Рацион на N дней из одних продуктов</h3>
+            <p>Холодильник пустой по готовности, щелчок, контейнеры. Завтрак, обед, ужин из одного списка, блюда разные. Призыв: в закрытом канале версия шире, с десертами.</p>
+            <p>Это бьёт в боль Алёны: в контейнере одно и то же.</p>
+          </article>
+        </div>
+
+        <h3 class="sec" style="margin-top:18px">Что считывалось с профиля. Что мешало писать</h3>
+        <p>Считывалось: яркая внешность, смелые фото, вкусная еда без жёстких диет, дорогой визуал, жёсткие формулировки, мастер спорта, есть результаты клиентов.</p>
+        <p>Терялось: польза неясна, ты про всё; хайлайты старше 5 лет; шапка «либо результат, либо жалуйся на жир» без метода; новичок видит тело мечты и не видит путь; эротика смущает и не пишет.</p>
+        <p>Четыре варианта шапки:</p>
+        <ol>
+          <li>Фитнес-тренер, нутрициолог, Сочи. Если устала начинать заново: тело без диет и бесконечных попыток. Мастер спорта.</li>
+          <li>Без «с понедельника» и крайностей. Тело и дисциплина жёстко, но честно.</li>
+          <li>Тело хочет быть красивым. Пойдём вкусно есть и правильно тренироваться, без отмазок.</li>
+          <li>Без отмазок, тело должно быть красивым. Вкусно питаться и с кайфом тренироваться.</li>
+        </ol>
+        <p>Хайлайты: кейсы, моя еда, еда на 5 дней для дома, здоровье, самбо и бикини как история, форма, новичкам, дисциплина.</p>
+        <p>Закреп-карусель: боль сушки и отката → нутелла на второй день → спорт выдрессировал, тебе хочу с кайфом → рецепты и тренировки → Telegram и бесплатный гайд. Тон карусели жёстче, чем «спокойная сила» из позиционирования. Для августа не брать оскорбления тела из этого закрепa.</p>
+
+        <h3 class="chapter" id="w-guides">Четыре гайда, которые дарили</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>4 типа голода</h3>
+            <p>Физиологический: урчит, слабость, любая еда, можно подождать. Привычный: фильм, вечер, холод, мозг связал «плохо → еда». Компенсаторный: не хватает отдыха и радости. Вытесненных чувств: злость и страх не прожиты, человек ест.</p>
+            <p>Тот же список, что в интенсиве.</p>
+          </article>
+          <article class="card">
+            <h3>Срывы</h3>
+            <p>Причин две. Питание: мало калорий или дыра в БЖУ. Ошибки: просто перестала есть; убрала углеводы; веганский эксперимент без белка; «ем меньше» на глаз. Дальше эйфория → вода и мышцы → стоп → срыв. Вторая причина: психика. Три вопроса: ела ли 3 часа назад; съела бы гречку с курицей; что чувствую.</p>
+            <p>Тоже в интенсиве.</p>
+          </article>
+          <article class="card">
+            <h3>Митохондрии</h3>
+            <p>Четыре вида энергии: тело, голова, эмоции, смысл. Дальше физическая: еда, дефициты B D магний железо, заболевания которые маскируются под усталость. Митохондрии как станции АТФ. Симптомы «сломались». Что убивает, что восстанавливает.</p>
+            <p>Для входа к тем, кто «нет сил». Не описание тарифа 4 490.</p>
+          </article>
+          <article class="card">
+            <h3>Антиоксиданты</h3>
+            <p>Пост про добавки и anti-age. Связка с митохондриями. В интенсиве этого нет. В рекламу продукта не класть.</p>
+          </article>
+        </div>
+        <p>PDF рационов 1450 и 1500 ккал лежат отдельно. Это не сетки интенсива 1400 / 1550 / 1650 / 1750. Не подставлять одну в другую.</p>
+
+        <h3 class="chapter" id="w-out">Выводы. Что брать в август</h3>
+        <div class="prose">
+          <p>Смыслы шести болей, четыре оси профиля, хуки про «знаю и срываюсь», сахар без вины, тарелки с белком, марафон как «другой формат»: это рабочая речь. Её уже писали её голосом.</p>
+          <p>Подарки, которые реально лежат: голод, срывы, митохондрии. Сладости без сахара и тренировка от отёков в файлах не собраны.</p>
+          <p>Механика, которая в мае сломалась: польза без петли. Человек прочитал и ушёл. Если греть бот с ~650, каждый кусок должен кончаться одним действием на 2 секунды, не эссе. Просьбу «как вам голосовое» не повторять.</p>
+          <p>Реалити как живой процесс снаружи работает как идея. Цифры кг из сценария и правило «срывов нет» в август не тащить.</p>
+          <p>Цены и места весны не смешивать с 2 490 / 4 490 / 9 990. 10 дней в одном анонсе и 14 дней в другом: в текстах так и спорят.</p>
+          <p>Два списка из четырёх голодов не сливать. Для продукта: PDF. Для короткого поста можно второй список, но подписать, что это упрощение.</p>
+        </div>
+        <div class="stopbox">Ещё нет: сколько продали в мае; тексты отзывов после пяти дней; ссылка на оплату интенсива; сценарий бота; исследование марафона; план 23–26 мая; неделя 2 реалити; полный отзыв Ангелины; согласие Инны и Вики.</div>
+      </section>
+
+      <section class="panel p5">
+        <h2>Кто она как эксперт</h2>
+        <p class="lead">Что можно говорить в текстах. Что в рекламу не тащить. Где цифры спорят. Что ещё нужно узнать.</p>
+
+        <h3 class="chapter">Кто такая Ксения</h3>
+        <div class="prose">
+          <p>Инстаграм <b>@ksenia__ak</b>. Нутрициолог, фитнес, мастер спорта. В документах два имени: Казанкова и Аверичева. Какое писать в шапку, она ещё не сказала.</p>
+          <p>Себя ставит как нутрициолога. Тренировки внутри, если нужны. Личную работу ставили на 30–65 тыс. Главная боль у женщин в еде, не в зале. Голос: спокойная сила, не ор с зала и не фея из рилсов.</p>
+          <p>Формулировка апреля: «Нутрициолог с мастером спорта — помогу питаться вкусно, убрать лишнее и выглядеть так, как хочется, без жёстких диет и чувства вины».</p>
+          <p>В шапке блога написано: тело не цель, а отражение состояния. В анкете 199 человек жмут «похудеть» и «живот». Документы спорят. Для продаж опираться на анкету.</p>
+        </div>
+
+        <h3 class="chapter">Чьи результаты можно показывать</h3>
+        <table>
+          <thead><tr><th>Имя</th><th>Что написано</th><th>Как пользоваться</th></tr></thead>
+          <tbody>
+            <tr><td>Вика</td><td>83 → 59 кг</td><td>Можно, если есть согласие</td></tr>
+            <tr><td>Инна</td><td>−4 кг за месяц при ~2500 ккал, меньше усталости; за 2 мес. давление и отмена таблеток; за 3 мес. −10 кг и «убрала аллергию через микробиоту». Цитата: «Я пришла похудеть. А получила обратно своё тело»</td><td>Мед. рамка. Без согласия и без формулировок лечения в рекламу не тащить</td></tr>
+            <tr><td>Ангелина</td><td>Весеннее реалити, Новосибирск. Финальный отзыв нужно запросить</td><td>Полного отзыва нет</td></tr>
+            <tr><td>Ирина Корякина</td><td>Клиент, Дом-2, как авторитет</td><td>Отдельное решение, не по умолчанию</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">Рилс-рецепты: отдельные ролики на сотни тысяч просмотров. Доход из личной истории в рекламу не ставить без отдельного решения.</p>
+
+        <h3 class="chapter">Как она хочет звучать</h3>
+        <p>Спокойная уверенность, честность, уязвимость без жалобы. Разговорный. Детали сцены. Биохимия простыми словами. Женственная сила. Дисциплина без насилия. Не ор с зала.</p>
+        <p>Из шести подписчиц ещё: без гарантии за неделю, без продажи сразу после первого сообщения, без эзотерики, личность в кадре, простые продукты.</p>
+
+        <h3 class="chapter">Что из личной жизни в рекламу не берём</h3>
+        <div class="stopbox">В личной истории есть: насилие, развод, здоровье ребёнка, конфликты, деньги. В сторис и лендинг не тащить, пока она сама не разрешит конкретный кусок.</div>
+
+        <h3 class="chapter">Кто рядом на рынке</h3>
+        <p>Рядом: evdokimova.maru, irinalesnichok.pr, theolefirenko. Общий рисунок: рилсы, потом Telegram, челлендж как начало, мало личности. Можно взять: простой рилс, один тезис в шапке. Нельзя брать чужие цифры и чужие результаты как будто это Ксения.</p>
+
+        <h3 class="chapter">Рационы 1450 и 1500</h3>
+        <p>Лежат отдельно. Это не сетки интенсива 1400 / 1550 / 1650 / 1750. Не подставлять одну в другую.</p>
+
+        <h3 class="chapter">Что ещё нужно узнать</h3>
+        <ul>
+          <li>Исследование под марафон: пусто.</li>
+          <li>Сценарий бота «Похудение»: пусто.</li>
+          <li>Короткое обещание марафона обрывается на полуслове.</li>
+          <li>Какое имя в работе: Казанкова или Аверичева.</li>
+          <li>Подтверждение, что «Минус лишнее» продаём 25–31.</li>
+          <li>Ссылка на оплату.</li>
+          <li>Тексты отзывов после пяти дней. Есть только факт, что отзывы собрали.</li>
+          <li>Сколько реально продали в мае. 30 марафонов и 10 личных работ это цель, не отчёт.</li>
+          <li>Согласие Инны и Вики на рекламу.</li>
+        </ul>
+
+        <h3 class="chapter">Где цифры спорят</h3>
+        <table>
+          <thead><tr><th>Тема</th><th>Где спорят</th><th>Как делать сейчас</th></tr></thead>
+          <tbody>
+            <tr><td>Возраст</td><td>В шапке блога 27–45. В анкете большинство 35–40 и 40+</td><td>Для продаж опираться на 199</td></tr>
+            <tr><td>Про похудеть</td><td>В шапке: не про похудеть. В анкете жмут кг и живот</td><td>Говорить живот, привычка, энергия. Килограммы не обещать</td></tr>
+            <tr><td>Цены на вход</td><td>3 500 / 4 500 / 2 490</td><td>Не мешать. Август только 2 490 / 4 490 / 9 990, пока не подтвердили</td></tr>
+            <tr><td>Сколько уйдут в личную работу</td><td>В одном месте 60%, в другом 20–30%</td><td>Не ставить в план как факт</td></tr>
+            <tr><td>1400 ккал</td><td>Сетка интенсива vs Карина уже сидит на 1300–1400 и истощена</td><td>Не ставить 1400 нормой для всех</td></tr>
+            <tr><td>Места и дни марафона</td><td>10 дней / 14 дней. 30 мест / 60 мест</td><td>В текстах весны так и спорят. Август это 4 недели, не этот счёт</td></tr>
+            <tr><td>Четыре вида голода</td><td>PDF: физиологический, привычный, компенсаторный, вытесненных чувств. Пост мая: физический, эмоциональный, тревожный, от скуки</td><td>Для продукта брать PDF. Списки не сливать</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel p8">
+        <h2>Смысловая карта</h2>
+        <p class="lead">Пишешь сторис, пост, приглашение. Открывай эту вкладку. Цифры анкеты целиком лежат во вкладке «Кто покупает». 13 разговоров и шесть подписчиц тоже отдельно.</p>
+        <div class="smap">
+<div class="section">
+    <div class="section-label">О ком этот интенсив</div>
+    <div class="highlight">
+      <div class="big">К Ксении приходит женщина, которая уже ходила в зал и уже сидела на чужих марафонах. Две недели контейнеры едут на работу. На пятнадцатый день в коробке гречка с курицей, а в голове уже другое. Вечером рука сама открывает сладкое. Утром она говорит себе: ну всё, я без дисциплины. С понедельника.</div>
+      <div class="src">Так говорят женщины в разговорах с Ксенией</div>
+      <div class="quote">Ты вроде всё знаешь, но как-то всё равно не держишь</div>
+      <div class="gloss">Держишь значит: не меню в телефоне. Вечер после работы, дети или смена, и снова то же самое, хотя рецепт она уже сто раз сохраняла.</div>
+      <p class="card-desc" style="margin-top:12px">Эта женщина не слишком много хочет. Ей не хватает не силы характера. Ей не хватает системы, которая не разваливается через две недели:</p>
+      <ul class="theses">
+        <li>без очередного запрета</li>
+        <li>без вины за срыв</li>
+        <li>без мысли, что она слабая</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Зачем Ксения собрала интенсив</div>
+    <div class="highlight pick">
+      <div class="card-label">Минус лишнее · четыре недели. Черновик августа 2026</div>
+      <div class="big">Питание и тренировки это понятно. Особенность в другом: из жизни, из состояния, из головы лезет так, что режим не держится. Разобрать голову, вытащить гвозди, из-за которых бесконечно скатывались. Понять, почему обожралась в этот раз. Вписать уход за собой в жизнь.</div>
+      <div class="src">Так Ксения сказала в сторис, когда собирала интенсив</div>
+      <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни: без напряжения, без «бросила / сорвалась / нет дисциплины / не верю в себя». Я долго думала, как дать пользу. Собрала интенсив.</div>
+      <div class="gloss">Система держится значит: не ещё один файл в телефоне. Есть срок, есть что есть сегодня, и есть что делать в тот час, когда уже сорвалась.</div>
+      <p class="card-desc" style="margin-top:12px">Так Ксения написала людям, которые уже прошли её пять дней.</p>
+      <ul class="theses">
+        <li>Интенсив не про то, чтобы минус за неделю и гарантию килограммов</li>
+        <li>Про то, чтобы есть как человек и не сливать две недели после срыва</li>
+        <li>Меню и тренировки внутри есть. Платят за голову: почему обожралась, и человека рядом</li>
+        <li>Живот станет меньше не у каждой. Этого интенсив не обещает</li>
+      </ul>
+    </div>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="card">
+        <div class="card-label">Как устроена учёба</div>
+        <div class="card-title">Четыре недели рациона и разбора срыва</div>
+        <ul class="theses">
+          <li>Идёшь четыре недели. Потом ещё месяц открыты материалы</li>
+          <li>Четыре готовые сетки калорий. Рецепты одни, порции разные</li>
+          <li>Голод телом и голод головой разбирают отдельно</li>
+          <li>На Стандарте и ВИП есть тренировки и люди, которые проверяют</li>
+          <li>На Базовом тренировок нет. Это нельзя обещать за 2 490</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Что меняется</div>
+        <div class="card-title">Она начинает видеть, почему снова ест, и иначе собирать день</div>
+        <ul class="theses">
+          <li>Знает, что есть сегодня, а не гуглит в четыре часа</li>
+          <li>Отличает урчащий живот от скуки и от обиды</li>
+          <li>После срыва есть сценарий на час, а не неделя слива</li>
+          <li>На Стандарте её не оставляют одну с красивым планом</li>
+          <li>В канале бывают красивые истории: Вика, Инна. Так бывало. Каждой это не обещают</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Чем интенсив не является</div>
+        <div class="card-title">Тело само не станет другим за семь дней</div>
+        <ul class="theses">
+          <li>Не гарантия килограммов и не «минус пять кг воды»</li>
+          <li>Не лечение отёков, щитовидки и давления</li>
+          <li>Не только зал. Главная дыра у неё в холодильнике</li>
+          <li>Не обязательные фото тарелок в общий чат</li>
+          <li>Не майский марафон на 14 дней и не личная работа на три месяца. Это другие продукты</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Кто приходит</div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-label">Кто она</div>
+        <div class="card-title">Почти всегда женщина за тридцать пять</div>
+        <ul class="theses">
+          <li>Из 199 ответов: 35-40 это 78 человек, 40+ это 73. Младше 35 меньшинство</li>
+          <li>Офис 76, дом с детьми 37, свой бизнес 25</li>
+          <li>В шапке блога стоит 27-45. Для продаж опираться на анкету, не на шапку</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Что она уже пробовала</div>
+        <div class="card-title">Зал, диеты, калории, чужие марафоны</div>
+        <ul class="theses">
+          <li>Дома тренировалась 105. В зал ходила 104</li>
+          <li>Диеты 92. Счёт калорий 87</li>
+          <li>Марафоны и курсы уже были у 81</li>
+          <li>Ничего не пробовала 13 человек. Им «с нуля» правда. Остальным эта фраза бесит</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Чего она хочет</div>
+        <div class="card-title">Чтобы живот стал меньше, и чтобы это не откатило через две недели</div>
+        <ul class="theses">
+          <li>Подтянуть тело 109. Похудеть 103. Это два пункта, не один</li>
+          <li>Правильно питаться 71. Чувствовать себя лучше тоже 71. Не склеивать</li>
+          <li>Через месяц чаще жмут живот, привычку есть и энергию, чем пару килограммов</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Что болит</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Живот · 136 из 199</div>
+        <div class="card-title">Ходит в зал, живот на месте</div>
+        <ul class="theses">
+          <li>Дряблость кожи 85. Отёки 84. Целлюлит 70</li>
+          <li>Ягодицы 50. Холка 18</li>
+          <li>Мышцы нажали 33 человека. Это не ядро</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Похудеть мне мешает я сама</div>
+        <div class="gloss">Мешает я сама значит: ноги в зале уже ходят. Вечером в холодильнике снова то же самое. Она винит характер, не меню.</div>
+        <div class="tags">
+          <span class="tag t-red">живот</span>
+          <span class="tag t-red">зал без живота</span>
+          <span class="tag t-red">отёки</span>
+          <span class="tag t-red">кожа</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Знаю как, не делаю · почти все 13 разговоров</div>
+        <div class="card-title">Меню знает наизусть и всё равно срывается</div>
+        <ul class="theses">
+          <li>Подписалась из-за рецепта. Платит, когда ловит другое</li>
+          <li>Программу уже купила. Файл лежит неоткрытый</li>
+          <li>После срыва ест ещё, как наказание</li>
+        </ul>
+        <div class="src">Как говорит Ксюша из разговоров</div>
+        <div class="quote">Ты вроде всё знаешь, но как-то всё равно не держишь</div>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Теоретически я знаю как надо питаться, но не могу удержать волну</div>
+        <div class="gloss">Волна значит: две недели получается. Потом вечер, и знание в телефоне уже не помогает.</div>
+        <div class="tags">
+          <span class="tag t-amber">знаю как</span>
+          <span class="tag t-amber">не держу</span>
+          <span class="tag t-amber">файл лежит</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Еда ломается · не знает, что готовить, 75 из 199</div>
+        <div class="card-title">Одна и та же коробка, потом срыв на весь день</div>
+        <ul class="theses">
+          <li>Переедаю 68. Срываюсь 64. Много сладкого 64</li>
+          <li>Нет времени 57. Не умею КБЖУ 44</li>
+          <li>Нет проблем написали 3 человека</li>
+        </ul>
+        <div class="src">Как говорит Алёна</div>
+        <div class="quote">В контейнере одно, а хочется другого</div>
+        <div class="gloss">Контейнер значит: она уже готовила правильно. Надоело. Хочется другой текстуры, не ещё одной гречки.</div>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Надоел творог. Хочу обычную шоколадку, другой текстуры</div>
+        <div class="tags">
+          <span class="tag t-amber">не знаю что готовить</span>
+          <span class="tag t-amber">одно и то же</span>
+          <span class="tag t-red">сладкое вечером</span>
+          <span class="tag t-red">срыв</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Нет дисциплины · 109 из 199 так написали про себя</div>
+        <div class="card-title">Сама себе вынесла приговор</div>
+        <ul class="theses">
+          <li>Рядом честнее: нет системы и плана, 74</li>
+          <li>Теряю мотивацию 66. Откладываю 56</li>
+          <li>Не верю, что получится, 17. Это то же, что у Зульфии</li>
+        </ul>
+        <div class="src">Как написали в анкете</div>
+        <div class="quote">Нету дисциплины / нету системы</div>
+        <div class="gloss">Нет дисциплины значит: она уже решила, что слабая. Не надо с ней соглашаться. Рядом в той же анкете стоит другое: нет плана.</div>
+        <div class="src">Как говорит Зульфия</div>
+        <div class="quote">Больше никаких программ. Нужно менять образ жизни</div>
+        <div class="gloss">Ещё одна программа её бесит. Ей смена жизни, не четыре недели в группе. Это не ядро интенсива.</div>
+        <div class="tags">
+          <span class="tag t-purple">нет дисциплины</span>
+          <span class="tag t-purple">нет системы</span>
+          <span class="tag t-gray">с понедельника</span>
+          <span class="tag t-red">не верю</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Чего она хочет на самом деле</div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-label">Самое сильное · 136 и 110</div>
+        <div class="card-title">Чтобы живот стал меньше</div>
+        <ul class="theses">
+          <li>В теле жмут живот чаще всего</li>
+          <li>Через месяц идеал: меньше живот, 110 из 199</li>
+          <li>Килограммы тоже хочет, 80 человек. Не как главное</li>
+        </ul>
+        <div class="src">Как говорят, когда слушают</div>
+        <div class="quote">Хочу надолго, а не быстро, чтобы сохранилось</div>
+        <div class="gloss">Не просит минус за неделю. Просит, чтобы через две недели снова не откатило.</div>
+        <div class="tags">
+          <span class="tag t-teal">живот</span>
+          <span class="tag t-teal">надолго</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про завтра · 96 из 199</div>
+        <div class="card-title">Чтобы привычка есть не разваливалась</div>
+        <ul class="theses">
+          <li>Не идеальное тело из рилса</li>
+          <li>Чтобы завтра в коробке было не то же самое, что две недели подряд</li>
+          <li>И чтобы после срыва не ненавидеть себя</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Сорвалась, и будто себя наказываю: значит, ешь ещё больше</div>
+        <div class="gloss">Наказываю значит: срыв уже случился, а она ест дальше, потому что день уже потерян.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про вечер · 95 из 199</div>
+        <div class="card-title">Энергия и уверенность до конца дня</div>
+        <ul class="theses">
+          <li>Дожить до вечера с головой, не «вырубило»</li>
+          <li>Надеть джинсы, которые висят в шкафу</li>
+          <li>Выйти на пляж и не прятаться за полотенцем</li>
+        </ul>
+        <div class="src">Как написали про месяц</div>
+        <div class="quote">Перестать стесняться себя</div>
+        <div class="gloss">Так написали 45 человек отдельной строкой. Не то же самое, что минус пару кг.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про правду</div>
+        <div class="card-title">Понять почему, а не получить ещё одно правило</div>
+        <ul class="theses">
+          <li>Хочет знать зачем это блюдо, не просто следовать</li>
+          <li>Правила без объяснения её уже тошнит</li>
+          <li>Шаблон не под смены, детей и жизнь не берёт</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Хочу понимать зачем, а не просто следовать правилу</div>
+        <div class="gloss">Зачем значит: если вечером хочется сладкого, ей нужно понять, это голод или обида. Не ещё один запрет на шоколад.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про человека рядом</div>
+        <div class="card-title">Чтобы кто-то проверял, а не оставлял одну с планом</div>
+        <ul class="theses">
+          <li>Когда сама с собой, расслабляется</li>
+          <li>Просит срок и человека снаружи</li>
+          <li>Иногда важнее меню фраза «ты не одна»</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Нужен кто-то, кто подпинывает и проверяет</div>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Где ты нас гоняешь, вот тогда да</div>
+        <div class="gloss">Гоняешь значит: не мотивация в сторис. Кто-то смотрит, что было сегодня, и не отпускает на неделю молчания.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Как Ксения называет итог</div>
+        <div class="card-title">Система, которая держится в жизни</div>
+        <div class="src">Слова Ксении для сторис</div>
+        <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни</div>
+        <div class="gloss">Муж и дети сами не станут другими за четыре недели. Меняется её день: что в коробке, что после срыва, кто рядом.</div>
+        <div class="src">Формулировка апреля, которую можно брать</div>
+        <div class="quote">Помогу питаться вкусно, убрать лишнее и выглядеть так, как хочется, без жёстких диет и чувства вины</div>
+        <div class="tags">
+          <span class="tag t-green">система</span>
+          <span class="tag t-green">без вины</span>
+          <span class="tag t-green">вкусно</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как они сами это называют</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-title">Вроде всё знаешь, но не держишь</div>
+        <div class="src">Ксюша из разговоров</div>
+        <div class="gloss">Рецепт сохранён. Вечер всё равно тот же. Знание в телефоне и жизнь в кухне это разные вещи.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">В контейнере одно, а хочется другого</div>
+        <div class="src">Алёна</div>
+        <div class="gloss">Она уже готовила правильно. Надоело одно и то же. Срыв начинается не с торта, а с гречки две недели подряд.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Сорвалась, ем ещё больше</div>
+        <div class="src">Женщины в разговорах</div>
+        <div class="gloss">Срыв уже случился. Дальше наказание едой, потому что день якобы потерян.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Нет дисциплины</div>
+        <div class="src">109 человек в анкете</div>
+        <div class="gloss">Она так говорит про себя. Не надо кивать. Рядом в анкете стоит: нет системы и плана.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">С понедельника</div>
+        <div class="src">Как она объясняет себе новый заход</div>
+        <div class="gloss">Понедельник уже сто раз приходил. Холодильник тот же. Календарь выглядел как дело, а вечер не изменился.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Больше никаких программ</div>
+        <div class="src">Зульфия</div>
+        <div class="gloss">Ещё один курс её тошнит. Ей смена жизни. Четыре недели в группе ей не продавать как «ещё одна программа».</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Зал есть, живот на месте</div>
+        <div class="src">Как выглядит обычный день</div>
+        <div class="gloss">Ноги ходят. Ломается еда. Говорить про новый зал бессмысленно, если боль в холодильнике.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Хочу понимать зачем</div>
+        <div class="src">Женщины в разговорах</div>
+        <div class="gloss">Правило без объяснения уже было. Ей нужно почему это блюдо и почему вечером тянет, не ещё один запрет.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="section-label">Чем интенсив отличается от того, что она уже пробовала</div>
+    <div class="vs">
+      <div class="vs-col vs-bad">
+        <div class="vs-col-label">Как обычно бывает</div>
+        <ul class="theses">
+          <li>Ещё одна программа, а через две недели всё как вчера</li>
+          <li>Одно меню на все дни, потом срыв на шоколад</li>
+          <li>Запрет без объяснения почему</li>
+          <li>Обязательные фото тарелок в общий чат</li>
+          <li>Много чатов и обязательные эфиры при сменном графике</li>
+          <li>Вина за каждый срыв и слишком много мотивации</li>
+          <li>Гарантия килограммов за неделю</li>
+          <li>Фраза «начнём с нуля», хотя зал и диеты уже были</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-good">
+        <div class="vs-col-label">Как у Ксении</div>
+        <ul class="theses">
+          <li>Нутрициолог и мастер спорта. Голос спокойный, не ор с зала</li>
+          <li>Четыре недели, готовые дни еды, разбор срыва как отдельная тема</li>
+          <li>Сначала почему обожралась. Потом что есть сегодня. Потом человек рядом</li>
+          <li>Всё в одном Telegram. Эфиры в записи, если смена</li>
+          <li>Тарелки не обязанность. Иначе человеку из 11-го разговора сюда нельзя</li>
+          <li>Не обещает гарантию кг, «больше никаких срывов», лечение</li>
+          <li>Тринадцати из 199, кто ещё ни разу не пробовал, можно сказать «с нуля». Остальным нельзя</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Главная мысль</div>
+    <div class="grid g2">
+      <div class="highlight">
+        <div class="card-label">Почему одно и то же возвращается</div>
+        <ul class="theses">
+          <li>Живот, сладкое вечером, скука контейнера и «нет дисциплины» кажутся разными жизнями</li>
+          <li>Это одна жизнь и одно умение, которого нет: держать еду в своей неделе, а не в идеальном файле</li>
+          <li>Ноги в зале уже ходят. Ломается вечер</li>
+          <li>Если чинить только сегодняшний срыв, через две недели будет новый</li>
+          <li>Срыв был следствием. Причина: нет системы под её день, или еда надоела, или некому проверить</li>
+        </ul>
+      </div>
+      <div class="highlight">
+        <div class="card-label">Что ей важно услышать</div>
+        <ul class="theses">
+          <li>Если ходишь в зал, это ещё не значит, что с едой всё хорошо</li>
+          <li>Вы не безвольная</li>
+          <li>Часто просто нет плана, разнообразия и человека снаружи</li>
+        </ul>
+        <p class="gloss" style="margin-top:8px">Ксения учит отличать голод телом от скуки и обиды. И даёт, что есть сегодня. «Соберись» сюда не входит.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как разные жалобы сходятся в один интенсив</div>
+    <div class="grid g4">
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Живот не уходит</div>
+        <ul class="theses">
+          <li>Ходит в зал, живот на месте</li>
+          <li>Через месяц хочет меньше живот, не абстрактную «форму»</li>
+          <li>Интенсив кормит и разбирает срыв. Не обещает минус N кг</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Я всё знаю</div>
+        <ul class="theses">
+          <li>Рецепты уже смотрит, 173 из 199</li>
+          <li>Платит, когда ловит: почему снова не держится</li>
+          <li>Интенсив не учит её «что такое белок» с нуля. Учит удержать неделю</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Нет дисциплины</div>
+        <ul class="theses">
+          <li>Так написали 109 человек</li>
+          <li>Не соглашаться как с характером</li>
+          <li>Говорить систему, срок и человека, который проверяет</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Опять программа?</div>
+        <ul class="theses">
+          <li>81 уже сидели на курсах</li>
+          <li>Зульфия прямо сказала: больше никаких программ</li>
+          <li>Ей не шаблон и не вина. Ей «почему» и жизнь, в которую это встаёт</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Сколько стоит и кому это не подойдёт</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Три способа идти</div>
+        <div class="card-title">Еда. Еда плюс тренировки. Плюс Ксения лично</div>
+        <ul class="theses">
+          <li>Базовый 2 490: еда и голова. Тренировок нет</li>
+          <li>Стандарт 4 490: еда, тренировки, кураторы. Пока основной, если не подтвердили иначе</li>
+          <li>ВИП 9 990: плюс Ксения лично. Мест должно быть мало, иначе не вывезет поток из бота</li>
+          <li>Это август. Майский марафон 3 500 или 4 500-5 000 не мешать с этими цифрами</li>
+          <li>Личная работа 30-50 тысяч за три месяца это другой продукт</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Кому да. Кому нет</div>
+        <div class="card-title">Знает как и не держит. Или не начнёт без срока</div>
+        <ul class="theses">
+          <li>Подойдёт Алёне, Ксюше, Наташе, Евгении, Наталье из разговоров</li>
+          <li>Не подойдёт Ане-директору: здоровье и почки, не пляж и не общий поток</li>
+          <li>Не Кате после операции с Гербалайфа: сначала обычная еда</li>
+          <li>Не той, кому обязательные тарелки в чат. Интервью 11 из-за этого уходит</li>
+          <li>Не Зульфии, если продавать как ещё одну программу</li>
+          <li>Не той, кто пришла с рилса за рецептом и пока только смотрит</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="section-label">С какой боли она может прийти, и чему всё равно учится</div>
+    <div class="vs">
+      <div class="vs-col vs-bad">
+        <div class="vs-col-label">С чего начинается разговор</div>
+        <ul class="theses">
+          <li>Она узнаёт себя: живот, сладкое вечером, «я без дисциплины»</li>
+          <li>Подписалась из-за рецепта. Картинка уже зашла</li>
+          <li>Иногда боль называют словом «нет силы воли»</li>
+          <li>Бесплатные дни нужны, чтобы она сказала «это про меня» и осталась</li>
+          <li>Не чтобы продать ей ещё один файл с меню</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-good">
+        <div class="vs-col-label">Чему она учится четыре недели</div>
+        <ul class="theses">
+          <li>Интенсив «Минус лишнее»</li>
+          <li>Слова Ксении про систему, которая держится в жизни</li>
+          <li>Прийти можно с живота, со срыва, с «я всё знаю»</li>
+          <li>Учится она собирать день и не сливать неделю после срыва</li>
+          <li>Не вешать на себя ярлык слабой</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как человек идёт к интенсиву</div>
+    <div class="highlight">
+      <div class="arrow-row" style="margin-top:0; color:#333">
+        <span>Рилс с рецептом или сторис</span>
+        <span class="arr">→</span>
+        <span>Бот</span>
+        <span class="arr">→</span>
+        <span>Пять бесплатных дней</span>
+        <span class="arr">→</span>
+        <span>Оплата интенсива</span>
+      </div>
+      <ul class="theses">
+        <li>Инстаграм это вход. Продажи ведут в Telegram, не из ленты</li>
+        <li>В боте сейчас около 650 человек. Они уже пробовали с ней, не с улицы</li>
+        <li>Пять дней уже прошли. Отзывы собрали, цифр кг в том сообщении нет</li>
+        <li>Продавать хотели с 25 по 31 августа 2026. Ссылки на оплату в папке нет. Подводить, по её словам, только начинали</li>
+        <li>Весной путь был другой: закрытый канал 14 дней, потом марафон, с 8-го дня личная работа. Цены мая сюда не ставить</li>
+        <li>Кто пришёл за рецептом, с первого комментария за четыре недели не платит</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как может звучать приглашение</div>
+    <p class="card-desc" style="margin-bottom:10px">Продукт один. Приглашение можно сказать по-разному, в зависимости от того, чем человек живёт прямо сейчас.</p>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Если не знает, с чего начать</div>
+        <div class="card-title">С нуля до еды, которая не разваливается через две недели</div>
+        <ul class="theses">
+          <li>На четырёх неделях будет, что есть сегодня</li>
+          <li>И что делать в тот час, когда уже сорвалась</li>
+          <li>Даже если зал и диеты уже были</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Если винит дисциплину</div>
+        <div class="card-title">Как перестать сливать неделю после срыва</div>
+        <ul class="theses">
+          <li>После захода станет ясно, с чего начать</li>
+          <li>Если «с понедельника» уже сто раз срывалось</li>
+          <li>Без мысли, что вы безвольная</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Если нужны короткие слова</div>
+        <div class="card-title">Живот, привычка есть, энергия до вечера</div>
+        <ul class="theses">
+          <li>Как перестать жить от срыва до срыва</li>
+          <li>Система на четыре недели, не вспышка мотивации</li>
+          <li>Без гарантии килограммов и без вины</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Если сразу про её вечера</div>
+        <div class="card-title">Контейнер надоел, вечером сладкое, утром «я слабая»</div>
+        <ul class="theses">
+          <li>Как вы знаете как, и всё равно не держите</li>
+          <li>Пошаговый план: что есть и что делать после срыва</li>
+          <li>Без запрета без почему и без обязательных тарелок</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Три темы. На один заход берут одну</div>
+    <div class="grid g3">
+      <div class="card pick">
+        <div class="card-label">Самая частая боль</div>
+        <div class="card-title">Как удержать еду, если зал уже есть, а живот на месте</div>
+        <ul class="theses">
+          <li>После захода станет ясно, с чего начать на этой неделе</li>
+          <li>Не новый абонемент. Холодильник</li>
+          <li>Так живёт 136 из 199: жмут живот</li>
+          <li>Мышцы нажали 33 человека. Это не эта тема</li>
+        </ul>
+        <div class="src">Короче</div>
+        <div class="quote">В зале была. Вечером снова сладкое.</div>
+        <div class="gloss">Ноги уже ходят. Ломается вечер после работы.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Если крутится срыв</div>
+        <div class="card-title">С нуля до сценария на час, а не до недели слива</div>
+        <ul class="theses">
+          <li>Научитесь видеть, почему обожрались в этот раз</li>
+          <li>Даже если уже ненавидите себя после вечера</li>
+          <li>Другое тело к пятнице интенсив не обещает</li>
+          <li>Срыв, переедание и сладкое жмут почти поровну, около трети анкеты</li>
+        </ul>
+        <div class="src">Короче</div>
+        <div class="quote">Сорвалась. Значит, ешь ещё больше.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Если она уже всё знает</div>
+        <div class="card-title">Система, которая держится, даже если рецепты уже сохранены</div>
+        <ul class="theses">
+          <li>Для тех, кто уже сидел на марафонах, а через две недели откат</li>
+          <li>81 из 199 уже были на курсах</li>
+          <li>Не «начнём с нуля». Не ещё один файл</li>
+        </ul>
+        <div class="src">Слова Ксении</div>
+        <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Что было бесплатно, пока ещё не купила</div>
+    <div class="grid g2">
+      <div class="card pick">
+        <div class="card-label">Пять дней, которые уже прошли</div>
+        <div class="card-title">Она уже пробовала с Ксенией, не с улицы</div>
+        <ul class="theses">
+          <li>В боте около 650 человек</li>
+          <li>Отзывы после пяти дней собрали. Текстов отзывов и цифр кг в папке нет</li>
+          <li>Дальше должен быть заход в интенсив, не новый челлендж с нуля</li>
+          <li>Кто ещё не готов платить, остаётся в боте. Новую анкету тому же человеку не заводить</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Весной, до марафона</div>
+        <div class="card-title">Закрытый канал и гайды под рилс</div>
+        <ul class="theses">
+          <li>Видео или голосовое «Почему ты не худеешь, даже если стараешься». Текста видео нет</li>
+          <li>PDF «4 типа голода» готов</li>
+          <li>PDF «Срывы: почему случаются и что делать» готов</li>
+          <li>PDF про митохондрии готов. В обещание интенсива не тащить</li>
+          <li>Это архив мая. Цены и сроки оттуда в новый заход не ставить</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Что человек получает руками, пока ещё не купил курс</div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-label">Ещё в ленте</div>
+        <div class="card-title">Рецепт, из-за которого подписалась</div>
+        <ul class="theses">
+          <li>Питание и рецепты смотрят 173 из 199</li>
+          <li>До и после смотрят 42. Это не вход</li>
+          <li>Это ещё не покупка. Это первый шаг глазами сегодня</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">В боте и в подарке</div>
+        <div class="card-title">Гайд, который открывает рот</div>
+        <ul class="theses">
+          <li>Кто пишет «ем и снова хочу»: четыре типа голода</li>
+          <li>Кто крутится в срыв и вину: гайд про срывы</li>
+          <li>После подарка есть что сделать руками, а не только ощущение «было вкусно»</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Когда зовут платить</div>
+        <div class="card-title">Как устроен интенсив</div>
+        <ul class="theses">
+          <li>Чем три тарифа отличаются</li>
+          <li>Что на Базовом нет тренировок</li>
+          <li>Что не обещают килограммы</li>
+          <li>Учёба на четыре недели, не когда наберётся группа</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Где ломается жизнь. Один интенсив, не три разных курса</div>
+    <div class="grid g4">
+      <div class="card">
+        <div class="card-label">Живот · 136 из 199</div>
+        <div class="card-title">Самый частый разговор</div>
+        <ul class="theses">
+          <li>Зал уже был. Живот на месте</li>
+          <li>С этого чаще всего начинается история</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Вечер и сладкое · около трети анкеты</div>
+        <div class="card-title">Не другая жизнь</div>
+        <ul class="theses">
+          <li>После четырёх дня тянет. Потом «заторт»</li>
+          <li>Это тот же вечер той же женщины, которая пришла из-за живота</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Контейнер надоел · 75 не знают, что готовить</div>
+        <div class="card-title">Срыв начинается с гречки</div>
+        <ul class="theses">
+          <li>Две недели получается</li>
+          <li>Потом хочется другой текстуры</li>
+          <li>Ей разнообразие, не ещё одно одинаковое меню</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">«Я слабая» · 109 человек</div>
+        <div class="card-title">Тот же навык, другая фраза</div>
+        <ul class="theses">
+          <li>Сама себе уже вынесла приговор</li>
+          <li>В программе это разбор головы, не зал</li>
+          <li>Иначе человек решит, что интенсив только про салат</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Когда она решается, и почему до этого не доходит</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Когда решается</div>
+        <ul class="theses">
+          <li>Узнала себя: вроде всё знаешь, но не держишь</li>
+          <li>Пять дней с Ксенией уже были, и стало жалко бросать</li>
+          <li>Чужой марафон снова откатился через две недели</li>
+          <li>Контейнер надоел, и она вслух сказала про шоколад другой текстуры</li>
+          <li>Появился человек, который будет проверять, не ещё один файл</li>
+          <li>Ближе всего те, кто уже ел её рецепты и сидит в боте</li>
+          <li>Дальше две разные жизни: та, кому нужен пляж, и Аня с больными почками</li>
+          <li>Потом та, кому тарелки в чат это стыд. Ей не группа</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Почему боится</div>
+        <ul class="theses">
+          <li>Опять программа. 81 уже сидели</li>
+          <li>Пока она «без дисциплины», чинить систему незачем: виноват характер</li>
+          <li>Боится, что снова бросит, как прошлый файл</li>
+          <li>Думает: хожу в зал, значит рано про еду</li>
+          <li>Страшно, что надо фотографировать тарелку, или ненавидит чаты</li>
+          <li>Кажется, Ксения спортсменка, и ей такое не подойдёт</li>
+          <li>Минус за неделю уже покупала. От этого отворачивается</li>
+          <li>Нет времени, смены, дети. Ксюша по 12-13 часов. Ульяна с грудным</li>
+          <li>Это не ещё одно меню, а порядок на завтрашний вечер</li>
+          <li>На Базовом можно без тренировок. Тарелки не обязанность</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+        </div>
+      </section>
+      <section class="panel p7">
+        <p class="alien-flag">Сверка · не смешивать с Ксенией</p>
+        <h2>Умная сушка × анкета Ксении</h2>
+        <p class="lead">Оля и Дарья Сороканюк, FitBody Vibe. Сырьё в папке «Умная_сушка_Оля_Даша». Их кейсы, кг и рот в сторис Ксении не ставить. Здесь карта полей: что у них в прогреве и что нажали 199 человек.</p>
+        <div class="score3">
+          <div><b>7</b><span>полей сходятся с анкетой</span></div>
+          <div><b>3</b><span>не ядро: мышцы, быстро, «не марафон»</span></div>
+          <div><b>173</b><span>хотят рецепты. В их плане этого почти нет</span></div>
+        </div>
+        <nav class="toc">
+          <a href="#x-how">Как читать</a>
+          <a href="#x-q3">Что смотрит</a>
+          <a href="#x-map">15 полей</a>
+          <a href="#x-voice">Голосовые Даши</a>
+          <a href="#x-people">Люди</a>
+          <a href="#x-prod">Продукт и месяц</a>
+          <a href="#x-take">Что брать</a>
+          <a href="#x-ref">Справка: кто они</a>
+        </nav>
+
+        <h3 class="chapter" id="x-how">Как читать</h3>
+        <div class="prose">
+          <p>Семь вкладок слева: это Ксения. Эта вкладка: чужой запуск рядом, чтобы не выдумывать каркас дней. Начинку дней брать из её анкеты.</p>
+          <p>Три слоя, не один. Поля: про что день. Анкета 199: нажала ли это её женщина. Голосовые Даши: тот же смысл или чужой рот.</p>
+          <p>Кейсы Умной сушки не берём. Инна Гущина у них, Инна у Ксении: два человека. Апрель и ноябрь у них не усреднять.</p>
+        </div>
+
+        <h3 class="chapter" id="x-q3">Что она хочет смотреть. Вопрос 3, 199 человек</h3>
+        <p>Можно было отметить несколько. Так они открывали прогрев: карусель кг в первый день. Так она подписана: рецепт.</p>
+        <table>
+          <thead><tr><th>Что смотрит</th><th>Голосов</th><th>Было ли поле в плане Умной сушки</th></tr></thead>
+          <tbody>
+            <tr><td>Питание и рецепты</td><td>173</td><td><span class="mark n">Почти нет</span> Философия, «день», БЖУ. Рецепт как формат в календаре апреля не стоит</td></tr>
+            <tr><td>Советы по похудению</td><td>92</td><td><span class="mark f">Да</span> Почему прошлое не работает, откат, месяца хватит</td></tr>
+            <tr><td>Простые тренировки дома</td><td>88</td><td><span class="mark h">Сбоку</span> Внутри дня и тарифа. Отдельной недели про коврик нет</td></tr>
+            <tr><td>Разбор ошибок и мифов</td><td>60</td><td><span class="mark f">Да</span> FAQ апреля. Ноябрь: кардио, картошка, диастаз, вода</td></tr>
+            <tr><td>Реальные истории без картинки</td><td>51</td><td><span class="mark f">Формат да</span> Их Марину и −16 не брать</td></tr>
+            <tr><td>До / после</td><td>42</td><td><span class="mark h">Перекос</span> У них карусель в день 1. Рецепты сильнее в четыре раза</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="chapter" id="x-map">15 полей. План Умной сушки × анкета</h3>
+        <p>Слева блок их прогрева. Справа, что нажали у Ксении. Да: поле можно, слова её. Нет: не ставить ядром. Осторожно: боль живая, вес в их плане другой.</p>
+        <table>
+          <thead><tr><th>Поле</th><th>Как грели они</th><th>Анкета 199</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>1. Питание, скука, готовка</td><td>Разное меню по неделям. «Один день». Не курица с рисом</td><td>В.7: не знаю что готовить 75, нет времени 57. В.3: питание 173</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>2. Почему еда работает</td><td>Даша: БЖУ, еда расщепляется, не только калории</td><td>В.7: не умею КБЖУ 44. В.10: шум в интернете 46</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>3. Срыв, сладкое, переедание</td><td>8 апреля. Выходные перекрывают будни</td><td>В.7: переедаю 68, срываюсь 64, сладкое 64</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>4. Начинаю и бросаю</td><td>Пост 3.04. Второе место в их опросе: как не терять интерес</td><td>В.10: нет дисциплины 109, мотивация 66, откладываю 56</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>5. Уже всё пробовала, нет системы</td><td>Почему прошлое не работает. Марафон / диета / тренер</td><td>В.8: дом 105, зал 104, диеты 92, калории 87, марафоны 81. В.10: нет системы 74</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>6. Откат через месяц-два</td><td>«Похудела, через 2 месяца набрала»</td><td>В.9: привычка питаться 96 выше, чем минус пару кг 80</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>7. Живот, одежда, месяц</td><td>Кому идти: рыхлая, в белье нет, после родов</td><td>В.6: живот 136. В.9: меньше живот 110. Мышцы в цели 33</td><td><span class="mark f">Да</span> про живот</td></tr>
+            <tr><td>8. Человек рядом</td><td>Куратор, чат, не кнут</td><td>В.10: поддержки таких же 30. В разговорах просят сильнее</td><td><span class="mark h">Слабее в анкете</span></td></tr>
+            <tr><td>9. Тренировки</td><td>Дом и зал, М и Ж. То в дне, то не обязательно</td><td>В.3: дом 88. В.5: начать спорт 33, мышцы 33. В.9: привычка заниматься 64</td><td><span class="mark h">Второе после еды</span></td></tr>
+            <tr><td>10. Мышцы, саркопения</td><td>Ядро поста «начинаю и бросаю» и голосового про откаты</td><td>В.5: мышцы 33. В.6: живот 136</td><td><span class="mark n">Нет как ядро</span></td></tr>
+            <tr><td>11. Быстрый результат</td><td>Бриф Даши. Подложка «докажем что не миф»</td><td>Так не просят. В.9: живот и привычка выше кг</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>12. Мы не марафон</td><td>Пост 3.04. Пять причин 9.04</td><td>В.8: 81 уже были. Зульфия: больше никаких программ. Поза бьёт в усталость, пока продаёшь 4 недели</td><td><span class="mark n">Поле живое, рамка нет</span></td></tr>
+            <tr><td>13. Кому не идти</td><td>План 13.04. Лента 11.04</td><td>Прямой строки нет. 13 человек ничего не пробовали: им «с нуля» можно</td><td><span class="mark f">Нужно</span> список свой</td></tr>
+            <tr><td>14. Потом = никогда</td><td>16–17 апреля. Ноябрь: купальник, Новый год</td><td>В.10: откладываю 56. Боль да. Ор нет</td><td><span class="mark h">Боль да</span></td></tr>
+            <tr><td>15. Истории как поле</td><td>Анна, Наташа, Полина, Марина −16. Карусель в день 1</td><td>В.3: живые 51, до/после 42, рецепты 173</td><td><span class="mark h">Формат да</span> их людей нет</td></tr>
+          </tbody>
+        </table>
+        <div class="prose">
+          <p>Каркас дней можно как у них: почему не работало → срыв → как устроен месяц → мифы → кому не идти. Начинку брать из вопросов 3, 7, 9, 10. Рецепт и контейнер каждый второй день. Карусель кг не в первый.</p>
+        </div>
+
+        <h3 class="chapter" id="x-voice">Голосовые Даши. Шесть болей Ксении</h3>
+        <p>Скрины 04–09: «если бы начинала сейчас». 10–17: бриф Наташи Тарасовой и голосовое 7:34. Плюс откаты 7 апреля. В выгрузке сжато. Скрины в папке screens/. Ядро не потерялось.</p>
+        <p>Шесть болей: знаю и не делаю; срыв по кругу; однообразие; нет «почему»; некому проверить; откат.</p>
+        <div class="score3">
+          <div><b>7</b><span>можно в сторис её ртом</span></div>
+          <div><b>8</b><span>чужая боль или враньё</span></div>
+          <div><b>5</b><span>смысл ок, формулировка нет</span></div>
+        </div>
+        <table>
+          <thead><tr><th>Что грели</th><th>Чья боль</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Начинаю и бросаю. Мотивация вспышка</td><td>1 и 6. Хук «с понедельника»</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>Одно меню. Курица с рисом. «В контейнере одно»</td><td>3. Алёна</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>80% питание. 10 лет в зале без изменений</td><td>1. Ноги ходят, ломается еда</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>Почему, не можно/нельзя. Сыр не враг</td><td>4</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>Специалист умом, не тарелочками</td><td>4 + ненависть к фото еды</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>Откат не характер. Весы врут</td><td>2 и 6. Гайд срывов уже есть</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>Человек рядом, не кнут</td><td>5. «Где ты нас гоняешь»</td><td><span class="mark f">Да</span></td></tr>
+            <tr><td>Саркопения. Жир висит на кости</td><td>Мышцы 33, живот 136</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Джинсы и месяц после родов: слабый запрос</td><td>Обратное. Одежда и живот у неё запрос</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Не марафон. Те дурят ускорением</td><td>Сама продаёт 4 недели в группе</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Для всех, беременные</td><td>Не все 13. Лечение не обещать</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>«Докажем что быстро можно»</td><td>Нельзя гарантия кг и «минус 5 кг воды»</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Один из ста. Соревнования</td><td>Не её женщина</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Диагностика по фото. ИМТ в сторис</td><td>От тарелок воротит</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Новичок в зале, раздевалка</td><td>Её уже ходят. Боль в холодильнике</td><td><span class="mark n">Нет</span></td></tr>
+            <tr><td>Не жалей денег на специалиста</td><td>Боль 5 да. Для 2 490 тон чужой</td><td><span class="mark h">Осторожно</span></td></tr>
+            <tr><td>Месяц работы, все смогут</td><td>Срок да. «Все смогут» нет</td><td><span class="mark h">Осторожно</span></td></tr>
+            <tr><td>1 г углевода = 4 г воды</td><td>Весы врут да. Как обещание минуса воды нет</td><td><span class="mark h">Осторожно</span></td></tr>
+            <tr><td>За полгода вау</td><td>Зал без результата да. «Вау» как кг нет</td><td><span class="mark h">Осторожно</span></td></tr>
+            <tr><td>Бриф про скорость и обложка про миф</td><td>Два тезиса. Не склеивать</td><td><span class="mark h">Осторожно</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="chapter" id="x-people">Люди</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Пересекается</h3>
+            <p>35 и старше. Дети, работа. Зал и марафоны уже были. Хочет одежду и не откат. Не верит в неделю. Цена «дорого за информацию», гербалайф при этом нормален. Катя. Зульфия.</p>
+          </article>
+          <article class="card">
+            <h3>Не те же</h3>
+            <p>У них мужчины и «для всех». У неё 199 женщин, ядро 35–40 и 40+. Подписка с рецепта. Покупка с «знаю и не держу». Аня-директор, интервью 11, коллекционер курсов ей вреден.</p>
+          </article>
+        </div>
+
+        <h3 class="chapter" id="x-prod">Продукт и запуск каждый месяц</h3>
+        <table>
+          <thead><tr><th></th><th>Умная сушка</th><th>Ксения, август</th></tr></thead>
+          <tbody>
+            <tr><td>Срок</td><td>4 недели, 28 уроков</td><td>4 недели + ещё месяц доступ</td></tr>
+            <tr><td>Платят за</td><td>Наука, рекомпозиция, разное меню, мышцы</td><td>Голову: голод, срыв, почему обожралась. Меню внутри есть</td></tr>
+            <tr><td>Еда</td><td>ИМТ → план 1–4</td><td>1400 / 1550 / 1650 / 1750. Рецепты одни, порции разные</td></tr>
+            <tr><td>Тренировки</td><td>Дом и зал, М и Ж</td><td>Нет на 2 490. Есть на 4 490 и 9 990</td></tr>
+            <tr><td>Цены потока</td><td>6 990 Про, 9 990 ВИП. Ноябрь VIP 30 000</td><td>2 490 / 4 490 / 9 990. Не мешать</td></tr>
+          </tbody>
+        </table>
+        <div class="prose">
+          <p>Коробка «месяц с тремя тарифами» совпадает. Начинка нет. Машина запуска та же: анкета, канал, две недели без ссылки, эфир, оплата, месяц учёбы. Повторять каждый месяц можно, если есть новая пачка. Они сами сказали: свои уже были, поток меньше. Обычно 40–50.</p>
+          <p>У неё в августе 5 дней уже были, в боте около 650, продажа 25–31. Это не с нуля каждый месяц. Месяц подходит Наталье, Ксюше, Алёне. Не подходит как «для всех каждый месяц».</p>
+        </div>
+        <div class="warnbox">Ежемесячный поток ок как календарь. Не ок как смысл «мы не марафон». Если каждый месяц стартует группа на 4 недели, по форме это марафон. Честнее: срок, система, потом сама.</div>
+
+        <h3 class="chapter" id="x-take">Что брать. Что оставить им</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Брать</h3>
+            <ul>
+              <li>Каркас дней: почему не работало → срыв → месяц → мифы → кому не идти.</li>
+              <li>Две недели канала без ссылки, потом эфир, потом оплата.</li>
+              <li>Три тарифа: сама / с проверкой / с ней.</li>
+              <li>Смена еды против скуки. Её словами.</li>
+              <li>Откат без вины. Без формулы воды в кг.</li>
+              <li>Список «кому не идти». Свой.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Оставить им</h3>
+            <ul>
+              <li>Имя «сушка», ИМТ, саркопения, «для всех».</li>
+              <li>Фото еды как обязаловка.</li>
+              <li>Врачи в тарифе. Их Марину −16.</li>
+              <li>Скидка 50%, VIP 30 000, «на доверии».</li>
+              <li>Поза против марафонов. Черновой рот распаковки.</li>
+              <li>Карусель кг в первый день прогрева.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3 class="chapter" id="x-ref">Справка. Кто они и как запускали</h3>
+        <p class="hint">Это не контент-план Ксении. Паспорт чужого проекта, чтобы не ходить в папку за цифрами.</p>
+        <div class="prose">
+          <p>Даша: Дарья Сороканюк, 35, 16 лет, преподаёт основы питания на спортфаке в Чите, зал 2–3 раза в неделю. Оля: в ноябре «5 дней опыта, ошибки». Куратор Яна, +7 980 650 1685. Брифы на голосовые: Наташа Тарасова, не Наталья Зайцева.</p>
+          <p>4 недели, 28 уроков, каждая неделя другое питание и новая тренировка. Дом или зал. Женщины и мужчины отдельно. Пары можно. Вход по ИМТ. Фото еды куратору. Апрель: База / Про 6 990 / ВИП 9 990. Ноябрь: другие имена тарифов, VIP 30 000, скидка 50%, веб 15.11, старт 20.11, в кружке 100 человек. Год ноября не назван.</p>
+        </div>
+        <h3 class="sec" style="margin-top:18px">Апрель, план 5–17</h3>
+        <table>
+          <thead><tr><th>День</th><th>Тема</th></tr></thead>
+          <tbody>
+            <tr><td>5</td><td>Почему прошлое не работает. Аудио Даши. Карусель было→стало</td></tr>
+            <tr><td>6</td><td>Выходной или тизер</td></tr>
+            <tr><td>7</td><td>День на сушке</td></tr>
+            <tr><td>8</td><td>Откат, срыв. Пост «один день»</td></tr>
+            <tr><td>9</td><td>4 модуля, 28 уроков. Пять причин. Анна, Наташа, Полина</td></tr>
+            <tr><td>10</td><td>В плане: месяца не мало. В ленте: презентация, ссылка, старт 14.04</td></tr>
+            <tr><td>11</td><td>В плане: мышление о теле. В ленте: хватит месяца, Марина, тарифы</td></tr>
+            <tr><td>12–13</td><td>В выгрузке пусто. В плане FAQ и «кому не идти»</td></tr>
+            <tr><td>14</td><td>В плане эфир. В ленте старт потока</td></tr>
+            <tr><td>15</td><td>Марафон / диета / тренер</td></tr>
+            <tr><td>16</td><td>Потом = никогда</td></tr>
+            <tr><td>17</td><td>Последний день</td></tr>
+          </tbody>
+        </table>
+        <p>Кому идти, их список: не толстая а рыхлая; в одежде ок, в белье нет; после родов вес растёт; зал и марафоны без результата; попа и живот после кесарева, дряблость, целлюлит, руки.</p>
+        <p>Где у них спорят: дата эфира 14.04 vs 10.04; «для всех» vs «не заходи»; тренировки обязательны vs нет; «путь 100% успешный» vs коллекционеры «для массовости»; бриф про скорость vs обложка про миф.</p>
+        <div class="stopbox">В Ксению не переносить: цены 6990 / 9990 / 30000, −4/−16, 40–50 в поток, обязательные тарелки, ИМТ, врачей, «для всех», черновой рот («лохи»).</div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

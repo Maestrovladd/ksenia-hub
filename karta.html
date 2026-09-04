@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Смысловая карта. Ксения</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9f8f5; color: #1a1a18; line-height: 1.5; }
+  .page { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 2.5rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #e8e6e0; }
+  .grid { display: grid; gap: 10px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .card { background: #fff; border: 1px solid #e8e6e0; border-radius: 12px; padding: 14px 16px; }
+  .card-label { font-size: 10px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+  .card-title { font-size: 14px; font-weight: 600; color: #1a1a18; margin-bottom: 4px; line-height: 1.35; }
+  .card-desc { font-size: 13px; color: #555; line-height: 1.6; }
+  .theses { margin-top: 8px; padding-left: 18px; }
+  .theses li { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 6px; }
+  .theses li:last-child { margin-bottom: 0; }
+  .vs-col .theses { margin-top: 0; }
+  .vs-col .theses li { color: #333; }
+  .highlight .theses { margin-top: 8px; }
+  .card .theses { margin-top: 6px; }
+  .src { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #aaa; margin-top: 10px; margin-bottom: 2px; }
+  .quote { font-style: italic; font-size: 13px; color: #666; line-height: 1.5; }
+  .quote:before { content: '«'; }
+  .quote:after { content: '»'; }
+  .gloss { font-size: 12px; color: #888; line-height: 1.55; margin-top: 4px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .tag { font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+  .t-red { background: #fdecea; color: #b52a1c; }
+  .t-amber { background: #fef3e2; color: #8c4e0b; }
+  .t-green { background: #eaf5e2; color: #2e6e10; }
+  .t-teal { background: #e0f5ef; color: #0a6644; }
+  .t-purple { background: #eeeefe; color: #4b3bb0; }
+  .t-gray { background: #f0ede8; color: #5a5955; }
+  .highlight { background: #fff; border: 1px solid #e8e6e0; border-radius: 12px; padding: 16px 20px; }
+  .big { font-size: 15px; font-weight: 500; line-height: 1.55; color: #1a1a18; }
+  .arrow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #666; margin-top: 10px; }
+  .arr { color: #ccc; }
+  .vs { display: flex; gap: 10px; }
+  .vs-col { flex: 1; border-radius: 10px; padding: 14px; }
+  .vs-bad { background: #fdecea; border: 1px solid #f5c0bc; }
+  .vs-good { background: #e0f5ef; border: 1px solid #9edecb; }
+  .vs-col-label { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .vs-bad .vs-col-label { color: #b52a1c; }
+  .vs-good .vs-col-label { color: #0a6644; }
+  .pick { border-color: #9edecb; background: #f4fbf8; }
+  hr { border: none; border-top: 1px solid #e8e6e0; margin: 2rem 0; }
+  @media (max-width: 680px) {
+    .g2, .g3, .g4 { grid-template-columns: 1fr; }
+    .vs { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Смысловая карта интенсива Ксении</h1>
+  <div class="subtitle">Ксения, нутрициолог и мастер спорта · @ksenia__ak</div>
+
+  <div class="section">
+    <div class="section-label">О ком этот интенсив</div>
+    <div class="highlight">
+      <div class="big">К Ксении приходит женщина, которая уже ходила в зал и уже сидела на чужих марафонах. Две недели контейнеры едут на работу. На пятнадцатый день в коробке гречка с курицей, а в голове уже другое. Вечером рука сама открывает сладкое. Утром она говорит себе: ну всё, я без дисциплины. С понедельника.</div>
+      <div class="src">Так говорят женщины в разговорах с Ксенией</div>
+      <div class="quote">Ты вроде всё знаешь, но как-то всё равно не держишь</div>
+      <div class="gloss">Держишь значит: не меню в телефоне. Вечер после работы, дети или смена, и снова то же самое, хотя рецепт она уже сто раз сохраняла.</div>
+      <p class="card-desc" style="margin-top:12px">Эта женщина не слишком много хочет. Ей не хватает не силы характера. Ей не хватает системы, которая не разваливается через две недели:</p>
+      <ul class="theses">
+        <li>без очередного запрета</li>
+        <li>без вины за срыв</li>
+        <li>без мысли, что она слабая</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Зачем Ксения собрала интенсив</div>
+    <div class="highlight pick">
+      <div class="card-label">Минус лишнее · четыре недели. Черновик августа 2026</div>
+      <div class="big">Питание и тренировки это понятно. Особенность в другом: из жизни, из состояния, из головы лезет так, что режим не держится. Разобрать голову, вытащить гвозди, из-за которых бесконечно скатывались. Понять, почему обожралась в этот раз. Вписать уход за собой в жизнь.</div>
+      <div class="src">Так Ксения сказала в сторис, когда собирала интенсив</div>
+      <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни: без напряжения, без «бросила / сорвалась / нет дисциплины / не верю в себя». Я долго думала, как дать пользу. Собрала интенсив.</div>
+      <div class="gloss">Система держится значит: не ещё один файл в телефоне. Есть срок, есть что есть сегодня, и есть что делать в тот час, когда уже сорвалась.</div>
+      <p class="card-desc" style="margin-top:12px">Так Ксения написала людям, которые уже прошли её пять дней.</p>
+      <ul class="theses">
+        <li>Интенсив не про то, чтобы минус за неделю и гарантию килограммов</li>
+        <li>Про то, чтобы есть как человек и не сливать две недели после срыва</li>
+        <li>Меню и тренировки внутри есть. Платят за голову: почему обожралась, и человека рядом</li>
+        <li>Живот станет меньше не у каждой. Этого интенсив не обещает</li>
+      </ul>
+    </div>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="card">
+        <div class="card-label">Как устроена учёба</div>
+        <div class="card-title">Четыре недели рациона и разбора срыва</div>
+        <ul class="theses">
+          <li>Идёшь четыре недели. Потом ещё месяц открыты материалы</li>
+          <li>Четыре готовые сетки калорий. Рецепты одни, порции разные</li>
+          <li>Голод телом и голод головой разбирают отдельно</li>
+          <li>На Стандарте и ВИП есть тренировки и люди, которые проверяют</li>
+          <li>На Базовом тренировок нет. Это нельзя обещать за 2 490</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Что меняется</div>
+        <div class="card-title">Она начинает видеть, почему снова ест, и иначе собирать день</div>
+        <ul class="theses">
+          <li>Знает, что есть сегодня, а не гуглит в четыре часа</li>
+          <li>Отличает урчащий живот от скуки и от обиды</li>
+          <li>После срыва есть сценарий на час, а не неделя слива</li>
+          <li>На Стандарте её не оставляют одну с красивым планом</li>
+          <li>В канале бывают красивые истории: Вика, Инна. Так бывало. Каждой это не обещают</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Чем интенсив не является</div>
+        <div class="card-title">Тело само не станет другим за семь дней</div>
+        <ul class="theses">
+          <li>Не гарантия килограммов и не «минус пять кг воды»</li>
+          <li>Не лечение отёков, щитовидки и давления</li>
+          <li>Не только зал. Главная дыра у неё в холодильнике</li>
+          <li>Не обязательные фото тарелок в общий чат</li>
+          <li>Не майский марафон на 14 дней и не личная работа на три месяца. Это другие продукты</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Кто приходит</div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-label">Кто она</div>
+        <div class="card-title">Почти всегда женщина за тридцать пять</div>
+        <ul class="theses">
+          <li>Из 199 ответов: 35-40 это 78 человек, 40+ это 73. Младше 35 меньшинство</li>
+          <li>Офис 76, дом с детьми 37, свой бизнес 25</li>
+          <li>В шапке блога стоит 27-45. Для продаж опираться на анкету, не на шапку</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Что она уже пробовала</div>
+        <div class="card-title">Зал, диеты, калории, чужие марафоны</div>
+        <ul class="theses">
+          <li>Дома тренировалась 105. В зал ходила 104</li>
+          <li>Диеты 92. Счёт калорий 87</li>
+          <li>Марафоны и курсы уже были у 81</li>
+          <li>Ничего не пробовала 13 человек. Им «с нуля» правда. Остальным эта фраза бесит</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Чего она хочет</div>
+        <div class="card-title">Чтобы живот стал меньше, и чтобы это не откатило через две недели</div>
+        <ul class="theses">
+          <li>Подтянуть тело 109. Похудеть 103. Это два пункта, не один</li>
+          <li>Правильно питаться 71. Чувствовать себя лучше тоже 71. Не склеивать</li>
+          <li>Через месяц чаще жмут живот, привычку есть и энергию, чем пару килограммов</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Что болит</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Живот · 136 из 199</div>
+        <div class="card-title">Ходит в зал, живот на месте</div>
+        <ul class="theses">
+          <li>Дряблость кожи 85. Отёки 84. Целлюлит 70</li>
+          <li>Ягодицы 50. Холка 18</li>
+          <li>Мышцы нажали 33 человека. Это не ядро</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Похудеть мне мешает я сама</div>
+        <div class="gloss">Мешает я сама значит: ноги в зале уже ходят. Вечером в холодильнике снова то же самое. Она винит характер, не меню.</div>
+        <div class="tags">
+          <span class="tag t-red">живот</span>
+          <span class="tag t-red">зал без живота</span>
+          <span class="tag t-red">отёки</span>
+          <span class="tag t-red">кожа</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Знаю как, не делаю · почти все 13 разговоров</div>
+        <div class="card-title">Меню знает наизусть и всё равно срывается</div>
+        <ul class="theses">
+          <li>Подписалась из-за рецепта. Платит, когда ловит другое</li>
+          <li>Программу уже купила. Файл лежит неоткрытый</li>
+          <li>После срыва ест ещё, как наказание</li>
+        </ul>
+        <div class="src">Как говорит Ксюша из разговоров</div>
+        <div class="quote">Ты вроде всё знаешь, но как-то всё равно не держишь</div>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Теоретически я знаю как надо питаться, но не могу удержать волну</div>
+        <div class="gloss">Волна значит: две недели получается. Потом вечер, и знание в телефоне уже не помогает.</div>
+        <div class="tags">
+          <span class="tag t-amber">знаю как</span>
+          <span class="tag t-amber">не держу</span>
+          <span class="tag t-amber">файл лежит</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Еда ломается · не знает, что готовить, 75 из 199</div>
+        <div class="card-title">Одна и та же коробка, потом срыв на весь день</div>
+        <ul class="theses">
+          <li>Переедаю 68. Срываюсь 64. Много сладкого 64</li>
+          <li>Нет времени 57. Не умею КБЖУ 44</li>
+          <li>Нет проблем написали 3 человека</li>
+        </ul>
+        <div class="src">Как говорит Алёна</div>
+        <div class="quote">В контейнере одно, а хочется другого</div>
+        <div class="gloss">Контейнер значит: она уже готовила правильно. Надоело. Хочется другой текстуры, не ещё одной гречки.</div>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Надоел творог. Хочу обычную шоколадку, другой текстуры</div>
+        <div class="tags">
+          <span class="tag t-amber">не знаю что готовить</span>
+          <span class="tag t-amber">одно и то же</span>
+          <span class="tag t-red">сладкое вечером</span>
+          <span class="tag t-red">срыв</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Нет дисциплины · 109 из 199 так написали про себя</div>
+        <div class="card-title">Сама себе вынесла приговор</div>
+        <ul class="theses">
+          <li>Рядом честнее: нет системы и плана, 74</li>
+          <li>Теряю мотивацию 66. Откладываю 56</li>
+          <li>Не верю, что получится, 17. Это то же, что у Зульфии</li>
+        </ul>
+        <div class="src">Как написали в анкете</div>
+        <div class="quote">Нету дисциплины / нету системы</div>
+        <div class="gloss">Нет дисциплины значит: она уже решила, что слабая. Не надо с ней соглашаться. Рядом в той же анкете стоит другое: нет плана.</div>
+        <div class="src">Как говорит Зульфия</div>
+        <div class="quote">Больше никаких программ. Нужно менять образ жизни</div>
+        <div class="gloss">Ещё одна программа её бесит. Ей смена жизни, не четыре недели в группе. Это не ядро интенсива.</div>
+        <div class="tags">
+          <span class="tag t-purple">нет дисциплины</span>
+          <span class="tag t-purple">нет системы</span>
+          <span class="tag t-gray">с понедельника</span>
+          <span class="tag t-red">не верю</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Чего она хочет на самом деле</div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-label">Самое сильное · 136 и 110</div>
+        <div class="card-title">Чтобы живот стал меньше</div>
+        <ul class="theses">
+          <li>В теле жмут живот чаще всего</li>
+          <li>Через месяц идеал: меньше живот, 110 из 199</li>
+          <li>Килограммы тоже хочет, 80 человек. Не как главное</li>
+        </ul>
+        <div class="src">Как говорят, когда слушают</div>
+        <div class="quote">Хочу надолго, а не быстро, чтобы сохранилось</div>
+        <div class="gloss">Не просит минус за неделю. Просит, чтобы через две недели снова не откатило.</div>
+        <div class="tags">
+          <span class="tag t-teal">живот</span>
+          <span class="tag t-teal">надолго</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про завтра · 96 из 199</div>
+        <div class="card-title">Чтобы привычка есть не разваливалась</div>
+        <ul class="theses">
+          <li>Не идеальное тело из рилса</li>
+          <li>Чтобы завтра в коробке было не то же самое, что две недели подряд</li>
+          <li>И чтобы после срыва не ненавидеть себя</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Сорвалась, и будто себя наказываю: значит, ешь ещё больше</div>
+        <div class="gloss">Наказываю значит: срыв уже случился, а она ест дальше, потому что день уже потерян.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про вечер · 95 из 199</div>
+        <div class="card-title">Энергия и уверенность до конца дня</div>
+        <ul class="theses">
+          <li>Дожить до вечера с головой, не «вырубило»</li>
+          <li>Надеть джинсы, которые висят в шкафу</li>
+          <li>Выйти на пляж и не прятаться за полотенцем</li>
+        </ul>
+        <div class="src">Как написали про месяц</div>
+        <div class="quote">Перестать стесняться себя</div>
+        <div class="gloss">Так написали 45 человек отдельной строкой. Не то же самое, что минус пару кг.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про правду</div>
+        <div class="card-title">Понять почему, а не получить ещё одно правило</div>
+        <ul class="theses">
+          <li>Хочет знать зачем это блюдо, не просто следовать</li>
+          <li>Правила без объяснения её уже тошнит</li>
+          <li>Шаблон не под смены, детей и жизнь не берёт</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Хочу понимать зачем, а не просто следовать правилу</div>
+        <div class="gloss">Зачем значит: если вечером хочется сладкого, ей нужно понять, это голод или обида. Не ещё один запрет на шоколад.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Про человека рядом</div>
+        <div class="card-title">Чтобы кто-то проверял, а не оставлял одну с планом</div>
+        <ul class="theses">
+          <li>Когда сама с собой, расслабляется</li>
+          <li>Просит срок и человека снаружи</li>
+          <li>Иногда важнее меню фраза «ты не одна»</li>
+        </ul>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Нужен кто-то, кто подпинывает и проверяет</div>
+        <div class="src">Как говорят женщины в разговорах</div>
+        <div class="quote">Где ты нас гоняешь, вот тогда да</div>
+        <div class="gloss">Гоняешь значит: не мотивация в сторис. Кто-то смотрит, что было сегодня, и не отпускает на неделю молчания.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Как Ксения называет итог</div>
+        <div class="card-title">Система, которая держится в жизни</div>
+        <div class="src">Слова Ксении для сторис</div>
+        <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни</div>
+        <div class="gloss">Муж и дети сами не станут другими за четыре недели. Меняется её день: что в коробке, что после срыва, кто рядом.</div>
+        <div class="src">Формулировка апреля, которую можно брать</div>
+        <div class="quote">Помогу питаться вкусно, убрать лишнее и выглядеть так, как хочется, без жёстких диет и чувства вины</div>
+        <div class="tags">
+          <span class="tag t-green">система</span>
+          <span class="tag t-green">без вины</span>
+          <span class="tag t-green">вкусно</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как они сами это называют</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-title">Вроде всё знаешь, но не держишь</div>
+        <div class="src">Ксюша из разговоров</div>
+        <div class="gloss">Рецепт сохранён. Вечер всё равно тот же. Знание в телефоне и жизнь в кухне это разные вещи.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">В контейнере одно, а хочется другого</div>
+        <div class="src">Алёна</div>
+        <div class="gloss">Она уже готовила правильно. Надоело одно и то же. Срыв начинается не с торта, а с гречки две недели подряд.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Сорвалась, ем ещё больше</div>
+        <div class="src">Женщины в разговорах</div>
+        <div class="gloss">Срыв уже случился. Дальше наказание едой, потому что день якобы потерян.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Нет дисциплины</div>
+        <div class="src">109 человек в анкете</div>
+        <div class="gloss">Она так говорит про себя. Не надо кивать. Рядом в анкете стоит: нет системы и плана.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">С понедельника</div>
+        <div class="src">Как она объясняет себе новый заход</div>
+        <div class="gloss">Понедельник уже сто раз приходил. Холодильник тот же. Календарь выглядел как дело, а вечер не изменился.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Больше никаких программ</div>
+        <div class="src">Зульфия</div>
+        <div class="gloss">Ещё один курс её тошнит. Ей смена жизни. Четыре недели в группе ей не продавать как «ещё одна программа».</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Зал есть, живот на месте</div>
+        <div class="src">Как выглядит обычный день</div>
+        <div class="gloss">Ноги ходят. Ломается еда. Говорить про новый зал бессмысленно, если боль в холодильнике.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Хочу понимать зачем</div>
+        <div class="src">Женщины в разговорах</div>
+        <div class="gloss">Правило без объяснения уже было. Ей нужно почему это блюдо и почему вечером тянет, не ещё один запрет.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="section-label">Чем интенсив отличается от того, что она уже пробовала</div>
+    <div class="vs">
+      <div class="vs-col vs-bad">
+        <div class="vs-col-label">Как обычно бывает</div>
+        <ul class="theses">
+          <li>Ещё одна программа, а через две недели всё как вчера</li>
+          <li>Одно меню на все дни, потом срыв на шоколад</li>
+          <li>Запрет без объяснения почему</li>
+          <li>Обязательные фото тарелок в общий чат</li>
+          <li>Много чатов и обязательные эфиры при сменном графике</li>
+          <li>Вина за каждый срыв и слишком много мотивации</li>
+          <li>Гарантия килограммов за неделю</li>
+          <li>Фраза «начнём с нуля», хотя зал и диеты уже были</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-good">
+        <div class="vs-col-label">Как у Ксении</div>
+        <ul class="theses">
+          <li>Нутрициолог и мастер спорта. Голос спокойный, не ор с зала</li>
+          <li>Четыре недели, готовые дни еды, разбор срыва как отдельная тема</li>
+          <li>Сначала почему обожралась. Потом что есть сегодня. Потом человек рядом</li>
+          <li>Всё в одном Telegram. Эфиры в записи, если смена</li>
+          <li>Тарелки не обязанность. Иначе человеку из 11-го разговора сюда нельзя</li>
+          <li>Не обещает гарантию кг, «больше никаких срывов», лечение</li>
+          <li>Тринадцати из 199, кто ещё ни разу не пробовал, можно сказать «с нуля». Остальным нельзя</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Главная мысль</div>
+    <div class="grid g2">
+      <div class="highlight">
+        <div class="card-label">Почему одно и то же возвращается</div>
+        <ul class="theses">
+          <li>Живот, сладкое вечером, скука контейнера и «нет дисциплины» кажутся разными жизнями</li>
+          <li>Это одна жизнь и одно умение, которого нет: держать еду в своей неделе, а не в идеальном файле</li>
+          <li>Ноги в зале уже ходят. Ломается вечер</li>
+          <li>Если чинить только сегодняшний срыв, через две недели будет новый</li>
+          <li>Срыв был следствием. Причина: нет системы под её день, или еда надоела, или некому проверить</li>
+        </ul>
+      </div>
+      <div class="highlight">
+        <div class="card-label">Что ей важно услышать</div>
+        <ul class="theses">
+          <li>Если ходишь в зал, это ещё не значит, что с едой всё хорошо</li>
+          <li>Вы не безвольная</li>
+          <li>Часто просто нет плана, разнообразия и человека снаружи</li>
+        </ul>
+        <p class="gloss" style="margin-top:8px">Ксения учит отличать голод телом от скуки и обиды. И даёт, что есть сегодня. «Соберись» сюда не входит.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как разные жалобы сходятся в один интенсив</div>
+    <div class="grid g4">
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Живот не уходит</div>
+        <ul class="theses">
+          <li>Ходит в зал, живот на месте</li>
+          <li>Через месяц хочет меньше живот, не абстрактную «форму»</li>
+          <li>Интенсив кормит и разбирает срыв. Не обещает минус N кг</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Я всё знаю</div>
+        <ul class="theses">
+          <li>Рецепты уже смотрит, 173 из 199</li>
+          <li>Платит, когда ловит: почему снова не держится</li>
+          <li>Интенсив не учит её «что такое белок» с нуля. Учит удержать неделю</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Нет дисциплины</div>
+        <ul class="theses">
+          <li>Так написали 109 человек</li>
+          <li>Не соглашаться как с характером</li>
+          <li>Говорить систему, срок и человека, который проверяет</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Она говорит</div>
+        <div class="card-title">Опять программа?</div>
+        <ul class="theses">
+          <li>81 уже сидели на курсах</li>
+          <li>Зульфия прямо сказала: больше никаких программ</li>
+          <li>Ей не шаблон и не вина. Ей «почему» и жизнь, в которую это встаёт</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Сколько стоит и кому это не подойдёт</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Три способа идти</div>
+        <div class="card-title">Еда. Еда плюс тренировки. Плюс Ксения лично</div>
+        <ul class="theses">
+          <li>Базовый 2 490: еда и голова. Тренировок нет</li>
+          <li>Стандарт 4 490: еда, тренировки, кураторы. Пока основной, если не подтвердили иначе</li>
+          <li>ВИП 9 990: плюс Ксения лично. Мест должно быть мало, иначе не вывезет поток из бота</li>
+          <li>Это август. Майский марафон 3 500 или 4 500-5 000 не мешать с этими цифрами</li>
+          <li>Личная работа 30-50 тысяч за три месяца это другой продукт</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Кому да. Кому нет</div>
+        <div class="card-title">Знает как и не держит. Или не начнёт без срока</div>
+        <ul class="theses">
+          <li>Подойдёт Алёне, Ксюше, Наташе, Евгении, Наталье из разговоров</li>
+          <li>Не подойдёт Ане-директору: здоровье и почки, не пляж и не общий поток</li>
+          <li>Не Кате после операции с Гербалайфа: сначала обычная еда</li>
+          <li>Не той, кому обязательные тарелки в чат. Интервью 11 из-за этого уходит</li>
+          <li>Не Зульфии, если продавать как ещё одну программу</li>
+          <li>Не той, кто пришла с рилса за рецептом и пока только смотрит</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="section-label">С какой боли она может прийти, и чему всё равно учится</div>
+    <div class="vs">
+      <div class="vs-col vs-bad">
+        <div class="vs-col-label">С чего начинается разговор</div>
+        <ul class="theses">
+          <li>Она узнаёт себя: живот, сладкое вечером, «я без дисциплины»</li>
+          <li>Подписалась из-за рецепта. Картинка уже зашла</li>
+          <li>Иногда боль называют словом «нет силы воли»</li>
+          <li>Бесплатные дни нужны, чтобы она сказала «это про меня» и осталась</li>
+          <li>Не чтобы продать ей ещё один файл с меню</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-good">
+        <div class="vs-col-label">Чему она учится четыре недели</div>
+        <ul class="theses">
+          <li>Интенсив «Минус лишнее»</li>
+          <li>Слова Ксении про систему, которая держится в жизни</li>
+          <li>Прийти можно с живота, со срыва, с «я всё знаю»</li>
+          <li>Учится она собирать день и не сливать неделю после срыва</li>
+          <li>Не вешать на себя ярлык слабой</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как человек идёт к интенсиву</div>
+    <div class="highlight">
+      <div class="arrow-row" style="margin-top:0; color:#333">
+        <span>Рилс с рецептом или сторис</span>
+        <span class="arr">→</span>
+        <span>Бот</span>
+        <span class="arr">→</span>
+        <span>Пять бесплатных дней</span>
+        <span class="arr">→</span>
+        <span>Оплата интенсива</span>
+      </div>
+      <ul class="theses">
+        <li>Инстаграм это вход. Продажи ведут в Telegram, не из ленты</li>
+        <li>В боте сейчас около 650 человек. Они уже пробовали с ней, не с улицы</li>
+        <li>Пять дней уже прошли. Отзывы собрали, цифр кг в том сообщении нет</li>
+        <li>Продавать хотели с 25 по 31 августа 2026. Ссылки на оплату в папке нет. Подводить, по её словам, только начинали</li>
+        <li>Весной путь был другой: закрытый канал 14 дней, потом марафон, с 8-го дня личная работа. Цены мая сюда не ставить</li>
+        <li>Кто пришёл за рецептом, с первого комментария за четыре недели не платит</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Как может звучать приглашение</div>
+    <p class="card-desc" style="margin-bottom:10px">Продукт один. Приглашение можно сказать по-разному, в зависимости от того, чем человек живёт прямо сейчас.</p>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Если не знает, с чего начать</div>
+        <div class="card-title">С нуля до еды, которая не разваливается через две недели</div>
+        <ul class="theses">
+          <li>На четырёх неделях будет, что есть сегодня</li>
+          <li>И что делать в тот час, когда уже сорвалась</li>
+          <li>Даже если зал и диеты уже были</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Если винит дисциплину</div>
+        <div class="card-title">Как перестать сливать неделю после срыва</div>
+        <ul class="theses">
+          <li>После захода станет ясно, с чего начать</li>
+          <li>Если «с понедельника» уже сто раз срывалось</li>
+          <li>Без мысли, что вы безвольная</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Если нужны короткие слова</div>
+        <div class="card-title">Живот, привычка есть, энергия до вечера</div>
+        <ul class="theses">
+          <li>Как перестать жить от срыва до срыва</li>
+          <li>Система на четыре недели, не вспышка мотивации</li>
+          <li>Без гарантии килограммов и без вины</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Если сразу про её вечера</div>
+        <div class="card-title">Контейнер надоел, вечером сладкое, утром «я слабая»</div>
+        <ul class="theses">
+          <li>Как вы знаете как, и всё равно не держите</li>
+          <li>Пошаговый план: что есть и что делать после срыва</li>
+          <li>Без запрета без почему и без обязательных тарелок</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Три темы. На один заход берут одну</div>
+    <div class="grid g3">
+      <div class="card pick">
+        <div class="card-label">Самая частая боль</div>
+        <div class="card-title">Как удержать еду, если зал уже есть, а живот на месте</div>
+        <ul class="theses">
+          <li>После захода станет ясно, с чего начать на этой неделе</li>
+          <li>Не новый абонемент. Холодильник</li>
+          <li>Так живёт 136 из 199: жмут живот</li>
+          <li>Мышцы нажали 33 человека. Это не эта тема</li>
+        </ul>
+        <div class="src">Короче</div>
+        <div class="quote">В зале была. Вечером снова сладкое.</div>
+        <div class="gloss">Ноги уже ходят. Ломается вечер после работы.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Если крутится срыв</div>
+        <div class="card-title">С нуля до сценария на час, а не до недели слива</div>
+        <ul class="theses">
+          <li>Научитесь видеть, почему обожрались в этот раз</li>
+          <li>Даже если уже ненавидите себя после вечера</li>
+          <li>Другое тело к пятнице интенсив не обещает</li>
+          <li>Срыв, переедание и сладкое жмут почти поровну, около трети анкеты</li>
+        </ul>
+        <div class="src">Короче</div>
+        <div class="quote">Сорвалась. Значит, ешь ещё больше.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Если она уже всё знает</div>
+        <div class="card-title">Система, которая держится, даже если рецепты уже сохранены</div>
+        <ul class="theses">
+          <li>Для тех, кто уже сидел на марафонах, а через две недели откат</li>
+          <li>81 из 199 уже были на курсах</li>
+          <li>Не «начнём с нуля». Не ещё один файл</li>
+        </ul>
+        <div class="src">Слова Ксении</div>
+        <div class="quote">Вы все знаете, как похудеть. Не знаете, как сделать систему, которая держится в жизни</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Что было бесплатно, пока ещё не купила</div>
+    <div class="grid g2">
+      <div class="card pick">
+        <div class="card-label">Пять дней, которые уже прошли</div>
+        <div class="card-title">Она уже пробовала с Ксенией, не с улицы</div>
+        <ul class="theses">
+          <li>В боте около 650 человек</li>
+          <li>Отзывы после пяти дней собрали. Текстов отзывов и цифр кг в папке нет</li>
+          <li>Дальше должен быть заход в интенсив, не новый челлендж с нуля</li>
+          <li>Кто ещё не готов платить, остаётся в боте. Новую анкету тому же человеку не заводить</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Весной, до марафона</div>
+        <div class="card-title">Закрытый канал и гайды под рилс</div>
+        <ul class="theses">
+          <li>Видео или голосовое «Почему ты не худеешь, даже если стараешься». Текста видео нет</li>
+          <li>PDF «4 типа голода» готов</li>
+          <li>PDF «Срывы: почему случаются и что делать» готов</li>
+          <li>PDF про митохондрии готов. В обещание интенсива не тащить</li>
+          <li>Это архив мая. Цены и сроки оттуда в новый заход не ставить</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Что человек получает руками, пока ещё не купил курс</div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-label">Ещё в ленте</div>
+        <div class="card-title">Рецепт, из-за которого подписалась</div>
+        <ul class="theses">
+          <li>Питание и рецепты смотрят 173 из 199</li>
+          <li>До и после смотрят 42. Это не вход</li>
+          <li>Это ещё не покупка. Это первый шаг глазами сегодня</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">В боте и в подарке</div>
+        <div class="card-title">Гайд, который открывает рот</div>
+        <ul class="theses">
+          <li>Кто пишет «ем и снова хочу»: четыре типа голода</li>
+          <li>Кто крутится в срыв и вину: гайд про срывы</li>
+          <li>После подарка есть что сделать руками, а не только ощущение «было вкусно»</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Когда зовут платить</div>
+        <div class="card-title">Как устроен интенсив</div>
+        <ul class="theses">
+          <li>Чем три тарифа отличаются</li>
+          <li>Что на Базовом нет тренировок</li>
+          <li>Что не обещают килограммы</li>
+          <li>Учёба на четыре недели, не когда наберётся группа</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Где ломается жизнь. Один интенсив, не три разных курса</div>
+    <div class="grid g4">
+      <div class="card">
+        <div class="card-label">Живот · 136 из 199</div>
+        <div class="card-title">Самый частый разговор</div>
+        <ul class="theses">
+          <li>Зал уже был. Живот на месте</li>
+          <li>С этого чаще всего начинается история</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Вечер и сладкое · около трети анкеты</div>
+        <div class="card-title">Не другая жизнь</div>
+        <ul class="theses">
+          <li>После четырёх дня тянет. Потом «заторт»</li>
+          <li>Это тот же вечер той же женщины, которая пришла из-за живота</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Контейнер надоел · 75 не знают, что готовить</div>
+        <div class="card-title">Срыв начинается с гречки</div>
+        <ul class="theses">
+          <li>Две недели получается</li>
+          <li>Потом хочется другой текстуры</li>
+          <li>Ей разнообразие, не ещё одно одинаковое меню</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">«Я слабая» · 109 человек</div>
+        <div class="card-title">Тот же навык, другая фраза</div>
+        <ul class="theses">
+          <li>Сама себе уже вынесла приговор</li>
+          <li>В программе это разбор головы, не зал</li>
+          <li>Иначе человек решит, что интенсив только про салат</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Когда она решается, и почему до этого не доходит</div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="card-label">Когда решается</div>
+        <ul class="theses">
+          <li>Узнала себя: вроде всё знаешь, но не держишь</li>
+          <li>Пять дней с Ксенией уже были, и стало жалко бросать</li>
+          <li>Чужой марафон снова откатился через две недели</li>
+          <li>Контейнер надоел, и она вслух сказала про шоколад другой текстуры</li>
+          <li>Появился человек, который будет проверять, не ещё один файл</li>
+          <li>Ближе всего те, кто уже ел её рецепты и сидит в боте</li>
+          <li>Дальше две разные жизни: та, кому нужен пляж, и Аня с больными почками</li>
+          <li>Потом та, кому тарелки в чат это стыд. Ей не группа</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Почему боится</div>
+        <ul class="theses">
+          <li>Опять программа. 81 уже сидели</li>
+          <li>Пока она «без дисциплины», чинить систему незачем: виноват характер</li>
+          <li>Боится, что снова бросит, как прошлый файл</li>
+          <li>Думает: хожу в зал, значит рано про еду</li>
+          <li>Страшно, что надо фотографировать тарелку, или ненавидит чаты</li>
+          <li>Кажется, Ксения спортсменка, и ей такое не подойдёт</li>
+          <li>Минус за неделю уже покупала. От этого отворачивается</li>
+          <li>Нет времени, смены, дети. Ксюша по 12-13 часов. Ульяна с грудным</li>
+          <li>Это не ещё одно меню, а порядок на завтрашний вечер</li>
+          <li>На Базовом можно без тренировок. Тарелки не обязанность</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
