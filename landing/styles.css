@@ -96,3 +96,4 @@ button:focus-visible,[tabindex]:focus-visible{outline:2px solid #b77880;outline-
 .can-layout li::before{content:'♡';font-size:22px;top:22px}.review-scan-window:focus-visible{outline-offset:-4px}.food-practical article{min-width:0}
 @media(max-width:420px){#about h2{font-size:clamp(24px,7.1vw,30px);overflow-wrap:anywhere}#about .wrap>*{min-width:0}.story-letter h2{font-size:30px}}
 .can-layout li::before{width:auto;height:auto;background:none;border-radius:0}
+#philosophy .sign-inline{color:var(--rose);border-bottom-color:#b77880}
