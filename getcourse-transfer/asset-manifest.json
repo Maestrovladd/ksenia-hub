@@ -1,0 +1,154 @@
+{
+  "name": "Легче, Кисуль! — миграция GetCourse",
+  "archive_name": "Legche_Kisul_GetCourse_Kit.zip",
+  "photos": [
+    {
+      "source": "../landing/assets/dinner.jpg",
+      "archive": "assets/dinner.jpg",
+      "name": "dinner.jpg",
+      "bytes": 211043,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/dinner.webp",
+      "archive": "assets/dinner.webp",
+      "name": "dinner.webp",
+      "bytes": 153766,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/ksenia-author.webp",
+      "archive": "assets/ksenia-author.webp",
+      "name": "ksenia-author.webp",
+      "bytes": 36568,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/ksenia-hero.webp",
+      "archive": "assets/ksenia-hero.webp",
+      "name": "ksenia-hero.webp",
+      "bytes": 41548,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/ksenia-home.webp",
+      "archive": "assets/ksenia-home.webp",
+      "name": "ksenia-home.webp",
+      "bytes": 62198,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/ksenia-live.webp",
+      "archive": "assets/ksenia-live.webp",
+      "name": "ksenia-live.webp",
+      "bytes": 98568,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/ksenia-philosophy.webp",
+      "archive": "assets/ksenia-philosophy.webp",
+      "name": "ksenia-philosophy.webp",
+      "bytes": 61824,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/snack.jpg",
+      "archive": "assets/snack.jpg",
+      "name": "snack.jpg",
+      "bytes": 193020,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/snack.webp",
+      "archive": "assets/snack.webp",
+      "name": "snack.webp",
+      "bytes": 134634,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/soup.jpg",
+      "archive": "assets/soup.jpg",
+      "name": "soup.jpg",
+      "bytes": 200943,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/soup.webp",
+      "archive": "assets/soup.webp",
+      "name": "soup.webp",
+      "bytes": 131380,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/waffles.jpg",
+      "archive": "assets/waffles.jpg",
+      "name": "waffles.jpg",
+      "bytes": 197612,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/waffles.webp",
+      "archive": "assets/waffles.webp",
+      "name": "waffles.webp",
+      "bytes": 123558,
+      "kind": "photo"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7790.PNG",
+      "archive": "assets/reviews/IMG_7790.PNG",
+      "name": "IMG_7790.PNG",
+      "bytes": 178094,
+      "kind": "review"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7791.PNG",
+      "archive": "assets/reviews/IMG_7791.PNG",
+      "name": "IMG_7791.PNG",
+      "bytes": 102811,
+      "kind": "review"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7793.PNG",
+      "archive": "assets/reviews/IMG_7793.PNG",
+      "name": "IMG_7793.PNG",
+      "bytes": 61118,
+      "kind": "review"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7794.PNG",
+      "archive": "assets/reviews/IMG_7794.PNG",
+      "name": "IMG_7794.PNG",
+      "bytes": 127711,
+      "kind": "review"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7795.PNG",
+      "archive": "assets/reviews/IMG_7795.PNG",
+      "name": "IMG_7795.PNG",
+      "bytes": 156442,
+      "kind": "review"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7796.PNG",
+      "archive": "assets/reviews/IMG_7796.PNG",
+      "name": "IMG_7796.PNG",
+      "bytes": 151359,
+      "kind": "review"
+    },
+    {
+      "source": "../landing/assets/reviews/IMG_7797.PNG",
+      "archive": "assets/reviews/IMG_7797.PNG",
+      "name": "IMG_7797.PNG",
+      "bytes": 72777,
+      "kind": "review"
+    }
+  ],
+  "files": [
+    "fragment.html",
+    "styles.css",
+    "interactive.js",
+    "preview.html",
+    "README_FOR_TECH.md",
+    "asset-manifest.json"
+  ]
+}
