@@ -89,3 +89,10 @@
 }
 @media(max-width:380px){#ks-marathon .ks-sticky-cta span{font-size:11px}}
 @media(prefers-reduced-motion:reduce){#ks-marathon *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}#ks-marathon .ks-reveal,#ks-marathon.ks-motion-ready .ks-reveal{opacity:1;transform:none}}
+
+/* Editorial CTA hint: one subtle nudge, never continuous flashing */
+@keyframes ks-cta-arrow-nudge{0%,91%,100%{transform:translate(0,0)}94%{transform:translate(3px,-3px)}97%{transform:translate(0,0)}}
+@media(prefers-reduced-motion:no-preference){
+#ks-marathon .hero-action .btn span[aria-hidden="true"],
+#ks-marathon .join-card .btn span[aria-hidden="true"]{animation:ks-cta-arrow-nudge 7s ease-in-out infinite}
+}
