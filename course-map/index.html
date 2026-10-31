@@ -1,186 +1,26 @@
-<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#fbf7f3">
-<title>Легче, Кисуль! — понятная карта марафона и готовые тексты</title>
-<meta name="description" content="Простой план марафона Ксении: что происходит после оплаты, когда открывается питание, как устроены 14 дней и какие тексты размещать в GetCourse.">
-<style>
-:root{--paper:#fbf7f3;--ink:#322a28;--muted:#706762;--rose:#984852;--line:#e9ded8;--rose-pale:#f5e9e7;--green:#516c5d}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:var(--rose)}button,input{font:inherit}button{cursor:pointer}
-.shell{max-width:1390px;margin:0 auto;padding:0 24px}
-.top{background:#fff;border-bottom:1px solid var(--line)}
-.top .shell{display:flex;gap:15px;align-items:center;justify-content:space-between;min-height:64px}
-.logo{font-size:18px;font-weight:750;letter-spacing:-.035em}.logo small{display:inline-block;color:var(--rose);font-size:12px;letter-spacing:0;font-weight:500;margin-left:9px}
-.top a{text-decoration:none;font-size:13px}
-.hero{padding:42px 0 27px;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:50px;align-items:center}
-.eyebrow{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--rose);font-weight:750}
-.hero h1{font:400 clamp(36px,5vw,65px)/1.09 Georgia,"Times New Roman",serif;letter-spacing:-.04em;margin:12px 0 18px;max-width:900px}
-.hero p{font-size:17px;color:#5c5450;line-height:1.65;max-width:770px}
-.hero img{width:250px;height:290px;object-fit:cover;object-position:center;border-radius:135px 135px 18px 18px}
-.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.meta span{border:1px solid var(--line);background:#fff;border-radius:40px;padding:6px 11px;font-size:12px}
-.section{padding-top:22px;padding-bottom:15px}
-.heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
-.heading h2{font:400 clamp(27px,3.5vw,36px)/1.2 Georgia,serif;margin:0;letter-spacing:-.02em}
-.heading p{margin:0;color:var(--muted);font-size:13px}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.step{background:white;border:1px solid var(--line);border-radius:16px;padding:20px}
-.step .number{color:var(--rose);font-weight:800;font-size:13px;letter-spacing:.08em}
-.step h3{font-size:17px;line-height:1.35;margin:9px 0}
-.step p{font-size:14px;line-height:1.6;color:#625955;margin:0}
-.access{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.box{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px}
-.box h3{margin:0 0 10px;font-size:18px}
-.box p{font-size:14px;color:#5d5550;line-height:1.65;margin:0}
-.stack{display:grid;gap:10px}
-.access-row{display:grid;grid-template-columns:132px 1fr;gap:18px;padding:0 0 12px;border-bottom:1px solid var(--line)}
-.access-row:last-child{padding:0;border:0}
-.access-row strong{font-size:13px;color:var(--rose)}
-.access-row p{font-size:13px}
-.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.week article{padding:15px 9px;background:white;border:1px solid var(--line);border-radius:12px;text-align:center;min-height:100px}
-.week b{font-size:12px;color:#7a6d65}.week p{font-size:13px;line-height:1.35;margin:7px 0 0}
-.week article.rest{background:#f6f0eb}
-.explain{background:#f1e4e0;border-radius:16px;padding:22px 25px}
-.explain h3{margin:0 0 9px;font-size:17px}
-.explain p{margin:0 0 12px;font-size:14px;color:#574a47}
-.explain ol{margin:0;padding-left:21px;font-size:14px}.explain li{margin-bottom:5px}
-.requirements{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.requirement{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px}
-.requirement b{font-size:14px}.requirement p{font-size:13px;line-height:1.55;margin:6px 0 0;color:#716662}
-.warning{font-size:13px;line-height:1.6;padding:15px 18px;border-left:3px solid var(--rose);background:#f4ece7;border-radius:0 10px 10px 0;margin-top:14px}
-.workspace{display:grid;grid-template-columns:260px minmax(0,1fr);gap:22px;align-items:start;margin:22px 0 70px}
-.side{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow:auto}
-.side h3{font-size:14px;margin:0 0 13px}
-.find{width:100%;border-radius:11px;border:1px solid #dfcfca;padding:11px 12px;background:#fff;outline:none;margin-bottom:13px;color:var(--ink)}
-.find:focus{border-color:var(--rose)}
-.nav-item{display:flex;gap:8px;justify-content:space-between;align-items:center;text-align:left;border:0;background:transparent;width:100%;padding:9px 10px;border-radius:9px;color:#514844;font-size:13px;line-height:1.4}
-.nav-item span{flex-shrink:0;background:#f4efec;border-radius:20px;min-width:24px;text-align:center;font-size:11px}
-.nav-item:hover,.nav-item.active{background:var(--rose-pale);color:#7b353e}
-.right{min-width:0}
-.righthead{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-.righthead h3{font:400 27px/1.2 Georgia,serif;margin:0}
-.righthead small{color:var(--muted)}
-.card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:18px 22px;margin:0 0 13px;scroll-margin-top:15px}
-.card details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.card details>summary::-webkit-details-marker{display:none}
-.card summary h4{margin:0;font:400 22px/1.25 Georgia,serif;letter-spacing:-.01em}
-.card summary .chevron{color:var(--rose);font-size:23px;transition:transform .2s}
-.card details[open] summary .chevron{transform:rotate(45deg)}
-.card-inner{padding-top:18px;margin-top:15px;border-top:1px solid var(--line)}
-.placement{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.info{background:#f8f4ef;border-radius:11px;padding:13px 15px}
-.info strong{display:block;color:var(--rose);font-size:11px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
-.info p{margin:0;font-size:13px;line-height:1.55}
-.check{background:#fbf0ed;border-radius:10px;padding:11px 14px;margin-top:10px;font-size:13px;line-height:1.55}
-.copyhead{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:21px;padding:12px 0;border-top:1px solid var(--line)}
-.copyhead b{font-size:14px}
-.copy{background:var(--rose);color:white;border:0;border-radius:9px;padding:9px 12px;font-size:13px;font-weight:650}
-.copy:hover{background:#7b373f}
-.prose{font-size:15px;line-height:1.78;max-width:780px}
-.prose h1{font:400 29px/1.25 Georgia,serif;margin:0 0 17px}
-.prose h2{font:400 24px/1.25 Georgia,serif;margin:23px 0 10px}
-.prose h3{font:400 20px/1.3 Georgia,serif;margin:20px 0 9px}
-.prose p{margin:11px 0}
-.prose ul,.prose ol{padding-left:22px;margin:12px 0}
-.prose li{margin:6px 0}
-.prose .placeholder{display:inline-block;background:#f4ebe8;border:1px dashed #d7aba5;color:#864b48;border-radius:6px;padding:2px 6px;font-size:13px;margin:3px 0}
-.prose strong{color:#663b39}
-.empty{background:#fff;border:1px dashed #dbc6c0;border-radius:12px;padding:30px;color:var(--muted)}
-.fine{color:var(--muted);font-size:12px;margin:30px 0}
-@media(max-width:990px){.steps{grid-template-columns:repeat(2,1fr)}.week{grid-template-columns:repeat(4,1fr)}.requirements{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.shell{padding:0 13px}.top .shell{min-height:56px}.top a{font-size:11px}.hero{grid-template-columns:1fr;padding:25px 0 15px}.hero img{display:none}.hero h1{font-size:39px}.hero p{font-size:16px}.steps,.access{grid-template-columns:1fr}.week{grid-template-columns:repeat(2,1fr)}.requirements{grid-template-columns:1fr 1fr}.workspace{grid-template-columns:1fr}.side{position:relative;top:0;max-height:280px}.placement{grid-template-columns:1fr}.card{padding:16px}.card summary h4{font-size:20px}.heading{display:block}.heading p{margin-top:6px}.access-row{grid-template-columns:100px 1fr;gap:11px}}
-@media print{.top,.hero,.side,.righthead,.copy,.heading,.steps,.access,.explain,.week,.requirements,.warning{display:none!important}.workspace{display:block}.card{break-inside:avoid}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.card summary .chevron{transition:none}}
-</style>
-</head>
-<body>
-<header class="top"><div class="shell"><div class="logo">Легче, Кисуль! <small>рабочая карта марафона</small></div><a href="../landing/" target="_blank" rel="noopener">Посмотреть продающий сайт</a></div></header>
-<main class="shell">
-<section class="hero">
-<div><span class="eyebrow">Ксения Казанкова · материалы для сборки в GetCourse</span><h1>Как устроен марафон<br>и что куда вставлять</h1><p>Этот документ нужен, чтобы за 10 минут объяснить команде всю программу, а затем просто собрать её по готовым текстам. Сначала — путь участницы. Ниже — каждый урок, письмо и сообщение отдельно.</p>
-<div class="meta"><span>2 000 ₽</span><span>14 дней программы</span><span>+ 7 дней доступа</span><span>4 варианта питания</span><span>8 занятий</span></div></div>
-<img src="../landing/assets/ksenia-author.webp" alt="Ксения Казанкова">
-</section>
-<section class="section" id="overview"><div class="heading"><h2>1. Что происходит после оплаты</h2><p>Шесть простых шагов, без ручной проверки заданий</p></div>
-<div class="steps">
-<div class="step"><span class="number">01</span><h3>Письмо и вход в курс</h3><p>Девушка платит, получает письмо, видит дату своего старта и сразу открывает вступительные уроки.</p></div>
-<div class="step"><span class="number">02</span><h3>Знакомство с Ксюшей</h3><p>Смотрит приветственное видео, читает философию и понимает, почему здесь нет гонки за идеальностью.</p></div>
-<div class="step"><span class="number">03</span><h3>Понятное объяснение КБЖУ</h3><p>Узнаёт, что означают калории, белки, жиры и углеводы и почему меньшая калорийность не всегда лучше.</p></div>
-<div class="step"><span class="number">04</span><h3>Анкета и своё питание</h3><p>Отвечает на вопросы, получает предварительный результат и открывает подходящее меню со списком продуктов.</p></div>
-<div class="step"><span class="number">05</span><h3>Две недели по расписанию</h3><p>Каждый день видит короткий урок. В восемь дней — занятие, в остальные — отдых или полезная подсказка.</p></div>
-<div class="step"><span class="number">06</span><h3>Финал и ещё неделя</h3><p>Подводит итоги. После двух недель ещё семь дней может возвращаться к рецептам и видео.</p></div>
-</div></section>
-<section class="section"><div class="heading"><h2>2. Что доступно и когда</h2><p>Чтобы участница не искала материалы и не путалась</p></div>
-<div class="access">
-<div class="box"><h3>До первого понедельника</h3><div class="stack">
-<div class="access-row"><strong>Сразу</strong><p>Приветственное видео, философия, объяснение КБЖУ, анкета и карта курса.</p></div>
-<div class="access-row"><strong>После анкеты</strong><p>Только её вариант питания: меню первой недели и подходящий список продуктов.</p></div>
-<div class="access-row"><strong>Если анкета не готова</strong><p>Вместо меню девушка видит простую кнопку «Продолжить анкету». Никаких сложных напоминаний.</p></div>
-</div></div>
-<div class="box"><h3>Когда марафон начался</h3><div class="stack">
-<div class="access-row"><strong>Каждый день</strong><p>Открывается дневной урок: занятие или короткий текст на день отдыха.</p></div>
-<div class="access-row"><strong>Первая пятница</strong><p>Появляются меню и покупки на вторую неделю, чтобы успеть подготовиться.</p></div>
-<div class="access-row"><strong>После 14-го дня</strong><p>Ещё семь дней доступны уже открытые материалы. Новых обязательных занятий нет.</p></div>
-</div></div></div>
-</section>
-<section class="section"><div class="heading"><h2>3. Одно расписание на обе недели</h2><p>На второй неделе тот же ритм, но новые видео</p></div>
-<div class="week"><article><b>Понедельник</b><p>Зарядка</p></article><article><b>Вторник</b><p>Растяжка</p></article><article class="rest"><b>Среда</b><p>Отдых</p></article><article><b>Четверг</b><p>Зарядка</p></article><article><b>Пятница</b><p>Осанка</p></article><article class="rest"><b>Суббота</b><p>Отдых</p></article><article class="rest"><b>Воскресенье</b><p>Отдых</p></article></div>
-</section>
-<section class="section"><div class="heading"><h2>4. Как работает анкета</h2><p>Объяснение без технического жаргона</p></div>
-<div class="explain"><h3>Главный принцип: сначала выбираем питание, потом показываем меню</h3>
-<ol><li>Девушка отвечает на вопросы о возрасте, росте, весе и активности.</li><li>Система рассчитывает ориентир по методике, которую заранее согласует специалист по питанию.</li><li>Если подходит один из четырёх рационов, девушка подтверждает результат.</li><li>После подтверждения открываются её меню и список покупок. Остальные варианты выбирать заново не нужно.</li><li>Если готовый рацион не подходит, об этом честно говорим. Не выдаём случайную калорийность.</li></ol></div>
-<div class="warning"><strong>Важно перед запуском:</strong> сам по себе урок с анкетой не рассчитывает КБЖУ. Для этого нужен настроенный калькулятор и сохранение результата в GetCourse. Пока эту часть не подключили и не проверили, нельзя обещать, что выбор меню сработает автоматически.</div>
-</section>
-<section class="section"><div class="heading"><h2>5. Что нужно получить от команды</h2></div>
-<div class="requirements"><div class="requirement"><b>От Ксюши</b><p>Одно новое видео-приветствие. Восемь существующих видео занятий. Согласование текста её философии.</p></div>
-<div class="requirement"><b>По питанию</b><p>Четыре меню на все 14 дней и восемь списков покупок, проверенных по рецептам и КБЖУ.</p></div>
-<div class="requirement"><b>Для оформления</b><p>Настоящие фотографии Ксюши, обложки, удобные кнопки переходов между страницами.</p></div>
-<div class="requirement"><b>Для публикации</b><p>Даты потоков, ссылки на курс и поддержку, готовая оплата и работающий подбор питания.</p></div></div>
-</section>
-<section class="section" id="materials"><div class="heading"><h2>6. Готовые тексты для размещения</h2><p>Выбирай раздел, открывай карточку и копируй только текст для участницы</p></div>
-<div class="workspace">
-<aside class="side"><h3>Найти материал</h3><input id="search" class="find" type="search" placeholder="Например: КБЖУ или День 8" aria-label="Поиск по материалам"><nav id="nav"></nav></aside>
-<div class="right"><div class="righthead"><h3 id="group-title">Загружаю материалы…</h3><small id="total"></small></div><div id="cards"></div></div>
-</div></section>
-<div class="fine">Рабочая редакция для согласования с Ксюшей. Тексты и порядок прохождения подготовлены; фактическую настройку расчёта калорийности, оплату и доступы проверяют в GetCourse до запуска. Исходный продающий лендинг не изменён.</div>
-</main>
-<script>
-const $=x=>document.getElementById(x);let items=[],group="",query="";
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function inline(s){
-let escaped=escapeHTML(s);
-escaped=escaped.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>");
-escaped=escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
-return escaped.replace(/\[([^\]]+)\]/g,'<span class="placeholder">[$1]</span>');
-}
-function markdown(src){
-const lines=src.split(/\r?\n/),out=[];let para=[],list="";
-function flushP(){if(para.length){out.push("<p>"+para.map(inline).join("<br>")+"</p>");para=[]}}
-function closeList(){if(list){out.push("</"+list+">");list=""}}
-for(let line of lines){
- if(!line.trim()){flushP();closeList();continue}
- let h=line.match(/^(#{1,4})\s+(.+)$/);
- if(h){flushP();closeList();let n=Math.min(h[1].length,3);out.push("<h"+n+">"+inline(h[2])+"</h"+n+">");continue}
- let ul=line.match(/^\s*[-*]\s+(.+)$/),ol=line.match(/^\s*\d+\.\s+(.+)$/);
- if(ul||ol){flushP();let t=ul?"ul":"ol";if(list!==t){closeList();list=t;out.push("<"+t+">")}out.push("<li>"+inline((ul||ol)[1])+"</li>");continue}
- if(list)closeList();para.push(line);
-}
-flushP();closeList();return out.join("")
-}
-function categories(){return [...new Set(items.map(x=>x.section))]}
-function selectGroup(g){group=g;query="";$("search").value="";renderNav();renderCards();$("materials").scrollIntoView({behavior:"smooth",block:"start"})}
-function renderNav(){const list=categories();$("nav").innerHTML=list.map(x=>'<button type="button" class="nav-item'+(group===x?" active":"")+'" data-group="'+escapeHTML(x)+'">'+escapeHTML(x)+' <span>'+items.filter(t=>t.section===x).length+'</span></button>').join("");$("nav").querySelectorAll("button").forEach(b=>b.onclick=()=>selectGroup(b.dataset.group))}
-function renderCards(){let data=items.filter(x=>(query||(x.section===group))&&(!query||[x.title,x.copy,x.place].join(" ").toLowerCase().includes(query)));$("group-title").textContent=query?"Результаты поиска":group;$("total").textContent=data.length+" материалов";$("cards").innerHTML=data.length?data.map((x,i)=>'<article class="card" id="'+escapeHTML(x.id)+'"><details '+(i===0?"open":"")+'><summary><h4>'+escapeHTML(x.title)+'</h4><span class="chevron" aria-hidden="true">+</span></summary><div class="card-inner"><div class="placement"><div class="info"><strong>Куда поставить</strong><p>'+escapeHTML(x.place)+'</p></div><div class="info"><strong>Что приложить</strong><p>'+escapeHTML(x.asset)+'</p></div></div>'+(x.check?'<div class="check"><strong>Мой комментарий:</strong> '+escapeHTML(x.check)+'</div>':"")+'<div class="copyhead"><b>'+(x.type==="team"?"Инструкция команде":"Готовый текст — копируй и вставляй")+'</b><button type="button" class="copy" data-id="'+escapeHTML(x.id)+'">Копировать</button></div><div class="prose">'+markdown(x.copy)+'</div></div></details></article>').join(""):'<div class="empty">По этому запросу ничего не нашлось. Попробуй другое слово.</div>';
-$("cards").querySelectorAll("[data-id]").forEach(b=>b.onclick=async()=>{const item=items.find(x=>x.id===b.dataset.id);try{await navigator.clipboard.writeText(item.copy);b.textContent="Скопировано ✓";setTimeout(()=>{b.textContent="Копировать"},1600)}catch(e){b.textContent="Выдели текст вручную";}});
-}
-async function init(){
-try{const res=await fetch("./library.json",{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const doc=await res.json();items=doc.items.filter(x=>x.section&&x.title&&x.copy);group=categories()[0];renderNav();renderCards()}catch(e){$("group-title").textContent="Не удалось загрузить материалы";$("cards").innerHTML='<div class="empty">Попробуй обновить страницу. <a href="./content.md">Открыть все тексты напрямую</a>.</div>'}}
-$("search").addEventListener("input",e=>{query=e.target.value.toLowerCase().trim();renderCards()});
-init();
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Легче, кисуль! · Финальная сборка GetCourse</title><link rel="stylesheet" href="assets/gc-course.css"><style>
+:root{--bg:#f9f6f2;--ink:#2a2829;--muted:#796e6d;--red:#97515a;--line:#e5dcd7;--card:#fffdfb}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.62 -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}a{color:var(--red)}button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1410px;margin:auto;padding:0 25px}.top{background:#fff;border-bottom:1px solid var(--line)}.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:62px}.brand{font-weight:850;font-size:19px;letter-spacing:-.03em}.mini{color:var(--muted);font-size:12px}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:40px 0 30px}.eyebrow{color:var(--red);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.hero h1{font:400 clamp(39px,5vw,67px)/1.04 Georgia,serif;letter-spacing:-.04em;margin:12px 0 15px}.hero p{font-size:17px;line-height:1.65;color:#645657}.hero img{width:100%;border-radius:18px;display:block}.numbers{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.numbers span{font-size:12px;border-radius:30px;background:white;border:1px solid var(--line);padding:6px 12px}.title{font:400 31px/1.22 Georgia,serif;margin:25px 0 14px}.path{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.path article{padding:20px;background:#fff;border:1px solid var(--line);border-radius:15px}.path b{color:var(--red);display:block;margin-bottom:7px}.path strong{font-size:15px}.path p{font-size:13px;color:var(--muted);margin:7px 0}.decisions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.decision{background:#eee2da;border-radius:15px;padding:22px}.decision:nth-child(2){background:#f0e9e7}.decision strong{display:block;font-size:17px}.decision p{font-size:14px;margin:9px 0 0}.workspace{display:grid;grid-template-columns:280px minmax(0,1fr);gap:22px;align-items:start;padding-bottom:70px}.aside{position:sticky;top:12px;max-height:calc(100vh - 20px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}.aside h3{margin:0 0 10px;font-size:14px}.search{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;outline:none}.navheading{font-size:12px;font-weight:750;color:var(--red);letter-spacing:.06em;margin:19px 0 6px}.nav{display:block;border:0;background:transparent;width:100%;text-align:left;padding:9px 10px;border-radius:8px;font-size:13px;color:#504b4c}.nav:hover,.nav.selected{background:#f6e9e7;color:#883e49}.content{min-width:0}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}.toolbar h3{font:400 27px Georgia,serif;margin:0}.pills{display:flex;gap:7px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 11px;font-size:12px}.pill.active{background:#9a515c;color:#fff}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:25px;margin:0 0 16px;scroll-margin-top:20px}.card h4{font:400 28px Georgia,serif;margin:0}.card .meta{font-size:13px;color:#695f5e;margin:4px 0 15px}.how{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:19px 0}.how div{border-radius:10px;background:#f7f1ed;padding:12px 15px;font-size:13px}.how strong{display:block;color:var(--red);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}.copybar{display:flex;align-items:center;justify-content:space-between;gap:11px;padding:11px 0;border-top:1px solid var(--line);margin-top:13px}.copybar strong{font-size:13px}.copy{background:#9a515c;color:#fff;border:0;border-radius:9px;padding:9px 13px;font-size:12px}.copy:hover{background:#7f414b}.preview{border:1px solid #eadfda;border-radius:12px;overflow:hidden;background:#fff;padding:22px}.preview .ks-lesson{margin:0 auto}.files{font-size:12px;color:#716667;margin-top:12px}.disclaimer{padding:15px 20px;background:#f0e5df;border-radius:12px;font-size:13px;line-height:1.7;margin-bottom:25px}.hidden{display:none!important}.status{font-size:13px;color:var(--muted)}@media(max-width:1050px){.path{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr 300px}}@media(max-width:800px){.workspace{display:block}.aside{position:relative;top:0;max-height:320px;margin-bottom:18px}}@media(max-width:650px){.wrap{padding:0 13px}.hero{display:block;padding:22px 0}.hero h1{font-size:41px}.hero img{display:none}.path,.decisions{grid-template-columns:1fr}.how{grid-template-columns:1fr}.card{padding:15px}.preview{padding:11px}.card h4{font-size:23px}.toolbar h3{font-size:25px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body><header class="top"><div class="wrap"><div class="brand">Легче, кисуль! <span class="mini">/ Финальная карта GetCourse</span></div><div class="mini">Тексты · меню · изображения · рассылка</div></div></header><main class="wrap"><section class="hero"><div><div class="eyebrow">Пакет для технического специалиста</div><h1>От оплаты до<br>последнего дня —<br>всё по полочкам.</h1><p>Сверху — путь участницы, который можно объяснить команде за 10 минут. Ниже — настоящие HTML-уроки с рецептами, фотографиями, КБЖУ и отдельными материалами для каждой калорийности. Копируй и вставляй, не собирая тексты по кусочкам.</p><div class="numbers"><span>4 меню</span><span>56 дневных уроков</span><span>224 рецепта</span><span>8 тренировок</span><span>14 + 7 дней</span></div></div><img src="assets/ks_main_1600x760.webp" alt="Легче, кисуль! Баннер с реальной фотографией Ксении"/></section>
+<h2 class="title">01. Как девушка проходит марафон</h2><div class="path"><article><b>01 · Покупка</b><strong>Сайт → оплата → бот → GetCourse</strong><p>Сразу после платежа письмо, кнопка в Telegram и обязательно прямая ссылка в кабинет.</p></article><article><b>02 · Знакомство</b><strong>Четыре коротких урока</strong><p>Приветствие, философия, КБЖУ и анкета. Никаких обязательных отчётов.</p></article><article><b>03 · Свой рацион</b><strong>Вся первая неделя открыта</strong><p>План недели, PDF, список покупок и семь дневных уроков с блюдами и тренировками.</p></article><article><b>04 · Продолжение</b><strong>Вся вторая неделя разом</strong><p>В пятницу открывается весь следующий комплект. После 14 дней — ещё 7 дней доступа.</p></article></div><div class="decisions"><div class="decision"><strong>Один участник — одна калорийность</strong><p>Варианты 1400, 1600, 1800 и 2000 ккал открываются по подтверждённому результату анкеты. Другие программы не показываем и не выдаём прямыми ссылками.</p></div><div class="decision"><strong>Каждый день — три блюда и перекус</strong><p>Все четыре приёма пищи взяты из исходных PDF. К ним добавлены зарядка, растяжка, осанка либо день отдыха.</p></div></div><div class="disclaimer"><b>Что уже готово:</b> все тексты уроков, 224 карточки рецептов с оригинальными фотографиями, два PDF меню и два списка покупок для каждой калорийности, графика отправок и баннеры из фотографий Ксюши. <b>Что делает специалист в GetCourse:</b> подключает видео, работающую анкету и расчёт, оплату, права доступа, реальные ссылки на файлы и рассылки. Кнопки калькулятора без настройки не считаются работающими.</div>
+<section id="course-gate" class="decision" style="margin:22px 0;border:1px solid #c79da5;background:#f7edeb"><strong style="font-size:19px">Материалы курса доступны по коду</strong><p>Здесь находятся готовые уроки, фотографии блюд, граммовки и тексты для GetCourse. Введи пароль из сообщения владельца проекта, чтобы открыть все 71 экрана и копировать HTML.</p><label for="course-password" style="display:block;font-size:13px;font-weight:700">Пароль материалов</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"><input id="course-password" type="password" autocomplete="off" placeholder="Введите пароль" style="flex:1 1 230px;min-height:48px;border:1px solid #cdb2b7;border-radius:10px;padding:10px 14px;font:inherit;min-width:0"><button id="course-unlock" type="button" class="copy" style="padding:12px 21px">Открыть материалы</button></div><div id="course-gate-status" role="status" aria-live="polite" style="color:#74414b;font-size:13px"></div></section><h2 class="title" id="start-copy">02. Готовые уроки: куда вставлять и что приложить</h2><div class="workspace"><aside class="aside"><h3>Материалы для сборки</h3><input class="search" id="search" placeholder="Название, калорийность или день" type="search" aria-label="Поиск уроков"><div id="nav"></div></aside><div class="content"><div class="toolbar"><h3 id="sectionTitle">Знакомство</h3><span id="counter" class="status"></span></div><div class="pills" id="filters"></div><div id="cards"></div></div></div></main>
+<script src="photoatlas_1400.js"></script><script src="photoatlas_1600.js"></script><script src="photoatlas_1800.js"></script><script src="photoatlas_2000.js"></script><script src="photoatlas_banners.js"></script><script id="courseData" type="application/json">[]</script><script>
+let data=[];let group='intro',term='',kcal='1600';const $=q=>document.getElementById(q);const sections=[['intro','Вступление'],['result','Результат анкеты'],['week','План недели'],['day','Дни и рецепты'],['finish','Финал']];
+function safe(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function nav(){ $('nav').innerHTML=sections.map(([k,v])=>'<button class="nav'+(group===k?' selected':'')+'" data-group="'+k+'">'+v+' <span class="mini">'+data.filter(x=>x.type===k).length+'</span></button>').join('');document.querySelectorAll('[data-group]').forEach(b=>b.onclick=()=>{group=b.dataset.group;render();});}
+function filters(){let enabled=group==='day'||group==='week';$('filters').innerHTML=enabled?[1400,1600,1800,2000].map(k=>'<button class="pill'+(k==kcal?' active':'')+'" data-kcal="'+k+'">'+k+' ккал</button>').join(''):'';document.querySelectorAll('[data-kcal]').forEach(b=>b.onclick=()=>{kcal=b.dataset.kcal;render();});}
+function previewBody(s){return s.replaceAll('src="../images/','src="images/').replaceAll('src="../assets/','src="assets/').replaceAll('href="../materials/','href="materials/');}
+function render(){if(!data.length){$('cards').innerHTML='<div class="disclaimer">Для просмотра материалов введи пароль выше.</div>';return;}nav();filters();$('sectionTitle').textContent=(sections.find(x=>x[0]===group)||['','Материалы'])[1];let list=data.filter(x=>x.type===group && (!(group==='day'||group==='week')||x.kcal==kcal)&&(!term||[x.title,x.description,x.training].join(' ').toLowerCase().includes(term)));$('counter').textContent=list.length+' уроков';$('cards').innerHTML=list.map(x=>'<article class="card"><h4>'+safe(x.title)+'</h4><p class="meta">'+safe(x.description)+'</p><div class="how"><div><strong>Куда вставить</strong>'+safe(x.training)+'</div><div><strong>Когда открыть</strong>'+safe(x.opens)+'</div><div><strong>Что приложить</strong>'+safe(x.attachments||'HTML-текст и фотографию, если есть')+'</div><div><strong>Видео</strong>'+safe(x.video||'Новое видео не требуется')+'</div></div><div class="copybar"><strong>Готовое содержание · '+safe(x.file)+'</strong><button class="copy" data-copy="'+safe(x.id)+'">Скопировать HTML</button></div><div class="preview">'+previewBody(x.body)+'</div></article>').join('');document.querySelectorAll('.preview img, .hero img').forEach(img=>{let key=img.getAttribute('src');if(window.KS_IMAGES&&window.KS_IMAGES[key]) img.src=window.KS_IMAGES[key];});document.querySelectorAll('[data-copy]').forEach(btn=>btn.onclick=()=>{const x=data.find(x=>x.id===btn.dataset.copy);navigator.clipboard.writeText(x.body).then(()=>{btn.textContent='Скопировано ✓';setTimeout(()=>btn.textContent='Скопировать HTML',1800)}).catch(()=>{btn.textContent='Выдели HTML в файле '+x.file;});});}
+$('search').oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
+async function unlockCourse(){const btn=$('course-unlock'),msg=$('course-gate-status');btn.disabled=true;msg.textContent='Проверяем код и открываем материалы…';try{
+const pass=$('course-password').value;
+const resp=await fetch('./course-data.enc.txt',{cache:'no-store'});if(!resp.ok)throw Error('Не удалось загрузить комплект');
+const encoded=(await resp.text()).trim();const bytes=Uint8Array.from(atob(encoded),x=>x.charCodeAt(0));
+const salt=bytes.slice(0,16),iv=bytes.slice(16,28),cipher=bytes.slice(28);
+const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);
+const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher);
+data=JSON.parse(new TextDecoder().decode(plain));
+$('course-gate').style.display='none';msg.textContent='';render();$('start-copy').scrollIntoView({behavior:'smooth'});
+}catch(e){msg.textContent='Не получилось открыть материалы. Проверь пароль и подключение к интернету.';}finally{btn.disabled=false;}}
+$('course-unlock').onclick=unlockCourse;$('course-password').onkeydown=e=>{if(e.key==='Enter')unlockCourse()};render();
 </script></body></html>
