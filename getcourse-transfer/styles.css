@@ -96,3 +96,28 @@
 #ks-marathon .hero-action .btn span[aria-hidden="true"],
 #ks-marathon .join-card .btn span[aria-hidden="true"]{animation:ks-cta-arrow-nudge 7s ease-in-out infinite}
 }
+
+
+/* FIX 2026-10-31: dark audience section must be full width, not a boxed .wrap.
+   The original markup combines "section audience wrap" on the SAME element.
+   A dark background on a width-limited .wrap creates white side bars and
+   positions the heading directly against the dark edge. Keep the existing
+   2-column audience grid; give the outer section full bleed and add inner gutters. */
+#ks-marathon .audience.wrap {
+  width:100% !important;
+  max-width:none !important;
+  margin-inline:0 !important;
+  padding-inline:max(48px, calc((100% - 1240px)/2)) !important;
+  min-width:0;
+}
+#ks-marathon .audience .section-heading,
+#ks-marathon .audience .situations {min-width:0;max-width:100%}
+#ks-marathon .audience .section-heading h2 {max-width:100%;overflow-wrap:break-word}
+@media(max-width:960px){
+  #ks-marathon .audience.wrap {padding-inline:clamp(26px, 4.7vw, 48px) !important}
+}
+@media(max-width:650px){
+  #ks-marathon .audience.wrap {padding-inline:clamp(18px, 5.1vw, 26px) !important}
+  #ks-marathon .audience .section-heading,
+  #ks-marathon .audience .situations {width:100%}
+}
