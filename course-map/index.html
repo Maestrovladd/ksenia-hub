@@ -97,7 +97,7 @@ a{color:var(--rose)}button,input{font:inherit}button{cursor:pointer}
 @media(max-width:700px){.shell{padding:0 13px}.top .shell{min-height:56px}.top a{font-size:11px}.hero{grid-template-columns:1fr;padding:25px 0 15px}.hero img{display:none}.hero h1{font-size:39px}.hero p{font-size:16px}.steps,.access{grid-template-columns:1fr}.week{grid-template-columns:repeat(2,1fr)}.requirements{grid-template-columns:1fr 1fr}.workspace{grid-template-columns:1fr}.side{position:relative;top:0;max-height:280px}.placement{grid-template-columns:1fr}.card{padding:16px}.card summary h4{font-size:20px}.heading{display:block}.heading p{margin-top:6px}.access-row{grid-template-columns:100px 1fr;gap:11px}}
 @media print{.top,.hero,.side,.righthead,.copy,.heading,.steps,.access,.explain,.week,.requirements,.warning{display:none!important}.workspace{display:block}.card{break-inside:avoid}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.card summary .chevron{transition:none}}
-</style>
+.nav-sub{margin:3px 0 12px 7px;padding:4px 0 4px 10px;border-left:1px solid #ead9d4}.nav-subitem{border:0;display:block;width:100%;text-align:left;background:none;border-radius:8px;padding:7px 8px;color:#71605d;font:12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;cursor:pointer}.nav-subitem:hover,.nav-subitem:focus-visible{background:#f7ece9;color:#7e3f48}.nav-item{font-weight:650}.intro-note{border:1px solid #e9d5cf;background:#fffaf6;border-radius:12px;padding:13px 16px;margin:0 0 17px;font-size:13px;line-height:1.7;color:#65544e}.prose h1{font-size:29px}.copy:focus-visible,.nav-subitem:focus-visible,.nav-item:focus-visible{outline:2px solid var(--rose);outline-offset:2px}</style>
 </head>
 <body>
 <header class="top"><div class="shell"><div class="logo">Легче, Кисуль! <small>открытые материалы без пароля</small></div><a href="../landing/" target="_blank" rel="noopener">Посмотреть продающий сайт</a></div></header>
@@ -143,7 +143,7 @@ a{color:var(--rose)}button,input{font:inherit}button{cursor:pointer}
 <div class="requirement"><b>Для оформления</b><p>Настоящие фотографии Ксюши, обложки, удобные кнопки переходов между страницами.</p></div>
 <div class="requirement"><b>Для публикации</b><p>Даты потоков, ссылки на курс и поддержку, готовая оплата и работающий подбор питания.</p></div></div>
 </section>
-<div class="warning" style="margin:22px 0"><strong>Никаких паролей.</strong> Все тексты на этой странице доступны для копирования. <strong>Актуальная схема:</strong> сайт → оплата → email → три урока GetCourse → анкета в Telegram → меню и все дни первой недели → вторая неделя → финал. <a href="FINAL_ROUTE_2026-10-31.md">Полный утверждённый сценарий</a>. Для 224 рецептов и фото передай специалисту полный ZIP-комплект из чата — это отдельные файлы.</div><section class="section" id="materials"><div class="heading"><h2>6. Готовые тексты для размещения</h2><p>Выбирай раздел, открывай карточку и копируй только текст для участницы</p></div>
+<div class="warning" style="margin:22px 0"><strong>Никаких паролей.</strong> Все тексты на этой странице доступны для копирования. <strong>Актуальная схема:</strong> сайт → оплата → email → три урока GetCourse → анкета в Telegram → меню и все дни первой недели → вторая неделя → финал. <a href="FINAL_ROUTE_2026-10-31.md">Полный утверждённый сценарий</a>. Для 224 рецептов и фото передай специалисту полный ZIP-комплект из чата — это отдельные файлы.</div><section class="section" id="materials"><div class="heading"><h2>6. Всё готовое для вставки: от письма до последнего дня</h2><p>Выбирай раздел, открывай карточку и копируй только текст для участницы</p></div>
 <div class="workspace">
 <aside class="side"><h3>Найти материал</h3><input id="search" class="find" type="search" placeholder="Например: КБЖУ или День 8" aria-label="Поиск по материалам"><nav id="nav"></nav></aside>
 <div class="right"><div class="righthead"><h3 id="group-title">Загружаю материалы…</h3><small id="total"></small></div><div id="cards"></div></div>
@@ -175,9 +175,29 @@ flushP();closeList();return out.join("")
 }
 function categories(){return [...new Set(items.map(x=>x.section))]}
 function selectGroup(g){group=g;query="";$("search").value="";renderNav();renderCards();$("materials").scrollIntoView({behavior:"smooth",block:"start"})}
-function renderNav(){const list=categories();$("nav").innerHTML=list.map(x=>'<button type="button" class="nav-item'+(group===x?" active":"")+'" data-group="'+escapeHTML(x)+'">'+escapeHTML(x)+' <span>'+items.filter(t=>t.section===x).length+'</span></button>').join("");$("nav").querySelectorAll("button").forEach(b=>b.onclick=()=>selectGroup(b.dataset.group))}
-function renderCards(){let data=items.filter(x=>(query||(x.section===group))&&(!query||[x.title,x.copy,x.place].join(" ").toLowerCase().includes(query)));$("group-title").textContent=query?"Результаты поиска":group;$("total").textContent=data.length+" материалов";$("cards").innerHTML=data.length?data.map((x,i)=>'<article class="card" id="'+escapeHTML(x.id)+'"><details '+(i===0?"open":"")+'><summary><h4>'+escapeHTML(x.title)+'</h4><span class="chevron" aria-hidden="true">+</span></summary><div class="card-inner"><div class="placement"><div class="info"><strong>Куда поставить</strong><p>'+escapeHTML(x.place)+'</p></div><div class="info"><strong>Что приложить</strong><p>'+escapeHTML(x.asset)+'</p></div></div>'+(x.check?'<div class="check"><strong>Мой комментарий:</strong> '+escapeHTML(x.check)+'</div>':"")+'<div class="copyhead"><b>'+(x.type==="team"?"Инструкция команде":"Готовый текст — копируй и вставляй")+'</b><button type="button" class="copy" data-id="'+escapeHTML(x.id)+'">Копировать</button></div><div class="prose">'+markdown(x.copy)+'</div></div></details></article>').join(""):'<div class="empty">По этому запросу ничего не нашлось. Попробуй другое слово.</div>';
-$("cards").querySelectorAll("[data-id]").forEach(b=>b.onclick=async()=>{const item=items.find(x=>x.id===b.dataset.id);try{await navigator.clipboard.writeText(item.copy);b.textContent="Скопировано ✓";setTimeout(()=>{b.textContent="Копировать"},1600)}catch(e){b.textContent="Выдели текст вручную";}});
+function renderNav(){
+const list=categories();
+$("nav").innerHTML=list.map(g=>{
+const groupItems=items.filter(x=>x.section===g);
+const active=group===g;
+return '<div class="nav-group"><button type="button" class="nav-item'+(active?' active':'')+'" data-group="'+escapeHTML(g)+'">'+escapeHTML(g)+' <span>'+groupItems.length+'</span></button>'+
+(active?'<div class="nav-sub">'+groupItems.map(x=>'<button type="button" class="nav-subitem" data-jump="'+escapeHTML(x.id)+'">'+escapeHTML(x.title)+'</button>').join('')+'</div>':'')+
+'</div>';
+}).join("");
+$("nav").querySelectorAll("[data-group]").forEach(b=>b.onclick=()=>selectGroup(b.dataset.group));
+$("nav").querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>{
+const el=document.getElementById(b.dataset.jump);if(!el)return;
+const details=el.querySelector('details');if(details)details.open=true;
+el.scrollIntoView({behavior:'smooth',block:'start'});
+});
+}
+function renderCards(){let data=items.filter(x=>(query||(x.section===group))&&(!query||[x.title,x.copy,x.place].join(" ").toLowerCase().includes(query)));$("group-title").textContent=query?"Результаты поиска":group;$("total").textContent=data.length+" материалов";$("cards").innerHTML=data.length?'<div class="intro-note">Ниже готовые материалы для размещения. <strong>«Куда поставить» и «Мой комментарий»</strong> — только для команды. Кнопка копирования берёт только пользовательский текст (или сценарий для Ксюши, если так назван раздел).</div>'+data.map((x,i)=>'<article class="card" id="'+escapeHTML(x.id)+'"><details '+(i===0?"open":"")+'><summary><h4>'+escapeHTML(x.title)+'</h4><span class="chevron" aria-hidden="true">+</span></summary><div class="card-inner"><div class="placement"><div class="info"><strong>Куда поставить</strong><p>'+escapeHTML(x.place)+'</p></div><div class="info"><strong>Что приложить</strong><p>'+escapeHTML(x.asset)+'</p></div></div>'+(x.check?'<div class="check"><strong>Мой комментарий:</strong> '+escapeHTML(x.check)+'</div>':"")+'<div class="copyhead"><b>'+(x.type==="team"?"Инструкция команде":x.type==="video_script"?"Сценарий для записи Ксюшей":"Готовый текст — копируй и вставляй")+'</b><button type="button" class="copy" data-id="'+escapeHTML(x.id)+'">Копировать</button></div><div class="prose">'+markdown(x.copy)+'</div></div></details></article>').join(""):'<div class="empty">По этому запросу ничего не нашлось. Попробуй другое слово.</div>';
+$("cards").querySelectorAll("[data-id]").forEach(b=>b.onclick=async()=>{const item=items.find(x=>x.id===b.dataset.id);try{const plain=item.copy.replace(/^#{1,4} /gm,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/^\*([^*]+)\*$/gm,'$1');
+if(navigator.clipboard.write && window.ClipboardItem){
+  const html='<div>'+markdown(item.copy)+'</div>';
+  await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]);
+}else await navigator.clipboard.writeText(plain);
+b.textContent="Скопировано ✓";setTimeout(()=>{b.textContent="Копировать"},1600)}catch(e){b.textContent="Выдели текст вручную";}});
 }
 async function init(){
 try{const res=await fetch("./library.json",{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const doc=await res.json();items=doc.items.filter(x=>x.section&&x.title&&x.copy);group=categories()[0];renderNav();renderCards()}catch(e){$("group-title").textContent="Не удалось загрузить материалы";$("cards").innerHTML='<div class="empty">Попробуй обновить страницу. <a href="./content.md">Открыть все тексты напрямую</a>.</div>'}}
